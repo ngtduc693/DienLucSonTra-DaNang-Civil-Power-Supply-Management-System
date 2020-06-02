@@ -1,0 +1,61 @@
+<div class="row">
+  <div class="col-sm-12">
+    <nb-card>
+      <nb-card-header>Tìm kiếm khách hàng</nb-card-header>
+      <nb-card-body>
+        <form #formTimKiemKhachHang = "ngForm" (ngSubmit) = "onTimKiemKhachHang(formTimKiemKhachHang)">
+          <div class="form-group row">
+            <label for="inputMKH" class="label col-sm-3 col-form-label">Mã khách hàng</label>
+            <div class="col-sm-9">
+              <input type="number" name="timKiemTheoMKH" nbInput fullWidth id="inputMKH" placeholder="Nhập Mã khách hàng" ngModel>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputDiaChi" class="label col-sm-3 col-form-label">Địa chỉ</label>
+            <div class="col-sm-9">
+              <input type="text" name="timKiemTheoDiaChi" nbInput fullWidth id="inputDiaChi" placeholder="Nhập địa chỉ"  ngModel>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputMaTram" class="label col-sm-3 col-form-label">Mã trạm</label>
+            <div class="col-sm-9">
+              <input type="text" name="timKiemTheoMaTram"  nbInput fullWidth id="inputMaTram" placeholder="Nhập mã trạm"  ngModel>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3 label"  >Tìm kiếm theo</label>
+            <div class="col-sm-9">
+              <nb-radio-group  name="timKiemTheoTuyChon" ngModel>
+                <nb-radio value="chonMKH" checked="true" >Mã khách hàng</nb-radio>
+                <nb-radio value="chonDiaChi">Địa chỉ</nb-radio>
+                <nb-radio value="chonMaTram" >Mã trạm</nb-radio>                
+              </nb-radio-group>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="offset-sm-3 col-sm-9">
+              <button type="submit" nbButton status="primary" value="submit">Tìm kiếm</button>
+            </div>
+          </div>
+        </form>
+      </nb-card-body>
+    </nb-card>
+
+    
+</div>
+</div>
+<div class="row" *ngIf="luaChonTimKiem" >
+  <div class="col-sm-12">
+<nb-card>
+  <nb-card-header>
+    Kết quả tìm kiếm
+  </nb-card-header>
+
+  <nb-card-body>
+    <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)"
+      (userRowSelect)="onSelectConfirm($event)">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>
+</div>
+</div>  

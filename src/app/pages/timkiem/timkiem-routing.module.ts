@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { TablesComponent } from './tables.component';
-import { SmartTableComponent } from './smart-table/smart-table.component';
+import { TablesComponent } from './timkiem.component';
+import { TimKiemKhachHangComponent } from './khachhang/timkiemkhachhang.component'
 import { TreeGridComponent } from './tree-grid/tree-grid.component';
 
 const routes: Routes = [{
@@ -10,8 +10,8 @@ const routes: Routes = [{
   component: TablesComponent,
   children: [
     {
-      path: 'smart-table',
-      component: SmartTableComponent,
+      path: 'khachhang',
+      component: TimKiemKhachHangComponent,
     },
     {
       path: 'tree-grid',
@@ -28,6 +28,6 @@ export class TablesRoutingModule { }
 
 export const routedComponents = [
   TablesComponent,
-  SmartTableComponent,
+  TimKiemKhachHangComponent,
   TreeGridComponent,
 ];

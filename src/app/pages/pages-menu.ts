@@ -2,6 +2,50 @@ import { NbMenuItem } from '@nebular/theme';
 
 export const MENU_ITEMS: NbMenuItem[] = [
   {
+    title: 'Tài khoản',
+    group: true,
+  },
+  {
+    title: 'Quản lý',
+    icon: 'lock-outline',
+    children: [
+      // {
+      //   title: 'Login',
+      //   link: '/auth/login',
+      // },
+      // {
+      //   title: 'Register',
+      //   link: '/auth/register',
+      // },
+      // {
+      //   title: 'Request Password',
+      //   link: '/auth/request-password',
+      // },
+      {
+        title: 'Thay đổi mật khẩu',
+        link: '/auth/reset-password',
+      },
+    ],
+  },
+  {
+    title: 'Nghiệp vụ',
+    group: true,
+  },
+  {
+    title: 'Khách hàng',
+    icon: 'grid-outline',
+    children: [
+      {
+        title: 'Tìm kiếm',
+        link: '/pages/timkiem/khachhang',
+      },
+      {
+        title: 'Lấy thông tin',
+        link: '/pages/tables/tree-grid',
+      },
+    ],
+  },
+  {
     title: 'E-commerce',
     icon: 'shopping-cart-outline',
     link: '/pages/dashboard',
@@ -12,10 +56,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'home-outline',
     link: '/pages/iot-dashboard',
   },
-  {
-    title: 'FEATURES',
-    group: true,
-  },
+  
   {
     title: 'Layout',
     icon: 'layout-outline',
@@ -198,20 +239,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
     ],
   },
-  {
-    title: 'Tables & Data',
-    icon: 'grid-outline',
-    children: [
-      {
-        title: 'Smart Table',
-        link: '/pages/tables/smart-table',
-      },
-      {
-        title: 'Tree Grid',
-        link: '/pages/tables/tree-grid',
-      },
-    ],
-  },
+  
   {
     title: 'Miscellaneous',
     icon: 'shuffle-2-outline',
@@ -222,26 +250,5 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
     ],
   },
-  {
-    title: 'Auth',
-    icon: 'lock-outline',
-    children: [
-      {
-        title: 'Login',
-        link: '/auth/login',
-      },
-      {
-        title: 'Register',
-        link: '/auth/register',
-      },
-      {
-        title: 'Request Password',
-        link: '/auth/request-password',
-      },
-      {
-        title: 'Reset Password',
-        link: '/auth/reset-password',
-      },
-    ],
-  },
+  
 ];

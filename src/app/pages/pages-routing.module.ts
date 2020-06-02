@@ -59,9 +59,9 @@ const routes: Routes = [{
         .then(m => m.EditorsModule),
     },
     {
-      path: 'tables',
-      loadChildren: () => import('./tables/tables.module')
-        .then(m => m.TablesModule),
+      path: 'timkiem',
+      loadChildren: () => import('./timkiem/timkiem.module')
+        .then(m => m.TimKiemKhachHangModule),
     },
     {
       path: 'miscellaneous',
