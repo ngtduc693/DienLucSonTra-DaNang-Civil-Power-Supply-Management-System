@@ -1,34 +1,49 @@
+<div class="row" *ngIf="trangThaiCapNhatDuLieu">
+  <div class="col-sm-12" *ngIf="trangThaiCapNhatDuLieu == success" >
+    <nb-alert status="success" closable="true">
+      Cập nhật dữ liệu thành công
+    </nb-alert>
+  </div>
+  <div class="col-sm-12" *ngIf="trangThaiCapNhatDuLieu == warning">
+    <nb-alert status="warning" closable="true">
+      Cập nhật dữ liệu thất bại
+    </nb-alert>
+  </div>
+</div>
 <div class="row">
   <div class="col-sm-12">
     <nb-card>
       <nb-card-header>Tìm kiếm khách hàng</nb-card-header>
       <nb-card-body>
-        <form #formTimKiemKhachHang = "ngForm" (ngSubmit) = "onTimKiemKhachHang(formTimKiemKhachHang)">
+        <form #formTimKiemKhachHang="ngForm" (ngSubmit)="onTimKiemKhachHang(formTimKiemKhachHang)">
           <div class="form-group row">
             <label for="inputMKH" class="label col-sm-3 col-form-label">Mã khách hàng</label>
             <div class="col-sm-9">
-              <input type="number" name="timKiemTheoMKH" nbInput fullWidth id="inputMKH" placeholder="Nhập Mã khách hàng" ngModel>
+              <input type="number" name="timKiemTheoMKH" nbInput fullWidth id="inputMKH"
+                placeholder="Nhập Mã khách hàng" ngModel>
             </div>
           </div>
           <div class="form-group row">
             <label for="inputDiaChi" class="label col-sm-3 col-form-label">Địa chỉ</label>
             <div class="col-sm-9">
-              <input type="text" name="timKiemTheoDiaChi" nbInput fullWidth id="inputDiaChi" placeholder="Nhập địa chỉ"  ngModel>
+              <input type="text" name="timKiemTheoDiaChi" nbInput fullWidth id="inputDiaChi" placeholder="Nhập địa chỉ"
+                ngModel>
             </div>
           </div>
           <div class="form-group row">
             <label for="inputMaTram" class="label col-sm-3 col-form-label">Mã trạm</label>
             <div class="col-sm-9">
-              <input type="text" name="timKiemTheoMaTram"  nbInput fullWidth id="inputMaTram" placeholder="Nhập mã trạm"  ngModel>
+              <input type="text" name="timKiemTheoMaTram" nbInput fullWidth id="inputMaTram" placeholder="Nhập mã trạm"
+                ngModel>
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-3 label"  >Tìm kiếm theo</label>
+            <label class="col-sm-3 label">Tìm kiếm theo</label>
             <div class="col-sm-9">
-              <nb-radio-group  name="timKiemTheoTuyChon" ngModel>
-                <nb-radio value="chonMKH" checked="true" >Mã khách hàng</nb-radio>
+              <nb-radio-group name="timKiemTheoTuyChon" ngModel>
+                <nb-radio value="chonMKH" checked="true">Mã khách hàng</nb-radio>
                 <nb-radio value="chonDiaChi">Địa chỉ</nb-radio>
-                <nb-radio value="chonMaTram" >Mã trạm</nb-radio>                
+                <nb-radio value="chonMaTram">Mã trạm</nb-radio>
               </nb-radio-group>
             </div>
           </div>
@@ -41,21 +56,109 @@
       </nb-card-body>
     </nb-card>
 
-    
-</div>
-</div>
-<div class="row" *ngIf="luaChonTimKiem" >
-  <div class="col-sm-12">
-<nb-card>
-  <nb-card-header>
-    Kết quả tìm kiếm
-  </nb-card-header>
 
-  <nb-card-body>
-    <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)"
-      (userRowSelect)="onSelectConfirm($event)">
-    </ng2-smart-table>
-  </nb-card-body>
-</nb-card>
+  </div>
 </div>
-</div>  
+<div class="row" *ngIf="ketQuaTimKiem">
+  <div class="col-sm-12">
+    <nb-card>
+      <nb-card-header>
+        Kết quả tìm kiếm
+      </nb-card-header>
+      <nb-card-body>
+
+        <div class="row" *ngIf="ketQuaTimKiem">
+          <div class="col-sm-12">
+            <nb-card>
+              <nb-card-header>
+                Thông tin hợp đồng
+              </nb-card-header>
+
+              <nb-card-body>
+                <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)"
+                  (userRowSelect)="onSelectConfirm($event)">
+                </ng2-smart-table>
+              </nb-card-body>
+            </nb-card>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="ketQuaTimKiem">
+          <div class="col-sm-12">
+            <nb-card>
+              <nb-card-header>
+                Thông tin điểm đo
+              </nb-card-header>
+
+              <nb-card-body>
+                <ng2-smart-table [settings]="settingsThongTinDiemDo" [source]="sourceThongTinDiemDo"
+                  (deleteConfirm)="onDeleteConfirm($event)" (userRowSelect)="onSelectConfirm($event)">
+                </ng2-smart-table>
+              </nb-card-body>
+            </nb-card>
+          </div>
+        </div>
+
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+
+<div class="row" *ngIf="luaChonKhachHang">
+  <div class="col-sm-12">
+    <nb-card>
+      <nb-card-header>
+        Khách hàng đã chọn: {{luaChonKhachHang.MA_KHANG}} - {{luaChonKhachHang.TEN_KHANG}} -
+        {{luaChonKhachHang.MA_TRAM}} - {{luaChonKhachHang.TEN_TRAM}} - {{luaChonKhachHang.MA_LO}} -
+        {{luaChonKhachHang.SO_COT}}
+      </nb-card-header>
+      <nb-card-body>
+
+        <div class="row" *ngIf="luaChonKhachHang">
+          <div class="col-sm-12">
+            <nb-card>
+              <nb-card-header>
+                1. Công suất sử dụng điện theo từng mục đích:
+              </nb-card-header>
+
+              <nb-card-body>
+                <ng2-smart-table [settings]="settingsCongSuatSuDungDien" [source]="sourceCongSuatSuDungDien"
+                  (deleteConfirm)="onDeleteConfirm($event)">
+                </ng2-smart-table>
+              </nb-card-body>
+            </nb-card>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="luaChonKhachHang">
+          <div class="col-sm-12">
+            <nb-card>
+              <nb-card-header>
+                2. Tỷ lệ giá bán điện:
+              </nb-card-header>
+
+              <nb-card-body>
+                <ng2-smart-table [settings]="settingsTyLeGiaBanDien" [source]="sourceTyLeGiaBanDien"
+                  (deleteConfirm)="onDeleteConfirm($event)">
+                </ng2-smart-table>
+              </nb-card-body>
+            </nb-card>
+          </div>
+        </div>
+
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+<div class="row" *ngIf="ketQuaTimKiem">
+  <div class="col-sm-12">
+    <nb-card>
+      <nb-card-header>
+        Xác nhận lưu?
+      </nb-card-header>
+      <nb-card-body>
+        <button nbButton status="info" (click)="onLuuDuLieuClicked()">Lưu dữ liệu</button>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

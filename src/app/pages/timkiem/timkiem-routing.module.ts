@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { TablesComponent } from './timkiem.component';
-import { TimKiemKhachHangComponent } from './khachhang/timkiemkhachhang.component'
-import { TreeGridComponent } from './tree-grid/tree-grid.component';
+import { TimKiemKhachHangComponent } from './khachhang/timkiemkhachhang.component';
+import { ThongTinTrenMayChuComponent } from './thongtintrenmaychu/thongtintrenmaychu.component';
 
 const routes: Routes = [{
   path: '',
@@ -14,8 +14,8 @@ const routes: Routes = [{
       component: TimKiemKhachHangComponent,
     },
     {
-      path: 'tree-grid',
-      component: TreeGridComponent,
+      path: 'thongtintrenmaychu',
+      component: ThongTinTrenMayChuComponent,
     },
   ],
 }];
@@ -29,5 +29,5 @@ export class TablesRoutingModule { }
 export const routedComponents = [
   TablesComponent,
   TimKiemKhachHangComponent,
-  TreeGridComponent,
+  ThongTinTrenMayChuComponent,
 ];

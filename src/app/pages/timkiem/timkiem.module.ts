@@ -13,6 +13,7 @@ import {
   NbIconModule,
   NbInputModule,
   NbTreeGridModule,
+  NbAlertModule
 } from "@nebular/theme";
 import { Ng2SmartTableModule } from "ng2-smart-table";
 import { ThemeModule } from "../../@theme/theme.module";
@@ -20,13 +21,14 @@ import {
   TablesRoutingModule,
   routedComponents,
 } from "./timkiem-routing.module";
-import { FsIconComponent } from "./tree-grid/tree-grid.component";
+//import { FsIconComponent } from "./thongtintrenmaychu/timthongtintrenmaychu.component";
 import { FormsComponent } from "./../forms/forms.component";
 import { FormInputsComponent } from "./../forms/form-inputs/form-inputs.component";
 import { FormLayoutsComponent } from "./../forms/form-layouts/form-layouts.component";
 import { DatepickerComponent } from "./../forms/datepicker/datepicker.component";
 import { ButtonsComponent } from "./../forms/buttons/buttons.component";
 import { FormsModule as ngFormsModule } from "@angular/forms";
+import { ThongTinTrenMayChuComponent } from './thongtintrenmaychu/thongtintrenmaychu.component';
 
 @NgModule({
   imports: [
@@ -46,10 +48,11 @@ import { FormsModule as ngFormsModule } from "@angular/forms";
     NbSelectModule,
     NbIconModule,
     ngFormsModule,
+    NbAlertModule,
   ],
   declarations: [
     ...routedComponents,
-    FsIconComponent,
+    ThongTinTrenMayChuComponent,
     FormsComponent,
     ButtonsComponent,
     FormInputsComponent,

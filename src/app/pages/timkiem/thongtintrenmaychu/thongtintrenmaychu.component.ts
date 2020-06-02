@@ -7,11 +7,11 @@ import {ApiService} from '../../../shared/api.service';
 import { take } from 'rxjs/operators';
 import { AnyARecord } from 'dns';
 @Component({
-  selector: 'ngx-smart-table',
-  templateUrl: './/timkiemkhachhang.component.html',
-  styleUrls: ['.//timkiemkhachhang.component.scss'],
+  selector: 'ngx-thongtintrenmaychu',
+  templateUrl: './/thongtintrenmaychu.component.html',
+  styleUrls: ['.//thongtintrenmaychu.component.scss'],
 })
-export class TimKiemKhachHangComponent {
+export class ThongTinTrenMayChuComponent {
   luaChonTimKiem :TimKiem ;
   luaChonKhachHang: Khachhang;
   ketQuaTimKiem: Khachhang[];
@@ -132,138 +132,7 @@ export class TimKiemKhachHangComponent {
       },
     },
   };
-  settings = {
-    pager: {
-      perPage : 2,
-    },
-    actions:{
-      add:false,
-      edit:false,
-      delete:false
-    },
-    add: {
-      addButtonContent: '<i class="nb-plus"></i>',
-      createButtonContent: '<i class="nb-checkmark"></i>',
-      cancelButtonContent: '<i class="nb-close"></i>',
-    },
-    edit: {
-      editButtonContent: '<i class="nb-edit"></i>',
-      saveButtonContent: '<i class="nb-checkmark"></i>',
-      cancelButtonContent: '<i class="nb-close"></i>',
-    },
-    delete: {
-      deleteButtonContent: '<i class="nb-trash"></i>',
-      confirmDelete: true,
-    },
-    columns: {
-      MA_KHANG: {
-        title: 'Mã khách hàng',
-        type: 'string',
-      },
-      TEN_KHANG: {
-        title: 'Tên khách hàng',
-        type: 'string',
-      },
-      DTHOAI: {
-        title: 'Điện thoại',
-        type: 'string',
-      },
-      DIA_CHI_KH: {
-        title: 'Địa chỉ',
-        type: 'string',
-      },
-      MA_HDONG: {
-        title: 'Mã hợp đồng',
-        type: 'string',
-      },
-      SO_HO: {
-        title: 'Số hộ',
-        type: 'number',
-      },
-    },
-  };
-
-  
-
-  settingsThongTinDiemDo = {
-    pager: {
-      perPage : 2,
-    },
-    actions:{
-      add:false,
-      edit:false,
-      delete:false,
-      columnTitle: 'Thao tác',
-    },
-    add: {
-      addButtonContent: '<i class="nb-plus"></i>',
-      createButtonContent: '<i class="nb-checkmark"></i>',
-      cancelButtonContent: '<i class="nb-close"></i>',
-    },
-    edit: {
-      editButtonContent: '<i class="nb-edit"></i>',
-      saveButtonContent: '<i class="nb-checkmark"></i>',
-      cancelButtonContent: '<i class="nb-close"></i>',
-    },
-    delete: {
-      deleteButtonContent: '<i class="nb-trash"></i>',
-      confirmDelete: true,
-    },
-    columns: {
-      
-      MA_TRAM: {
-        title: 'Mã trạm',
-        type: 'string',
-      },
-      TEN_TRAM: {
-        title: 'Tên trạm',
-        type: 'string',
-      },
-      MA_LO: {
-        title: 'Mã lộ',
-        type: 'string',
-      },
-      SO_COT: {
-        title: 'Số cột',
-        type: 'string',
-      },
-      KVUC_STT: {
-        title: 'Khu vực-STT',
-        type: 'string',
-      },
-      TEN_CAPDA: {
-        title: 'Cấp điện áp',
-        type: 'string',
-      },
-      MA_DDO: {
-        title: 'Mã điểm đo',
-        type: 'string',
-      },
-      LOAI_DDO: {
-        title: 'Loại điểm đo',
-        type: 'number',
-      },
-      DIA_CHI_DDO: {
-        title: 'Địa chỉ điểm đo',
-        type: 'string',
-      },
-      SO_PHA: {
-        title: 'Số pha',
-        type: 'number',
-      },
-      MA_SOGCS: {
-        title: 'Mã sổ GCS',
-        type: 'string',
-      },
-      CHUOI_GIA: {
-        title: 'Chuỗi giá',
-        type: 'string',
-      },
-    },
-  };
-  trangThaiCapNhatDuLieu : string;
-  source: LocalDataSource = new LocalDataSource();
-  sourceThongTinDiemDo: LocalDataSource = new LocalDataSource();
+  trangThaiLayDuLieu : string;
   sourceCongSuatSuDungDien : LocalDataSource = new LocalDataSource();
   sourceTyLeGiaBanDien : LocalDataSource = new LocalDataSource();
   constructor(private service: SmartTableData, private apiService: ApiService) {
@@ -293,8 +162,6 @@ export class TimKiemKhachHangComponent {
     // });
 
     this.ketQuaTimKiem = this.ketQuaTimKiem_danhSachKhachHang;   
-    this.source.load(this.ketQuaTimKiem);
-    this.sourceThongTinDiemDo.load(this.ketQuaTimKiem);
   }
 
   onDeleteConfirm(event): void {
@@ -325,9 +192,9 @@ export class TimKiemKhachHangComponent {
         };       
         this.apiService.luuDuLieuLenMayChu(JSON.stringify(duLieuTaiLen))
         .then(res => {
-          this.trangThaiCapNhatDuLieu = 'success'
+          this.trangThaiLayDuLieu = 'success'
         }, err => {
-          this.trangThaiCapNhatDuLieu = 'warning'
+          this.trangThaiLayDuLieu = 'warning'
         });;
       });
     });

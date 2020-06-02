@@ -2,6 +2,7 @@ import { of as observableOf,  Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Contacts, RecentUsers, UserData } from '../data/users';
 
+import { AuthService } from '../../auth/auth-service.service';
 @Injectable()
 export class UserService extends UserData {
 

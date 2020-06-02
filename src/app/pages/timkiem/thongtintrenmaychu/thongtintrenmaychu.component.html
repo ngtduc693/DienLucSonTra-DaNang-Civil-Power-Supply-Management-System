@@ -1,0 +1,56 @@
+<div class="row" *ngIf="trangThaiLayDuLieu">
+  <div class="col-sm-12" *ngIf="trangThaiLayDuLieu == success" >
+    <nb-alert status="success" closable="true">
+      Lấy dữ liệu thành công
+    </nb-alert>
+  </div>
+  <div class="col-sm-12" *ngIf="trangThaiLayDuLieu == warning">
+    <nb-alert status="warning" closable="true">
+      Lấy dữ liệu thất bại
+    </nb-alert>
+  </div>
+</div>
+<div class="row" *ngIf="luaChonKhachHang">
+  <div class="col-sm-12">
+    <nb-card>
+      <nb-card-header>
+        Khách hàng đã chọn: {{luaChonKhachHang.MA_KHANG}}
+      </nb-card-header>
+      <nb-card-body>
+
+        <div class="row" *ngIf="luaChonKhachHang">
+          <div class="col-sm-12">
+            <nb-card>
+              <nb-card-header>
+                1. Công suất sử dụng điện theo từng mục đích:
+              </nb-card-header>
+
+              <nb-card-body>
+                <ng2-smart-table [settings]="settingsCongSuatSuDungDien" [source]="sourceCongSuatSuDungDien"
+                  (deleteConfirm)="onDeleteConfirm($event)">
+                </ng2-smart-table>
+              </nb-card-body>
+            </nb-card>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="luaChonKhachHang">
+          <div class="col-sm-12">
+            <nb-card>
+              <nb-card-header>
+                2. Tỷ lệ giá bán điện:
+              </nb-card-header>
+
+              <nb-card-body>
+                <ng2-smart-table [settings]="settingsTyLeGiaBanDien" [source]="sourceTyLeGiaBanDien"
+                  (deleteConfirm)="onDeleteConfirm($event)">
+                </ng2-smart-table>
+              </nb-card-body>
+            </nb-card>
+          </div>
+        </div>
+
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

@@ -6,6 +6,19 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
+// Firebase services + enviorment module
+import { AngularFireModule } from "@angular/fire";
+import { AngularFireAuthModule } from "@angular/fire/auth";
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { environment } from '../environments/environment';
+
+
+//Auth
+//import { AuthGuard } from './auth/auth-guard.service';
+import { AuthService } from './auth/auth-service.service';
+import { LoginComponent } from './auth/login/login.component';
+
+//Call CRUD
 import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from './@core/core.module';
 import { ThemeModule } from './@theme/theme.module';
@@ -20,12 +33,13 @@ import {
   NbToastrModule,
   NbWindowModule,
 } from '@nebular/theme';
-
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent,
+    LoginComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    //Import HttpClient lib here
     HttpClientModule,
     AppRoutingModule,
     NbSidebarModule.forRoot(),
@@ -39,8 +53,17 @@ import {
     }),
     CoreModule.forRoot(),
     ThemeModule.forRoot(),
+    //Firebase
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    AngularFirestoreModule,
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent], 
+  providers: [
+     AuthService
+  ],
+
 })
 export class AppModule {
+  
 }
