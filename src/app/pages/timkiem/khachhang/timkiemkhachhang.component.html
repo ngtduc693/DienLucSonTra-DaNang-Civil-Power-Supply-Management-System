@@ -1,15 +1,3 @@
-<div class="row" *ngIf="trangThaiCapNhatDuLieu">
-  <div class="col-sm-12" *ngIf="trangThaiCapNhatDuLieu == success" >
-    <nb-alert status="success" closable="true">
-      Cập nhật dữ liệu thành công
-    </nb-alert>
-  </div>
-  <div class="col-sm-12" *ngIf="trangThaiCapNhatDuLieu == warning">
-    <nb-alert status="warning" closable="true">
-      Cập nhật dữ liệu thất bại
-    </nb-alert>
-  </div>
-</div>
 <div class="row">
   <div class="col-sm-12">
     <nb-card>
@@ -150,7 +138,7 @@
     </nb-card>
   </div>
 </div>
-<div class="row" *ngIf="ketQuaTimKiem">
+<div class="row" *ngIf="luaChonKhachHang">
   <div class="col-sm-12">
     <nb-card>
       <nb-card-header>

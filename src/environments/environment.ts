@@ -18,6 +18,6 @@ export const environment = {
     storageBucket: "qlkh-cpc.appspot.com",
     messagingSenderId: "395004737539",
     appId: "1:395004737539:web:9c0baa2bf2a89510aa7636",
-    measurementId: "G-RF56L1CMKJ"
-  }
+    measurementId: "G-RF56L1CMKJ",
+  },
 };

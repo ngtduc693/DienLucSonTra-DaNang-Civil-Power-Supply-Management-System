@@ -6,6 +6,7 @@ import {
   NbRadioModule,
   NbSelectModule,
   NbUserModule,
+  NbToastrModule
 } from "@nebular/theme";
 import { NgModule } from "@angular/core";
 import {
@@ -49,6 +50,7 @@ import { ThongTinTrenMayChuComponent } from './thongtintrenmaychu/thongtintrenma
     NbIconModule,
     ngFormsModule,
     NbAlertModule,
+    NbToastrModule.forRoot(),
   ],
   declarations: [
     ...routedComponents,
@@ -58,6 +60,7 @@ import { ThongTinTrenMayChuComponent } from './thongtintrenmaychu/thongtintrenma
     FormInputsComponent,
     FormLayoutsComponent,
     DatepickerComponent,
+    
   ],
 })
 export class TimKiemKhachHangModule {}

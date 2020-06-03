@@ -6,6 +6,8 @@ import { Khachhang, KhachhangSearchModel } from '../../../shared/khachhang';
 import {ApiService} from '../../../shared/api.service';
 import { take } from 'rxjs/operators';
 import { AnyARecord } from 'dns';
+import { NbToastrService } from '@nebular/theme';
+
 @Component({
   selector: 'ngx-smart-table',
   templateUrl: './/timkiemkhachhang.component.html',
@@ -266,13 +268,13 @@ export class TimKiemKhachHangComponent {
   sourceThongTinDiemDo: LocalDataSource = new LocalDataSource();
   sourceCongSuatSuDungDien : LocalDataSource = new LocalDataSource();
   sourceTyLeGiaBanDien : LocalDataSource = new LocalDataSource();
-  constructor(private service: SmartTableData, private apiService: ApiService) {
+  constructor(private service: SmartTableData, private apiService: ApiService, private toastrService: NbToastrService) {
     
    
     
   }
   async onTimKiemKhachHang(duLieuTruyenVao) {
-    
+    this.ketQuaTimKiem_danhSachKhachHang = [];
     let modelSearch = duLieuTruyenVao.value;
     let data : KhachhangSearchModel = {
       strMaDViQLy : ApiService.MaDonViQuanLy,
@@ -311,11 +313,11 @@ export class TimKiemKhachHangComponent {
     this.sourceTyLeGiaBanDien.getAll().then((data)=>{
       tyLeGBD = data;
     }).then(()=>{
-      console.log(tyLeGBD);
+      //console.log(tyLeGBD);
       this.sourceCongSuatSuDungDien.getAll().then((data)=>{
         congSuatSDD = data;
       }).then(()=>{  
-        console.log(congSuatSDD); 
+        //console.log(congSuatSDD); 
         let duLieuTaiLen:DuLieuKhachHang = {
           MKH : this.luaChonKhachHang.MA_KHANG,
           DULIEUCHITIET: {
@@ -325,14 +327,23 @@ export class TimKiemKhachHangComponent {
         };       
         this.apiService.luuDuLieuLenMayChu(JSON.stringify(duLieuTaiLen))
         .then(res => {
-          this.trangThaiCapNhatDuLieu = 'success'
+          //this.trangThaiCapNhatDuLieu = 'success'
+          this.showToast('top-right', 'success','Lưu dữ liệu thành công');
         }, err => {
-          this.trangThaiCapNhatDuLieu = 'warning'
+          this.showToast('top-right', 'warning','Lỗi khi lưu dữ liệu');
         });;
       });
     });
     
     
+  }
+  private index: number = 0;
+  showToast(position, status, message) {
+    this.index += 1;
+    this.toastrService.show(
+      message || status ,
+      `Thông báo số ${this.index}`,
+      { position, status });
   }
   onSelectConfirm(event): void {
     this.luaChonKhachHang = event.data;
