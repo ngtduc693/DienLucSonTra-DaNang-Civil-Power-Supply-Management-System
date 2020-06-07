@@ -5,29 +5,29 @@
       <nb-card-body>
         <form #formTimKiemKhachHang="ngForm" (ngSubmit)="onTimKiemKhachHang(formTimKiemKhachHang)">
           <div class="form-group row">
-            <label for="inputMKH" class="label col-sm-3 col-form-label">Mã khách hàng</label>
-            <div class="col-sm-9">
+            <label for="inputMKH" class="label col-sm-2 col-form-label">Mã khách hàng</label>
+            <div class="col-sm-10">
               <input type="number" name="timKiemTheoMKH" nbInput fullWidth id="inputMKH"
                 placeholder="Nhập Mã khách hàng" ngModel>
             </div>
           </div>
           <div class="form-group row">
-            <label for="inputDiaChi" class="label col-sm-3 col-form-label">Địa chỉ</label>
-            <div class="col-sm-9">
+            <label for="inputDiaChi" class="label col-sm-2 col-form-label">Địa chỉ</label>
+            <div class="col-sm-10">
               <input type="text" name="timKiemTheoDiaChi" nbInput fullWidth id="inputDiaChi" placeholder="Nhập địa chỉ"
                 ngModel>
             </div>
           </div>
           <div class="form-group row">
-            <label for="inputMaTram" class="label col-sm-3 col-form-label">Mã trạm</label>
-            <div class="col-sm-9">
+            <label for="inputMaTram" class="label col-sm-2 col-form-label">Mã trạm</label>
+            <div class="col-sm-10">
               <input type="text" name="timKiemTheoMaTram" nbInput fullWidth id="inputMaTram" placeholder="Nhập mã trạm"
                 ngModel>
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-3 label">Tìm kiếm theo</label>
-            <div class="col-sm-9">
+            <label class="col-sm-2 label">Tìm kiếm theo</label>
+            <div class="col-sm-10">
               <nb-radio-group name="timKiemTheoTuyChon" ngModel>
                 <nb-radio value="chonMKH" checked="true">Mã khách hàng</nb-radio>
                 <nb-radio value="chonDiaChi">Địa chỉ</nb-radio>
@@ -36,8 +36,10 @@
             </div>
           </div>
           <div class="form-group row">
-            <div class="offset-sm-3 col-sm-9">
-              <button type="submit" nbButton status="primary" value="submit">Tìm kiếm</button>
+            <div class="offset-sm-2 col-sm-10">
+              <button type="submit" fullWidth nbButton status="primary" value="submit">
+                <nb-icon icon="search-outline"></nb-icon>Tìm kiếm
+              </button>
             </div>
           </div>
         </form>
@@ -126,6 +128,51 @@
               </nb-card-header>
 
               <nb-card-body>
+
+                <nb-card>
+                  <nb-card-header>Nhập nhanh</nb-card-header>
+                  <nb-card-body>
+                    <label for="inputMKH" class="label col-sm-2 col-form-label">Nhóm dịch vụ:</label>
+                      <nb-select placeholder="Chọn nhóm" fullWidth [(selected)]="chonNhomDichVu">
+                        <nb-option-group title="Sinh hoạt">
+                          <nb-option value="SH">Sinh hoạt</nb-option>
+                        </nb-option-group>
+                        <nb-option-group title="Kinh doanh">
+                          <nb-option value="KD6">Kinh doanh (dưới 6KV)</nb-option>
+                          <nb-option value="KD622">Kinh doanh (6KV - 22KV)</nb-option>
+                          <nb-option value="KD22">Kinh doanh (trên 22KV)</nb-option>
+                        </nb-option-group>
+                        <nb-option-group title="Sản xuất bình thường">
+                          <nb-option value="SXBT6">Sản xuất bình thường (dưới 6KV)</nb-option>
+                          <nb-option value="SXBT622">Sản xuất bình thường (6KV - 22KV)</nb-option>
+                          <nb-option value="SXBT22110">Sản xuất bình thường (22KV - 110KV)</nb-option>
+                          <nb-option value="SXBT110">Sản xuất bình thường (trên 110KV)</nb-option>
+                        </nb-option-group>
+                        <nb-option-group title="Sản xuất công nghiệp">
+                          <nb-option value="SXCN6">Sản xuất công nghiệp (dưới 6KV)</nb-option>
+                          <nb-option value="SXCN22110">Sản xuất công nghiệp (22KV - 110KV)</nb-option>
+                        </nb-option-group>
+                        <nb-option-group title="Sản xuất">
+                          <nb-option value="SX">Sản xuất</nb-option>
+                        </nb-option-group>
+                        <nb-option-group title="Kinh doanh">
+                          <nb-option value="KD">Kinh doanh</nb-option>
+                        </nb-option-group>
+                        <nb-option-group title="Hành chính sự nghiệp">
+                          <nb-option value="HCSN">Hành chính sự nghiệp</nb-option>
+                          <nb-option value="HCSNBV">Hành chính sự nghiệp (Bệnh viện, trường học,...)</nb-option>
+                        </nb-option-group>
+                      </nb-select>
+                      <label for="inputMKH" class="label col-sm-2 col-form-label">Tỷ lệ % hoặc kWh:</label>
+                      <input [(ngModel)]= "tyLePhanTramHoacKwh" type="text" fullWidth nbInput placeholder= "Nhập tỷ lệ % hoặc kWh">
+                      <button fullWidth nbButton status="primary" (click)="dienNhanhTyLeGiaBanDien()">
+                        <nb-icon icon="plus-outline"></nb-icon>Thêm nhanh
+                      </button>
+                    
+                  </nb-card-body>
+                </nb-card>
+
+
                 <ng2-smart-table [settings]="settingsTyLeGiaBanDien" [source]="sourceTyLeGiaBanDien"
                   (deleteConfirm)="onDeleteConfirm($event)">
                 </ng2-smart-table>
@@ -133,7 +180,6 @@
             </nb-card>
           </div>
         </div>
-
       </nb-card-body>
     </nb-card>
   </div>
@@ -145,7 +191,9 @@
         Xác nhận lưu?
       </nb-card-header>
       <nb-card-body>
-        <button nbButton status="info" (click)="onLuuDuLieuClicked()">Lưu dữ liệu</button>
+        <button fullWidth nbButton status="info" (click)="onLuuDuLieuClicked()">
+          <nb-icon icon="save-outline"></nb-icon>Lưu dữ liệu
+        </button>
       </nb-card-body>
     </nb-card>
   </div>

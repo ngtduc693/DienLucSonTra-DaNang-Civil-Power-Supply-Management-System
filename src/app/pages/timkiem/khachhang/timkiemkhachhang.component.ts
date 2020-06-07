@@ -7,13 +7,15 @@ import {ApiService} from '../../../shared/api.service';
 import { take } from 'rxjs/operators';
 import { AnyARecord } from 'dns';
 import { NbToastrService } from '@nebular/theme';
-
+import { CapDienNhomDichVu, LoaiNhomDichVu} from '../../../shared/capdiennhomdichvu';
 @Component({
   selector: 'ngx-smart-table',
   templateUrl: './/timkiemkhachhang.component.html',
   styleUrls: ['.//timkiemkhachhang.component.scss'],
 })
 export class TimKiemKhachHangComponent {
+  chonNhomDichVu: string;
+  tyLePhanTramHoacKwh : string;
   luaChonTimKiem :TimKiem ;
   luaChonKhachHang: Khachhang;
   ketQuaTimKiem: Khachhang[];
@@ -264,13 +266,14 @@ export class TimKiemKhachHangComponent {
     },
   };
   trangThaiCapNhatDuLieu : string;
+  danhSachNhomDichVu : LoaiNhomDichVu[];
   source: LocalDataSource = new LocalDataSource();
   sourceThongTinDiemDo: LocalDataSource = new LocalDataSource();
   sourceCongSuatSuDungDien : LocalDataSource = new LocalDataSource();
   sourceTyLeGiaBanDien : LocalDataSource = new LocalDataSource();
   constructor(private service: SmartTableData, private apiService: ApiService, private toastrService: NbToastrService) {
-    
-   
+  
+   this.danhSachNhomDichVu = CapDienNhomDichVu.layDanhSachNhomDichVu();
     
   }
   async onTimKiemKhachHang(duLieuTruyenVao) {
@@ -298,7 +301,21 @@ export class TimKiemKhachHangComponent {
     this.source.load(this.ketQuaTimKiem);
     this.sourceThongTinDiemDo.load(this.ketQuaTimKiem);
   }
-
+  dienNhanhTyLeGiaBanDien(){
+    if (this.chonNhomDichVu == undefined){
+      this.showToast('top-right', 'warning','Chọn danh sách dịch vụ trước')
+    }
+    else if (this.tyLePhanTramHoacKwh == undefined)
+    {
+      this.showToast('top-right', 'warning','Bạn chưa nhập tỷ lệ % hoặc kWh')
+    }
+    else{
+      let thongTinDichVu = CapDienNhomDichVu.layNhomDichVu(this.chonNhomDichVu,this.tyLePhanTramHoacKwh);
+      let input =  [thongTinDichVu.TenDichVu, thongTinDichVu.TyLe, thongTinDichVu.GioBinhThuong, thongTinDichVu.GioCaoDiem, thongTinDichVu.GioThapDiem];
+      this.sourceTyLeGiaBanDien.add(thongTinDichVu);
+      console.log(input);
+    }
+  }
   onDeleteConfirm(event): void {
     if (window.confirm('Chắc chắn xóa?')) {
       event.confirm.resolve();

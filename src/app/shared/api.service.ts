@@ -11,9 +11,12 @@ import { Observable, throwError } from "rxjs";
 import { catchError, retry } from "rxjs/operators";
 import { auth } from "firebase/app";
 import { AngularFireAuth } from "@angular/fire/auth";
+import { AngularFireStorage, AngularFireStorageModule, AngularFireUploadTask, AngularFireStorageReference } from "@angular/fire/storage";
 import {
   AngularFirestore,
   AngularFirestoreDocument,
+  
+  
 } from "@angular/fire/firestore";
 import { Router } from "@angular/router";
 import { AuthService } from "../auth/auth-service.service";
@@ -39,7 +42,8 @@ export class ApiService {
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,
     public ngZone: NgZone,
-    public userLogined: AuthService
+    public userLogined: AuthService,
+    private storage: AngularFireStorage
   ) // NgZone service to remove outside scope warning
   {}
   public async luuDuLieuLenMayChu(data) {
@@ -53,10 +57,35 @@ export class ApiService {
       //console.log(data);
     });
   }
+  public async taiTepLenFirebase() {
+    const task = this.storage.upload("","");
+    task
+      .snapshotChanges()
+      .pipe(
+        finalize(() => {
+          this.downloadURL = fileRef.getDownloadURL();
+          this.downloadURL.subscribe(url => {
+            if (url) {
+              this.fb = url;
+            }
+            console.log(this.fb);
+          });
+        })
+      )
+      .subscribe(url => {
+        if (url) {
+          console.log(url);
+        }
+      });
+  }
   public async layDanhSachNguoiSuDungTuMayChu() {
       // var x = await this.afs
       //  .collection("Data").doc().on
     //await this.afs.collection('Data').docs.map(doc => doc.data())
+    //var firebaseAdmin = require('firebase-admin');
+    //const firestore = firebaseAdmin.firestore();
+    // await this.afs
+    //     .collection("Data").doc().get
         
   }
 
