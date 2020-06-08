@@ -154,23 +154,36 @@ export class ThongTinTrenMayChuComponent {
      });
      this.duLieuTrenFireBase.forEach(element => {
       duLieuTam_TyLe = [];
-      duLieuTam_CongSuat = []
+      duLieuTam_CongSuat = [];
+      let TLSDD:any;
+      let CSDD:any;
        let MKH = element.MKH;
-       let TLSDD = new KhachHangMDSDDModelResult(element.DULIEUCHITIET.TyLeGiaBanDien[0].MUC_DICH_SU_DUNG_DIEN,
-        element.DULIEUCHITIET.TyLeGiaBanDien[0].TY_LE,
-        element.DULIEUCHITIET.TyLeGiaBanDien[0].GIO_BINH_THUONG,
-        element.DULIEUCHITIET.TyLeGiaBanDien[0].GIO_CAO_DIEM,
-        element.DULIEUCHITIET.TyLeGiaBanDien[0].GIO_THAP_DIEM );
-        let CSDD = new KhachHangCSSDDModelResult(
-          element.DULIEUCHITIET.CongSuatSD[0].MUC_DICH_SU_DUNG,
-          element.DULIEUCHITIET.CongSuatSD[0].TEN_THIET_BI,
-          element.DULIEUCHITIET.CongSuatSD[0].DIEN_AP_SU_DUNG,
-          element.DULIEUCHITIET.CongSuatSD[0].CONG_SUAT,
-          element.DULIEUCHITIET.CongSuatSD[0].SO_LUONG,
-          element.DULIEUCHITIET.CongSuatSD[0].TONG_SO,
-        )
-        duLieuTam_TyLe.push(TLSDD.layDuLieu());
+       element.DULIEUCHITIET.TyLeGiaBanDien.forEach(
+        element => {
+          TLSDD =  new KhachHangMDSDDModelResult(element.MUC_DICH_SU_DUNG_DIEN,
+            element.TY_LE,
+            element.GIO_BINH_THUONG,
+            element.GIO_CAO_DIEM,
+            element.GIO_THAP_DIEM );
+            duLieuTam_TyLe.push(TLSDD.layDuLieu());
+        }
+       );
+       element.DULIEUCHITIET.CongSuatSD.forEach(
+        element => {
+        
+          CSDD= new KhachHangCSSDDModelResult(
+          element.MUC_DICH_SU_DUNG,
+          element.TEN_THIET_BI,
+          element.DIEN_AP_SU_DUNG,
+          element.CONG_SUAT,
+          element.SO_LUONG,
+          element.TONG_SO,
+          
+        );
         duLieuTam_CongSuat.push(CSDD.layDuLieu());
+        });
+        
+        
         this.duLieuMDSHKHTrenServer.push(new KhachHangModelResult(MKH,duLieuTam_TyLe,duLieuTam_CongSuat));
      });
      console.log(this.duLieuMDSHKHTrenServer);
