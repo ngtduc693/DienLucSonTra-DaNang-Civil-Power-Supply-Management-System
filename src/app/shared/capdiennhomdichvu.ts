@@ -32,7 +32,7 @@ export class CapDienNhomDichVu {
     ];
     constructor(){}
     public static layNhomDichVu  (maCanTim:string, tyLe:string){
-        let nhomDichVu =  this.NhomDichVu.find(value=>value.Ma = maCanTim);
+        let nhomDichVu =  this.NhomDichVu.find(value=>value.Ma == maCanTim);
         nhomDichVu.TyLe = tyLe;
         return nhomDichVu;
     };

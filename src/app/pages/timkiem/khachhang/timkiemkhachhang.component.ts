@@ -311,19 +311,22 @@ export class TimKiemKhachHangComponent {
     } else if (this.tyLePhanTramHoacKwh == undefined) {
       this.showToast("top-right", "warning", "Bạn chưa nhập tỷ lệ % hoặc kWh");
     } else {
+      console.log('Nhom dich vu: ');
+      console.log(this.chonNhomDichVu);
       let thongTinDichVu = CapDienNhomDichVu.layNhomDichVu(
         this.chonNhomDichVu,
         this.tyLePhanTramHoacKwh
       );
-      let input = [
-        thongTinDichVu.TenDichVu,
-        thongTinDichVu.TyLe,
-        thongTinDichVu.GioBinhThuong,
-        thongTinDichVu.GioCaoDiem,
-        thongTinDichVu.GioThapDiem,
-      ];
-      this.sourceTyLeGiaBanDien.add(thongTinDichVu);
-      console.log(input);
+      let item = {
+        MUC_DICH_SU_DUNG_DIEN: thongTinDichVu.TenDichVu,
+        TY_LE: thongTinDichVu.TyLe,
+        GIO_BINH_THUONG: thongTinDichVu.GioBinhThuong,
+        GIO_CAO_DIEM: thongTinDichVu.GioCaoDiem,
+        GIO_THAP_DIEM: thongTinDichVu.GioThapDiem,
+      };
+      this.sourceTyLeGiaBanDien.add(item);
+      this.sourceTyLeGiaBanDien.refresh();
+      console.log(item);
     }
   }
   onDeleteConfirm(event): void {

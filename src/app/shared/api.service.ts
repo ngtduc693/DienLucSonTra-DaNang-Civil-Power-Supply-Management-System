@@ -34,7 +34,7 @@ export class ApiService {
   public api_timkiemkhachhang: string =
     "http://10.72.2.68/ServiceHopDong-HopDong-context-root/resources/serviceHopDong/timKiemKhachHang";
   public api_local_timkiemkhachhang: string =
-    "../../assets/data/PP05000944648.json";
+    "../../assets/data/PP05000944652.json";
   constructor(
     private httpClient: HttpClient,
     public afs: AngularFirestore, // Inject Firestore service
