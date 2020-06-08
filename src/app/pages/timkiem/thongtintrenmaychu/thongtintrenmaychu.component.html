@@ -12,43 +12,42 @@
 </div>
 <div class="row" *ngIf="duLieuMDSHKHTrenServer">
   <div class="col-sm-12">
-    <nb-card *ngFor="let item of duLieuMDSHKHTrenServer">
-      <nb-card-header>
-        Khách hàng: {{item.MaKhachHang}}
-      </nb-card-header>
-      <nb-card-body>
-
-        <div class="row">
-          <div class="col-sm-12">
-            <nb-card>
-              <nb-card-header>
-                1. Công suất sử dụng điện theo từng mục đích:
-              </nb-card-header>
-
-              <nb-card-body>
-                <ng2-smart-table [settings]="settingsCongSuatSuDungDien" [source]="item.CongSuatSuDungDien">
-                </ng2-smart-table>
-              </nb-card-body>
-            </nb-card>
+    <nb-accordion multi=true>
+      <nb-accordion-item  *ngFor="let item of duLieuMDSHKHTrenServer">
+        <nb-accordion-item-header>Khách hàng: {{item.MaKhachHang}}</nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <div class="row">
+            <div class="col-sm-12">
+              <nb-card>
+                <nb-card-header>
+                  1. Công suất sử dụng điện theo từng mục đích:
+                </nb-card-header>
+  
+                <nb-card-body>
+                  <ng2-smart-table [settings]="settingsCongSuatSuDungDien" [source]="item.CongSuatSuDungDien">
+                  </ng2-smart-table>
+                </nb-card-body>
+              </nb-card>
+            </div>
           </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-12">
-            <nb-card>
-              <nb-card-header>
-                2. Tỷ lệ giá bán điện:
-              </nb-card-header>
-
-              <nb-card-body>
-                <ng2-smart-table [settings]="settingsTyLeGiaBanDien" [source]="item.MucDichSuDungDien">
-                </ng2-smart-table>
-              </nb-card-body>
-            </nb-card>
+  
+          <div class="row">
+            <div class="col-sm-12">
+              <nb-card>
+                <nb-card-header>
+                  2. Tỷ lệ giá bán điện:
+                </nb-card-header>
+  
+                <nb-card-body>
+                  <ng2-smart-table [settings]="settingsTyLeGiaBanDien" [source]="item.MucDichSuDungDien">
+                  </ng2-smart-table>
+                </nb-card-body>
+              </nb-card>
+            </div>
           </div>
-        </div>
-
-      </nb-card-body>
-    </nb-card>
+  
+        </nb-accordion-item-body>
+       </nb-accordion-item>
+      </nb-accordion>
   </div>
 </div>
