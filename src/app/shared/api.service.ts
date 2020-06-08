@@ -8,7 +8,7 @@ import { HttpHeaders } from "@angular/common/http";
 import { TimKiemKhachHangComponent } from "../pages/timkiem/khachhang/timkiemkhachhang.component";
 import { Khachhang, KhachhangSearchModel } from "../shared/khachhang";
 import { Observable, throwError } from "rxjs";
-import { catchError, retry } from "rxjs/operators";
+import { catchError, retry, takeUntil, take } from "rxjs/operators";
 import { auth } from "firebase/app";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFireStorage, AngularFireStorageModule, AngularFireUploadTask, AngularFireStorageReference } from "@angular/fire/storage";
@@ -52,42 +52,32 @@ export class ApiService {
       .doc(JSON.parse(data).MKH)
       .set(JSON.parse(data));
   }
-  public layDuLieuTuMayChu() {
-    this.layDanhSachNguoiSuDungTuMayChu().then((data) => {
-      //console.log(data);
-    });
+  public async layDuLieuTuMayChu() {
+      return await this.afs.collection("Data").valueChanges().pipe(take(1)).toPromise();
+    
   }
-  public async taiTepLenFirebase() {
-    const task = this.storage.upload("","");
-    task
-      .snapshotChanges()
-      .pipe(
-        finalize(() => {
-          this.downloadURL = fileRef.getDownloadURL();
-          this.downloadURL.subscribe(url => {
-            if (url) {
-              this.fb = url;
-            }
-            console.log(this.fb);
-          });
-        })
-      )
-      .subscribe(url => {
-        if (url) {
-          console.log(url);
-        }
-      });
-  }
-  public async layDanhSachNguoiSuDungTuMayChu() {
-      // var x = await this.afs
-      //  .collection("Data").doc().on
-    //await this.afs.collection('Data').docs.map(doc => doc.data())
-    //var firebaseAdmin = require('firebase-admin');
-    //const firestore = firebaseAdmin.firestore();
-    // await this.afs
-    //     .collection("Data").doc().get
-        
-  }
+  // public async taiTepLenFirebase() {
+  //   const task = this.storage.upload("","");
+  //   task
+  //     .snapshotChanges()
+  //     .pipe(t(1)).toPromise().then()
+
+  //       finally(() => {
+  //         this.downloadURL = fileRef.getDownloadURL();
+  //         this.downloadURL.subscribe(url => {
+  //           if (url) {
+  //             this.fb = url;
+  //           }
+  //           console.log(this.fb);
+  //         });
+  //       })
+  //     )
+  //     .subscribe(url => {
+  //       if (url) {
+  //         console.log(url);
+  //       }
+  //     });
+  // }
 
   public onTimKiemKhachHang(data: KhachhangSearchModel): Observable<HttpResponse<Khachhang[]>> {
     return this.httpClient.get<Khachhang[]>(this.api_timkiemkhachhang, {

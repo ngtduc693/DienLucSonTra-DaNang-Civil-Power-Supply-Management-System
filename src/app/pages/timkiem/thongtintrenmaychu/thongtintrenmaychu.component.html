@@ -10,15 +10,15 @@
     </nb-alert>
   </div>
 </div>
-<div class="row" *ngIf="luaChonKhachHang">
+<div class="row" *ngIf="duLieuMDSHKHTrenServer">
   <div class="col-sm-12">
-    <nb-card>
+    <nb-card *ngFor="let item of duLieuMDSHKHTrenServer">
       <nb-card-header>
-        Khách hàng đã chọn: {{luaChonKhachHang.MA_KHANG}}
+        Khách hàng: {{item.MaKhachHang}}
       </nb-card-header>
       <nb-card-body>
 
-        <div class="row" *ngIf="luaChonKhachHang">
+        <div class="row">
           <div class="col-sm-12">
             <nb-card>
               <nb-card-header>
@@ -26,15 +26,14 @@
               </nb-card-header>
 
               <nb-card-body>
-                <ng2-smart-table [settings]="settingsCongSuatSuDungDien" [source]="sourceCongSuatSuDungDien"
-                  (deleteConfirm)="onDeleteConfirm($event)">
+                <ng2-smart-table [settings]="settingsCongSuatSuDungDien" [source]="item.CongSuatSuDungDien">
                 </ng2-smart-table>
               </nb-card-body>
             </nb-card>
           </div>
         </div>
 
-        <div class="row" *ngIf="luaChonKhachHang">
+        <div class="row">
           <div class="col-sm-12">
             <nb-card>
               <nb-card-header>
@@ -42,8 +41,7 @@
               </nb-card-header>
 
               <nb-card-body>
-                <ng2-smart-table [settings]="settingsTyLeGiaBanDien" [source]="sourceTyLeGiaBanDien"
-                  (deleteConfirm)="onDeleteConfirm($event)">
+                <ng2-smart-table [settings]="settingsTyLeGiaBanDien" [source]="item.MucDichSuDungDien">
                 </ng2-smart-table>
               </nb-card-body>
             </nb-card>
