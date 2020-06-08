@@ -263,6 +263,32 @@ export class TimKiemKhachHangComponent {
       },
     },
   };
+  afuConfig = {
+    uploadAPI: {
+      url:"https://example-file-upload-api",
+      method:"POST",
+      headers: {
+     "Content-Type" : "text/plain;charset=UTF-8",
+     "Authorization" : `Bearer AAA`
+      },
+      params: {
+        'page': '1'
+      },
+      responseType: 'blob',
+    },
+    multiple: true,
+    formatsAllowed: ".jpg,.png",
+    replaceTexts: {
+      selectFileBtn: 'Chọn các tệp...',
+      resetBtn: 'Hủy',
+      uploadBtn: 'Tải lên',
+      dragNDropBox: 'Kéo thả',
+      attachPinBtn: 'Đính kèm tệp...',
+      afterUploadMsg_success: 'Tải lên thành công!',
+      afterUploadMsg_error: 'Có lỗi khi tải lên!',
+      sizeLimit: 'Dung lượng tối đa'
+    },
+  };
   trangThaiCapNhatDuLieu: string;
   danhSachNhomDichVu: LoaiNhomDichVu[];
   source: LocalDataSource = new LocalDataSource();

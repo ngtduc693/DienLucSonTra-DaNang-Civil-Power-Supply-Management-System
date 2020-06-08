@@ -8,6 +8,8 @@ import {
   NbUserModule,
   NbToastrModule
 } from "@nebular/theme";
+import { AngularFileUploaderModule } from "angular-file-uploader";
+
 import { NgModule, ChangeDetectionStrategy } from "@angular/core";
 import {
   NbCardModule,
@@ -15,7 +17,8 @@ import {
   NbInputModule,
   NbTreeGridModule,
   NbAlertModule,
-  NbAccordionModule
+  NbAccordionModule,
+  
 } from "@nebular/theme";
 import { Ng2SmartTableModule } from "ng2-smart-table";
 import { ThemeModule } from "../../@theme/theme.module";
@@ -53,6 +56,7 @@ import { ThongTinTrenMayChuComponent } from './thongtintrenmaychu/thongtintrenma
     NbAlertModule,
     NbToastrModule.forRoot(),
     NbAccordionModule,
+    AngularFileUploaderModule
   ],
   declarations: [
     ...routedComponents,

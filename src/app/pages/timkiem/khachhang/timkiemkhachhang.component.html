@@ -1,3 +1,4 @@
+
 <div class="row">
   <div class="col-sm-12">
     <nb-card>
@@ -176,6 +177,24 @@
                 <ng2-smart-table [settings]="settingsTyLeGiaBanDien" [source]="sourceTyLeGiaBanDien"
                   (deleteConfirm)="onDeleteConfirm($event)">
                 </ng2-smart-table>
+              </nb-card-body>
+            </nb-card>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="luaChonKhachHang">
+          <div class="col-sm-12">
+            <nb-card>
+              <nb-card-header>
+                3. Tệp đính kèm (hiện tại không khả dụng do chưa đăng kí với dịch vụ cung cấp máy chủ lưu trữ ảnh):
+              </nb-card-header>
+
+              <nb-card-body>
+
+                <angular-file-uploader
+                  [config]="afuConfig">
+                </angular-file-uploader>
+
               </nb-card-body>
             </nb-card>
           </div>
