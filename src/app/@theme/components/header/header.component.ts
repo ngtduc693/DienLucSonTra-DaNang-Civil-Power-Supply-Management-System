@@ -49,7 +49,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private breakpointService: NbMediaBreakpointsService) {
   }
 
-  ngOnInit() {
+ async ngOnInit() {
     this.currentTheme = this.themeService.currentTheme;
 
     // this.userService.getUsers()
@@ -59,6 +59,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     //   console.log(resp);
     //   this.user = resp.body
     // })
+    //await this.userAuthService.userLoggedIn().pipe(takeUntil(this.destroy$)).subscribe((users: any) => this.user= users);
     ;
     const { xl } = this.breakpointService.getBreakpointsMap();
     this.themeService.onMediaQueryChange()

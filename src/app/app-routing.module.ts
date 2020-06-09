@@ -34,7 +34,7 @@ export const routes: Routes = [
       },
       {
         path: 'logout',
-        component: NbLogoutComponent,
+        component: LoginComponent,
       },
       {
         path: 'request-password',

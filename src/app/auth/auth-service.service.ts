@@ -37,7 +37,7 @@ export class AuthService {
     return this.afAuth.signInWithEmailAndPassword(email, password)
       .then((result) => {
         this.ngZone.run(() => {
-          this.router.navigate(['pages/timkiem/khachhang']);
+          this.router.navigate(['pages/timkiem']);
         });
         this.SetUserData(result.user);
       }).catch((error) => {
@@ -81,9 +81,16 @@ export class AuthService {
     const user = JSON.parse(localStorage.getItem('user'));
     return (user !== null && user.emailVerified !== false) ? true : false;
   }
-  public userLoggedIn():Observable<any> 
+  isLogged(): boolean {
+    const user = JSON.parse(localStorage.getItem('user'));
+    return (user !== null && user.emailVerified !== false) ? true : false;
+  }
+  userLoggedIn()
   {
-      return this.userData;
+      if (this.isLogged())
+        return this.userData;
+      else
+        this.router.navigate(['pages/timkiem']);
   }
   // Sign in with Google
   GoogleAuth() {
@@ -124,7 +131,7 @@ export class AuthService {
   SignOut() {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
-      this.router.navigate(['sign-in']);
+      this.router.navigate(['login']);
     })
   }
 
