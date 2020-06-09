@@ -7,7 +7,7 @@ import { ApiService } from "../../../shared/api.service";
 import { take } from "rxjs/operators";
 import { AnyARecord } from "dns";
 import { NbToastrService } from "@nebular/theme";
-
+import { AuthService } from '../../../auth/auth-service.service';
 import {
   CapDienNhomDichVu,
   LoaiNhomDichVu,
@@ -299,7 +299,8 @@ export class TimKiemKhachHangComponent {
   constructor(
     private service: SmartTableData,
     private apiService: ApiService,
-    private toastrService: NbToastrService
+    private toastrService: NbToastrService,
+    private userLogin: AuthService,
   ) {
     this.danhSachNhomDichVu = CapDienNhomDichVu.layDanhSachNhomDichVu();
   }
@@ -382,7 +383,6 @@ export class TimKiemKhachHangComponent {
   onLuuDuLieuClicked() {
     let congSuatSDD: string[];
     let tyLeGBD: string[];
-
     this.sourceTyLeGiaBanDien
       .getAll()
       .then((data) => {
@@ -403,6 +403,7 @@ export class TimKiemKhachHangComponent {
                 CongSuatSD: congSuatSDD,
                 TyLeGiaBanDien: tyLeGBD,
               },
+              NTL: this.userLogin.layUserDaDangNhap(),
             };
             this.apiService
               .luuDuLieuLenMayChu(JSON.stringify(duLieuTaiLen))

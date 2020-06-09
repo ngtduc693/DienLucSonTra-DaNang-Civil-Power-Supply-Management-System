@@ -7,6 +7,7 @@ export interface TimKiem {
 export interface DuLieuKhachHang {
     MKH:string,
     DULIEUCHITIET:DuLieuKhachHangChiTiet,
+    NTL:string,
 }
 export interface DuLieuKhachHangChiTiet {
     CongSuatSD : string[],
