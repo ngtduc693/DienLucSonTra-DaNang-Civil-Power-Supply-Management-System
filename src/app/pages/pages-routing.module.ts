@@ -5,6 +5,7 @@ import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ECommerceComponent } from './e-commerce/e-commerce.component';
 import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
+import { LoginComponent} from '../auth/login/login.component';
 const routes: Routes = [{
   path: '',
   component: PagesComponent,
@@ -62,6 +63,7 @@ const routes: Routes = [{
       path: 'timkiem',
       loadChildren: () => import('./timkiem/timkiem.module')
         .then(m => m.TimKiemKhachHangModule),
+        
     },
     {
       path: 'miscellaneous',

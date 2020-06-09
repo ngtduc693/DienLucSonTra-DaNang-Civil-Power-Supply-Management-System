@@ -15,8 +15,8 @@ import { AngularFireStorage, AngularFireStorageModule, AngularFireUploadTask, An
 import {
   AngularFirestore,
   AngularFirestoreDocument,
-  
-  
+
+
 } from "@angular/fire/firestore";
 import { Router } from "@angular/router";
 import { AuthService } from "../auth/auth-service.service";
@@ -45,7 +45,7 @@ export class ApiService {
     public userLogined: AuthService,
     private storage: AngularFireStorage
   ) // NgZone service to remove outside scope warning
-  {}
+  { }
   public async luuDuLieuLenMayChu(data) {
     await this.afs
       .collection("Data")
@@ -53,8 +53,8 @@ export class ApiService {
       .set(JSON.parse(data));
   }
   public async layDuLieuTuMayChu() {
-      return await this.afs.collection("Data").valueChanges().pipe(take(1)).toPromise();
-    
+    return await this.afs.collection("Data").valueChanges().pipe(take(1)).toPromise();
+
   }
   // public async taiTepLenFirebase() {
   //   const task = this.storage.upload("","");
@@ -78,11 +78,18 @@ export class ApiService {
   //       }
   //     });
   // }
-
-  public onTimKiemKhachHang(data: KhachhangSearchModel): Observable<HttpResponse<Khachhang[]>> {
-    return this.httpClient.get<Khachhang[]>(this.api_timkiemkhachhang, {
-      observe: "response",
-    });
+  httpOptions = {
+    headers: new HttpHeaders({'Content-Type': 'application/json'})
+  };
+  public onTimKiemKhachHang(data: KhachhangSearchModel): Observable<Khachhang[]> {
+    console.log('Request data: ');
+    console.log(JSON.stringify({
+      "strMaDViQLy": data.strMaDViQLy,
+      "strGiaTriTimKiem": data.strGiaTriTimKiem,
+      "nLoaiTimKiem": data.nLoaiTimKiem,
+      "bGetHetHLuc": false,
+    }));
+    return this.httpClient.post<Khachhang[]>(this.api_timkiemkhachhang,data,this.httpOptions).pipe(take(1));
   }
   public onTimKiemKhachHang_Local(
     data: KhachhangSearchModel

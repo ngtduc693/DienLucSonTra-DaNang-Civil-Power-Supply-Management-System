@@ -18,7 +18,7 @@ import {
   NbTreeGridModule,
   NbAlertModule,
   NbAccordionModule,
-  
+  NbSpinnerModule ,
 } from "@nebular/theme";
 import { Ng2SmartTableModule } from "ng2-smart-table";
 import { ThemeModule } from "../../@theme/theme.module";
@@ -56,7 +56,8 @@ import { ThongTinTrenMayChuComponent } from './thongtintrenmaychu/thongtintrenma
     NbAlertModule,
     NbToastrModule.forRoot(),
     NbAccordionModule,
-    AngularFileUploaderModule
+    AngularFileUploaderModule,
+    NbSpinnerModule
   ],
   declarations: [
     ...routedComponents,

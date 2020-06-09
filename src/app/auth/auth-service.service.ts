@@ -3,13 +3,13 @@ import { GoogleUser } from "../shared/user";
 import { auth } from 'firebase/app';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { Router } from "@angular/router";
+import { Router , CanActivate} from "@angular/router";
 import { Observable, throwError } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-
-export class AuthService {
+@Injectable()
+export class AuthService implements CanActivate{
   public userData: any; // Save logged in user data
 
   constructor(
@@ -109,7 +109,13 @@ export class AuthService {
       window.alert(error)
     })
   }
-
+  canActivate(): boolean {
+    if (!this.isLogged()) {
+      this.router.navigate(['auth/login']);
+      return false;
+    }
+    return true;
+  }
   /* Setting up user data when sign in with username/password,
   sign up with username/password and sign in with social auth
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */

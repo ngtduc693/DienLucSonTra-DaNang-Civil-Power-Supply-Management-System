@@ -1,4 +1,5 @@
-
+<nb-card   [nbSpinner]="tinhTrangTimKiem" nbSpinnerSize="large" nbSpinnerStatus="primary" nbSpinnerMessage="Đang chờ máy chủ CMIS của CPC phản hồi">  
+<nb-card-body>
 <div class="row">
   <div class="col-sm-12">
     <nb-card>
@@ -50,6 +51,8 @@
 
   </div>
 </div>
+</nb-card-body>
+</nb-card>
 <div class="row" *ngIf="ketQuaTimKiem">
   <div class="col-sm-12">
     <nb-card>
@@ -191,9 +194,7 @@
 
               <nb-card-body>
 
-                <angular-file-uploader
-                  [config]="afuConfig">
-                </angular-file-uploader>
+               
 
               </nb-card-body>
             </nb-card>

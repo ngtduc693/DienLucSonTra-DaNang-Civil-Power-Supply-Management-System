@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { TablesComponent } from './timkiem.component';
 import { TimKiemKhachHangComponent } from './khachhang/timkiemkhachhang.component';
 import { ThongTinTrenMayChuComponent } from './thongtintrenmaychu/thongtintrenmaychu.component';
-
+import { AuthService } from '../../auth/auth-service.service';
 const routes: Routes = [{
   path: '',
   component: TablesComponent,
@@ -12,10 +12,14 @@ const routes: Routes = [{
     {
       path: 'khachhang',
       component: TimKiemKhachHangComponent,
+      
+      canActivate: [AuthService]
     },
     {
       path: 'thongtintrenmaychu',
       component: ThongTinTrenMayChuComponent,
+      
+        canActivate: [AuthService]
     },
   ],
 }];

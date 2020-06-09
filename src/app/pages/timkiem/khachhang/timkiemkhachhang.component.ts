@@ -18,6 +18,7 @@ import {
   styleUrls: [".//timkiemkhachhang.component.scss"],
 })
 export class TimKiemKhachHangComponent {
+  tinhTrangTimKiem:boolean = false;
   chonNhomDichVu: string;
   tyLePhanTramHoacKwh: string;
   luaChonTimKiem: TimKiem;
@@ -304,24 +305,40 @@ export class TimKiemKhachHangComponent {
   }
   
   async onTimKiemKhachHang(duLieuTruyenVao) {
+    
+    this.tinhTrangTimKiem = false;
     this.ketQuaTimKiem_danhSachKhachHang = [];
     let modelSearch = duLieuTruyenVao.value;
+    console.log(modelSearch);
     let data: KhachhangSearchModel = {
       strMaDViQLy: ApiService.MaDonViQuanLy,
-      strGiaTriTimKiem: ApiService.MaDonViQuanLy + modelSearch.timKiemTheoMKH,
-      nLoaiTimKiem: modelSearch.timKiemTheoTuyChon == "chonMKH" ? 3 : 2,
+      strGiaTriTimKiem: modelSearch.timKiemTheoMKH != ""?modelSearch.timKiemTheoMKH : modelSearch.timKiemTheoMaTram != ""?modelSearch.timKiemTheoMaTram:modelSearch.timKiemTheoDiaChi,
+      nLoaiTimKiem: modelSearch.timKiemTheoTuyChon == "chonMKH" ? 3 : modelSearch.timKiemTheoTuyChon == "chonDiaChi"? 5: 2,
       bGetHetHLuc: false,
     };
+    this.tinhTrangTimKiem = true;
     await this.apiService
-      .onTimKiemKhachHang_Local(data)
-      .pipe(take(1))
-      .toPromise()
-      .then((resp) => {
-        const keys = resp.headers.keys();
-        for (const data of resp.body) {
-          this.ketQuaTimKiem_danhSachKhachHang.push(data);
-        }
-      });
+    .onTimKiemKhachHang(data)
+    .pipe(take(1))
+    .toPromise()
+    .then((resp) => {
+      console.log('Responsed data: ');
+      console.log(resp);
+      for (const data of resp) {
+        this.ketQuaTimKiem_danhSachKhachHang.push(data);
+      }
+      this.tinhTrangTimKiem = false;
+    }).catch(err => {console.log(err); this.tinhTrangTimKiem = false;});
+    // await this.apiService
+    //   .onTimKiemKhachHang(data)
+    //   .pipe(take(1))
+    //   .toPromise()
+    //   .then((resp) => {
+    //     const keys = resp.headers.keys();
+    //     for (const data of resp.body) {
+    //       this.ketQuaTimKiem_danhSachKhachHang.push(data);
+    //     }
+    //   });
     // this.apiService.onTimKiemKhachHang(data).subscribe((data:string)  => {
     //   let result = JSON.parse(data);
     //  // ketQuaTimKiem_danhSachKhachHang.push(result);
