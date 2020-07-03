@@ -35,7 +35,8 @@ import {
 } from '@nebular/theme';
 @NgModule({
   declarations: [AppComponent,
-    LoginComponent],
+    LoginComponent,
+    ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

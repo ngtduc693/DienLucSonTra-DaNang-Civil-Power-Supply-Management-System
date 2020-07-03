@@ -45,6 +45,24 @@
               </nb-card>
             </div>
           </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <nb-card>
+                <nb-card-header>
+                  3. Hình ảnh:
+                </nb-card-header>
+  
+                <nb-card-body>
+                  <ul>
+                    <li *ngFor="let img of item.DanhSachAnh">
+                      <a href="{{img}}" target="_blank">{{img}}</a>
+                    </li>
+                  </ul>
+
+                </nb-card-body>
+              </nb-card>
+            </div>
+          </div>
   
         </nb-accordion-item-body>
        </nb-accordion-item>

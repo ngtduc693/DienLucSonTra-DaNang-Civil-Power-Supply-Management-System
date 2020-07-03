@@ -8,7 +8,7 @@ import { HttpHeaders } from "@angular/common/http";
 import { TimKiemKhachHangComponent } from "../pages/timkiem/khachhang/timkiemkhachhang.component";
 import { Khachhang, KhachhangSearchModel } from "../shared/khachhang";
 import { Observable, throwError } from "rxjs";
-import { catchError, retry, takeUntil, take } from "rxjs/operators";
+import { catchError, retry, takeUntil, take, finalize } from "rxjs/operators";
 import { auth } from "firebase/app";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFireStorage, AngularFireStorageModule, AngularFireUploadTask, AngularFireStorageReference } from "@angular/fire/storage";
@@ -30,6 +30,8 @@ const httpOptions = {
   providedIn: "root",
 })
 export class ApiService {
+  public ref: AngularFireStorageReference;
+  public task: AngularFireUploadTask;
   public static MaDonViQuanLy: string = "PP0500";
   public api_timkiemkhachhang: string =
     "http://10.72.2.68/ServiceHopDong-HopDong-context-root/resources/serviceHopDong/timKiemKhachHang";
@@ -43,7 +45,7 @@ export class ApiService {
     public router: Router,
     public ngZone: NgZone,
     public userLogined: AuthService,
-    private storage: AngularFireStorage
+    public storage: AngularFireStorage
   ) // NgZone service to remove outside scope warning
   { }
   public async luuDuLieuLenMayChu(data) {
@@ -56,6 +58,11 @@ export class ApiService {
     return await this.afs.collection("Data").valueChanges().pipe(take(1)).toPromise();
 
   }
+  public async layDuLieuAnhTuMayChu(makhachhang:string){
+      var listRef  = this.storage.ref('uploads/' + makhachhang);
+       return  await listRef.listAll().pipe(take(1)).toPromise();
+  }
+  
   // public async taiTepLenFirebase() {
   //   const task = this.storage.upload("","");
   //   task
@@ -112,4 +119,7 @@ export class ApiService {
     // return an observable with a user-facing error message
     return throwError("Something bad happened; please try again later.");
   }
+ 
+
+  
 }

@@ -4,7 +4,7 @@ import { TimKiem, DuLieuKhachHang } from "../timkiem";
 import { SmartTableData } from "../../../@core/data/smart-table";
 import { Khachhang, KhachhangSearchModel } from "../../../shared/khachhang";
 import { ApiService } from "../../../shared/api.service";
-import { take } from "rxjs/operators";
+import { take, finalize } from "rxjs/operators";
 import { AnyARecord } from "dns";
 import { NbToastrService } from "@nebular/theme";
 import { AuthService } from '../../../auth/auth-service.service';
@@ -12,6 +12,7 @@ import {
   CapDienNhomDichVu,
   LoaiNhomDichVu,
 } from "../../../shared/capdiennhomdichvu";
+import { Observable } from 'rxjs';
 @Component({
   selector: "ngx-smart-table",
   templateUrl: ".//timkiemkhachhang.component.html",
@@ -434,4 +435,26 @@ export class TimKiemKhachHangComponent {
   onSelectConfirm(event): void {
     this.luaChonKhachHang = event.data;
   }
+  //#region Upload File
+  
+  uploadState: Observable<string>;
+  uploadProgress: Observable<number>;
+  downloadURL: Observable<string>;
+  upload(event) {
+    const id = Math.random().toString(36).substring(2);
+    var path = 'uploads/' + this.luaChonKhachHang.MA_KHANG + '/';
+    this.apiService.ref = this.apiService.storage.ref(path + id);
+    this.apiService.task = this.apiService.ref.put(event.target.files[0]);
+    this.uploadProgress = this.apiService.task.percentageChanges();
+    this.apiService.task.snapshotChanges().pipe(
+      
+      finalize(() => {
+        console.log(event.target.files[0]);
+        this.downloadURL = this.apiService.storage.ref(path + id).getDownloadURL();
+
+      }
+       ))   
+  .subscribe();
+    }
+  //#endregion
 }

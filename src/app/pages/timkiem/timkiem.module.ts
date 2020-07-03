@@ -10,6 +10,7 @@ import {
 } from "@nebular/theme";
 import { AngularFileUploaderModule } from "angular-file-uploader";
 
+
 import { NgModule, ChangeDetectionStrategy } from "@angular/core";
 import {
   NbCardModule,
@@ -57,7 +58,8 @@ import { ThongTinTrenMayChuComponent } from './thongtintrenmaychu/thongtintrenma
     NbToastrModule.forRoot(),
     NbAccordionModule,
     AngularFileUploaderModule,
-    NbSpinnerModule
+    NbSpinnerModule,
+    
   ],
   declarations: [
     ...routedComponents,

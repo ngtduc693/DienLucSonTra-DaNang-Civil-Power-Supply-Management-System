@@ -96,10 +96,12 @@ export class KhachHangModelResult{
     MaKhachHang: string;
     MucDichSuDungDien: any[];
     CongSuatSuDungDien: any[];
-    constructor(makhachhang:string, mucdichsudung:any[], congsuatsudung: any[])
+    DanhSachAnh: any[];
+    constructor(makhachhang:string, mucdichsudung:any[], congsuatsudung: any[], danhsachanh: any[])
     {
         this.MaKhachHang = makhachhang;
         this.MucDichSuDungDien = mucdichsudung;
         this.CongSuatSuDungDien = congsuatsudung;
+        this.DanhSachAnh = danhsachanh;
     }
 }
