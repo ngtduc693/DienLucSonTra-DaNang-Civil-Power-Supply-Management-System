@@ -88,7 +88,7 @@ export class AuthService implements CanActivate{
   public layUserDaDangNhap():string{
     
     const user = JSON.parse(localStorage.getItem('user'));
-    return (user !== null && user.emailVerified !== false) ? user.uid : null;
+    return (user !== null && user.emailVerified !== false) ? user.displayName : null;
   }
   userLoggedIn()
   {

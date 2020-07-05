@@ -1,0 +1,72 @@
+<div class="row" *ngIf="trangThaiLayDuLieu">
+    <div class="col-sm-12" *ngIf="trangThaiLayDuLieu == success" >
+      <nb-alert status="success" closable="true">
+        Lấy dữ liệu thành công
+      </nb-alert>
+    </div>
+    <div class="col-sm-12" *ngIf="trangThaiLayDuLieu == warning">
+      <nb-alert status="warning" closable="true">
+        Lấy dữ liệu thất bại
+      </nb-alert>
+    </div>
+  </div>
+  <div class="row" *ngIf="duLieuMDSHKHTrenServer">
+    <div class="col-sm-12">
+      <nb-accordion multi=true>
+        <nb-accordion-item  *ngFor="let item of duLieuMDSHKHTrenServer"  expanded=true>
+          <nb-accordion-item-header>Khách hàng: {{item.MaKhachHang}}</nb-accordion-item-header>
+          <nb-accordion-item-body>
+            <div class="row">
+              <div class="col-sm-12">
+                <nb-card>
+                  <nb-card-header>
+                    1. Công suất sử dụng điện theo từng mục đích:
+                  </nb-card-header>
+    
+                  <nb-card-body>
+                    <ng2-smart-table [settings]="settingsCongSuatSuDungDien" [source]="item.CongSuatSuDungDien">
+                    </ng2-smart-table>
+                  </nb-card-body>
+                </nb-card>
+              </div>
+            </div>
+    
+            <div class="row">
+              <div class="col-sm-12">
+                <nb-card>
+                  <nb-card-header>
+                    2. Tỷ lệ giá bán điện:
+                  </nb-card-header>
+    
+                  <nb-card-body>
+                    <ng2-smart-table [settings]="settingsTyLeGiaBanDien" [source]="item.MucDichSuDungDien">
+                    </ng2-smart-table>
+                  </nb-card-body>
+                </nb-card>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <nb-card>
+                  <nb-card-header>
+                    3. Hình ảnh:
+                  </nb-card-header>
+    
+                  <nb-card-body>
+                    <ul>
+                      <li *ngFor="let img of item.DanhSachAnh">
+                        <a href="{{img}}" target="_blank">{{img}}</a>
+                      </li>
+                    </ul>
+  
+                  </nb-card-body>
+                </nb-card>
+              </div>
+            </div>
+    
+          </nb-accordion-item-body>
+         </nb-accordion-item>
+        </nb-accordion>
+    </div>
+  </div>
+  

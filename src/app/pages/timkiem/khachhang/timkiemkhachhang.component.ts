@@ -13,6 +13,7 @@ import {
   LoaiNhomDichVu,
 } from "../../../shared/capdiennhomdichvu";
 import { Observable } from 'rxjs';
+import { getLocaleDateTimeFormat } from '@angular/common';
 @Component({
   selector: "ngx-smart-table",
   templateUrl: ".//timkiemkhachhang.component.html",
@@ -405,6 +406,7 @@ export class TimKiemKhachHangComponent {
                 TyLeGiaBanDien: tyLeGBD,
               },
               NTL: this.userLogin.layUserDaDangNhap(),
+              THOIDIEMTAO: new Date().toLocaleDateString(),
             };
             this.apiService
               .luuDuLieuLenMayChu(JSON.stringify(duLieuTaiLen))
@@ -440,21 +442,25 @@ export class TimKiemKhachHangComponent {
   uploadState: Observable<string>;
   uploadProgress: Observable<number>;
   downloadURL: Observable<string>;
+  downloadURLList: string[] = [];
   upload(event) {
-    const id = Math.random().toString(36).substring(2);
-    var path = 'uploads/' + this.luaChonKhachHang.MA_KHANG + '/';
-    this.apiService.ref = this.apiService.storage.ref(path + id);
-    this.apiService.task = this.apiService.ref.put(event.target.files[0]);
-    this.uploadProgress = this.apiService.task.percentageChanges();
-    this.apiService.task.snapshotChanges().pipe(
-      
-      finalize(() => {
-        console.log(event.target.files[0]);
-        this.downloadURL = this.apiService.storage.ref(path + id).getDownloadURL();
-
-      }
-       ))   
-  .subscribe();
+    this.downloadURLList = [];
+    for(let file of event.target.files){
+      const id = Math.random().toString(36).substring(2);
+      var path = 'uploads/' + this.luaChonKhachHang.MA_KHANG + '/';
+      this.apiService.ref = this.apiService.storage.ref(path + id);
+      this.apiService.task = this.apiService.ref.put(file);
+      this.uploadProgress = this.apiService.task.percentageChanges();
+      this.apiService.task.snapshotChanges().pipe(
+        
+        finalize(() => {
+          console.log(file);
+          this.downloadURL = this.apiService.storage.ref(path + id).getDownloadURL();
+        }
+         ))
+    .subscribe();
+    
     }
+  }
   //#endregion
 }

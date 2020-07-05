@@ -105,3 +105,16 @@ export class KhachHangModelResult{
         this.DanhSachAnh = danhsachanh;
     }
 }
+export class KhachHangModel{
+    MA_KHANG: string;
+    THOIDIEMTAO:string;
+    NGUOITAO:string;
+    CHITIET:string;
+    constructor(makhachhang:string,thoidiemtao:string,nguoitao:string)
+    {
+        this.MA_KHANG = makhachhang;
+        this.THOIDIEMTAO = thoidiemtao;
+        this.NGUOITAO = nguoitao;
+        this.CHITIET = '<a target="_black" href="/pages/timkiem/laythongtinkhachang/' + makhachhang + '"><i class="fa fa-search-plus" aria-hidden="true"></i></a>';
+    }
+};

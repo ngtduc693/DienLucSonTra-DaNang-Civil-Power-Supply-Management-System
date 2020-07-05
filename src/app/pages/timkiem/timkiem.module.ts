@@ -6,7 +6,8 @@ import {
   NbRadioModule,
   NbSelectModule,
   NbUserModule,
-  NbToastrModule
+  NbToastrModule,
+  NbWindowModule
 } from "@nebular/theme";
 import { AngularFileUploaderModule } from "angular-file-uploader";
 
@@ -20,6 +21,7 @@ import {
   NbAlertModule,
   NbAccordionModule,
   NbSpinnerModule ,
+  
 } from "@nebular/theme";
 import { Ng2SmartTableModule } from "ng2-smart-table";
 import { ThemeModule } from "../../@theme/theme.module";
@@ -35,6 +37,7 @@ import { DatepickerComponent } from "./../forms/datepicker/datepicker.component"
 import { ButtonsComponent } from "./../forms/buttons/buttons.component";
 import { FormsModule as ngFormsModule } from "@angular/forms";
 import { ThongTinTrenMayChuComponent } from './thongtintrenmaychu/thongtintrenmaychu.component';
+import { LaythongtinkhachangComponent } from './laythongtinkhachang/laythongtinkhachang.component';
 
 @NgModule({
   imports: [
@@ -59,7 +62,7 @@ import { ThongTinTrenMayChuComponent } from './thongtintrenmaychu/thongtintrenma
     NbAccordionModule,
     AngularFileUploaderModule,
     NbSpinnerModule,
-    
+    NbWindowModule 
   ],
   declarations: [
     ...routedComponents,
@@ -69,6 +72,7 @@ import { ThongTinTrenMayChuComponent } from './thongtintrenmaychu/thongtintrenma
     FormInputsComponent,
     FormLayoutsComponent,
     DatepickerComponent,
+    LaythongtinkhachangComponent,
     
   ],
 })

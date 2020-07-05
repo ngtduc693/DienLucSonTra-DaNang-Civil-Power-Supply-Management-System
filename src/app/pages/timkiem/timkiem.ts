@@ -8,6 +8,7 @@ export interface DuLieuKhachHang {
     MKH:string,
     DULIEUCHITIET:DuLieuKhachHangChiTiet,
     NTL:string,
+    THOIDIEMTAO: string,
 }
 export interface DuLieuKhachHangChiTiet {
     CongSuatSD : string[],

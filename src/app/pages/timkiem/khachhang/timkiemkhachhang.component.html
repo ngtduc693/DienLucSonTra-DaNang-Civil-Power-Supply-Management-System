@@ -195,23 +195,22 @@
               </nb-card-header>
 
               <nb-card-body>
-                <input type="file" (change)="upload($event)" accept=".png,.jpg" />
+                <input type="file" multiple="multiple" (change)="upload($event)" accept=".png,.jpg" />
                 <div class="progress">
                   <div class="progress-bar progress-bar-striped bg-success" role="progressbar"
                     [style.width]="(uploadProgress | async) + '%'" [attr.aria-valuenow]="(uploadProgress | async)"
                     aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
-                <div *ngIf="downloadURL | async; let downloadSrc" class="alert alert-info" role="alert">
-                  Tệp đã tải lên: <a [href]="downloadSrc">{{downloadSrc}}</a>
-                </div>
-                <br>
                 <div class="btn-group" role="group" *ngIf="uploadState | async; let state">
                   <button type="button" class="btn btn-primary" (click)="task.pause()"
                     [disabled]="state === 'paused'">Tạm ngừng</button>
                   <button type="button" class="btn btn-primary" (click)="task.cancel()"
-                    [disabled]="!(state === 'paused' || state === 'running')">Cancel</button>
+                    [disabled]="!(state === 'paused' || state === 'running')">Hủy</button>
                   <button type="button" class="btn btn-primary" (click)="task.resume()"
                     [disabled]="state === 'running'">Tiếp tục</button>
+                </div>
+                <div *ngIf="downloadURL | async; let uploadFilesList" class="alert alert-info" role="alert">
+                  Hoàn tất tải lên các tệp
                 </div>
               </nb-card-body>
             </nb-card>

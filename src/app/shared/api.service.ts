@@ -58,6 +58,10 @@ export class ApiService {
     return await this.afs.collection("Data").valueChanges().pipe(take(1)).toPromise();
 
   }
+  public async layDuLieuKhachHangTuMayChu(makhachhang:string) {
+    return await this.afs.collection("Data").doc(makhachhang).valueChanges().pipe(take(1)).toPromise();
+
+  }
   public async layDuLieuAnhTuMayChu(makhachhang:string){
       var listRef  = this.storage.ref('uploads/' + makhachhang);
        return  await listRef.listAll().pipe(take(1)).toPromise();
