@@ -1,14 +1,14 @@
 import { NbMenuItem } from '@nebular/theme';
 
 export const MENU_ITEMS: NbMenuItem[] = [
-  {
-    title: 'Tài khoản',
-    group: true,
-  },
-  {
-    title: 'Quản lý',
-    icon: 'lock-outline',
-    children: [
+  // {
+  //   title: 'Tài khoản',
+  //   group: true,
+  // },
+  // {
+  //   title: 'Quản lý',
+  //   icon: 'lock-outline',
+  //   children: [
       // {
       //   title: 'Login',
       //   link: '/auth/login',
@@ -21,12 +21,12 @@ export const MENU_ITEMS: NbMenuItem[] = [
       //   title: 'Request Password',
       //   link: '/auth/request-password',
       // },
-      {
-        title: 'Thay đổi mật khẩu',
-        link: '/auth/reset-password',
-      },
-    ],
-  },
+  //     {
+  //       title: 'Thay đổi mật khẩu',
+  //       link: '/auth/reset-password',
+  //     },
+  //   ],
+  // },
   {
     title: 'Nghiệp vụ',
     group: true,

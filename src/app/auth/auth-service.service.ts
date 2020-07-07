@@ -4,14 +4,17 @@ import { auth } from 'firebase/app';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router , CanActivate} from "@angular/router";
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, Subject } from 'rxjs';
+import { of as observableOf } from 'rxjs';
+import { debug } from 'console';
+
 @Injectable({
   providedIn: 'root'
 })
 @Injectable()
 export class AuthService implements CanActivate{
   public userData: any; // Save logged in user data
-
+  public userDataOb: Subject<any> = new Subject<any>();
   constructor(
     public afs: AngularFirestore,   // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
@@ -22,7 +25,9 @@ export class AuthService implements CanActivate{
     logged in and setting up null when logged out */
     this.afAuth.authState.subscribe(user => {
       if (user) {
+        debugger;
         this.userData = user;
+        this.userDataOb.next(this.userData);
         localStorage.setItem('user', JSON.stringify(this.userData));
         JSON.parse(localStorage.getItem('user'));
       } else {
@@ -90,12 +95,13 @@ export class AuthService implements CanActivate{
     const user = JSON.parse(localStorage.getItem('user'));
     return (user !== null && user.emailVerified !== false) ? user.displayName : null;
   }
+
   userLoggedIn()
   {
       if (this.isLogged())
         return this.userData;
       else
-        this.router.navigate(['pages/timkiem']);
+        this.router.navigate(['auth/login']);
   }
   // Sign in with Google
   GoogleAuth() {
@@ -132,7 +138,9 @@ export class AuthService implements CanActivate{
       displayName: user.displayName,
       photoURL: user.photoURL,
       emailVerified: user.emailVerified
-    }
+    };
+    this.userData = userData;
+    this.userDataOb.next(this.userData);
     return userRef.set(userData, {
       merge: true
     })
@@ -142,7 +150,7 @@ export class AuthService implements CanActivate{
   SignOut() {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
-      this.router.navigate(['login']);
+      this.router.navigate(['auth/login']);
     })
   }
 

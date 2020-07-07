@@ -6,103 +6,106 @@
  * Licensed under the MIT License. See License.txt in the project root for license information.
  */
 
- :host {
-    display: block;
-    width: 100%;
-    max-width: 35rem;
-  
-    ::ng-deep {
-      form {
-        width: 100%;
+:host {
+  display: block;
+  width: 100%;
+  max-width: 35rem;
+
+  ::ng-deep {
+    form {
+      width: 100%;
+    }
+
+    .label {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .forgot-password {
+      text-decoration: none;
+      margin-bottom: 0.5rem;
+    }
+
+    .caption {
+      margin-top: 0.5rem;
+    }
+
+    .alert {
+      text-align: center;
+    }
+
+    .title {
+      margin-top: 0;
+      margin-bottom: 0.75rem;
+      text-align: center;
+    }
+
+    .sub-title {
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .form-control-group {
+      margin-bottom: 2rem;
+    }
+
+    .form-control-group.accept-group {
+      display: flex;
+      justify-content: space-between;
+      margin: 2rem 0;
+    }
+
+    .label-with-link {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .links {
+      text-align: center;
+      margin-top: 1.75rem;
+
+      .socials {
+        margin-top: 1.5rem;
       }
-  
-      .label {
-        display: block;
-        margin-bottom: 0.5rem;
-      }
-  
-      .forgot-password {
+
+      .socials a {
+        margin: 0 1rem;
         text-decoration: none;
-        margin-bottom: 0.5rem;
-      }
-  
-      .caption {
-        margin-top: 0.5rem;
-      }
-  
-      .alert {
-        text-align: center;
-      }
-  
-      .title {
-        margin-top: 0;
-        margin-bottom: 0.75rem;
-        text-align: center;
-      }
-  
-      .sub-title {
-        margin-bottom: 2rem;
-        text-align: center;
-      }
-  
-      .form-control-group {
-        margin-bottom: 2rem;
-      }
-  
-      .form-control-group.accept-group {
-        display: flex;
-        justify-content: space-between;
-        margin: 2rem 0;
-      }
-  
-      .label-with-link {
-        display: flex;
-        justify-content: space-between;
-      }
-  
-      .links {
-        text-align: center;
-        margin-top: 1.75rem;
-  
-        .socials {
-          margin-top: 1.5rem;
-        }
-  
-        .socials a {
-          margin: 0 1rem;
-          text-decoration: none;
-          vertical-align: middle;
-  
-          &.with-icon {
-            font-size: 2rem;
-          }
-        }
-      }
-  
-      .another-action {
-        margin-top: 2rem;
-        text-align: center;
-      }
-  
-      .sign-in-or-up {
-        margin-top: 2rem;
-        display: flex;
-        justify-content: space-between;
-      }
-  
-      nb-alert {
-        .alert-title,
-        .alert-message {
-          margin: 0 0 0.5rem;
-        }
-        .alert-message-list {
-          list-style-type: none;
-          padding: 0;
-          margin: 0;
+        vertical-align: middle;
+
+        &.with-icon {
+          font-size: 2rem;
         }
       }
     }
-    $auth-layout-padding: 2.5rem;
+
+    .another-action {
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    .sign-in-or-up {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    nb-alert {
+
+      .alert-title,
+      .alert-message {
+        margin: 0 0 0.5rem;
+      }
+
+      .alert-message-list {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+      }
+    }
+  }
+
+  $auth-layout-padding: 2.5rem;
 
   nb-card {
     margin: 0;
@@ -131,6 +134,52 @@
   nb-auth-block {
     margin: auto;
   }
+  $white: #fff;
+  $google-blue: #4285f4;
+  $button-active-blue: #1669F2;
+  .googlebtn {
+    width: 250px;
+    height: 42px;
+    background-color: $google-blue;
+    border-radius: 2px;
+    box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .25);
+
+    .google-icon-wrapper {
+      position: absolute;
+      margin-top: 1px;
+      margin-left: 1px;
+      width: 40px;
+      height: 40px;
+      border-radius: 2px;
+      background-color: $white;
+    }
+
+    .google-icon {
+      position: absolute;
+      margin-top: 11px;
+      margin-left: 11px;
+      width: 18px;
+      height: 18px;
+    }
+
+    .btn-text {
+      float: right;
+      margin: 11px 11px 0 0;
+      color: $white;
+      font-size: 14px;
+      letter-spacing: 0.2px;
+      font-family: "Roboto";
+    }
+
+    &:hover {
+      box-shadow: 0 0 6px $google-blue;
+    }
+
+    &:active {
+      background: $button-active-blue;
+    }
+  }
+
 
   @include media-breakpoint-down(sm) {
     nb-card {
@@ -148,5 +197,4 @@
       }
     }
   }
-  }
-  
+}

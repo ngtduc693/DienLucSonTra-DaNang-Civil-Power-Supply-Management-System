@@ -1,9 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NbMediaBreakpointsService, NbMenuService, NbSidebarService, NbThemeService } from '@nebular/theme';
-
 import { UserData } from '../../../@core/data/users';
 import { LayoutService } from '../../../@core/utils';
-import { map, takeUntil } from 'rxjs/operators';
+import { map, takeUntil, take } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { AuthService } from '../../../auth/auth-service.service';
 @Component({
@@ -38,8 +37,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   currentTheme = 'default';
 
-  userMenu = [ { title: 'Thông tin' }, { title: 'Đăng xuất' } ];
-
   constructor(private sidebarService: NbSidebarService,
               private menuService: NbMenuService,
               private themeService: NbThemeService,
@@ -59,7 +56,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     //   console.log(resp);
     //   this.user = resp.body
     // })
-    //await this.userAuthService.userLoggedIn().pipe(takeUntil(this.destroy$)).subscribe((users: any) => this.user= users);
+    this.userAuthService.userDataOb.pipe(takeUntil(this.destroy$)).subscribe((users: any) => {console.log(users); this.user= users});
+    //this.userAuthService.userLoggedInObs().pipe(takeUntil(this.destroy$)).subscribe((users: any) => {debugger; console.log(users); this.user= users});
+      //.subscribe((users: any) => this.user= users);
     ;
     const { xl } = this.breakpointService.getBreakpointsMap();
     this.themeService.onMediaQueryChange()
@@ -96,5 +95,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   navigateHome() {
     this.menuService.navigateHome();
     return false;
+  }
+  SignOut(){
+    this.userAuthService.SignOut();
   }
 }

@@ -13,17 +13,16 @@
 <div class="header-container">
   <nb-actions size="small">
 
-    <nb-action class="control-item">
-      <nb-search type="rotate-layout"></nb-search>
-    </nb-action>
-    <nb-action class="control-item" icon="email-outline"></nb-action>
-    <nb-action class="control-item" icon="bell-outline"></nb-action>
+   
+   
     <nb-action class="user-action" *nbIsGranted="['view', 'user']" >
-      <nb-user [nbContextMenu]="userMenu"
-               [onlyPicture]="userPictureOnly"
+      <nb-user 
+                showName = true showTitle=true
                [name]="user?.displayName"
                [picture]="user?.photoURL">
       </nb-user>
     </nb-action>
+    
+    <nb-action class="control-item" icon="power-outline" (click)="SignOut()"></nb-action>
   </nb-actions>
 </div>
