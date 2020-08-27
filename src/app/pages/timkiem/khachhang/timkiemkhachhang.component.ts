@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { LocalDataSource } from "ng2-smart-table";
 import { TimKiem, DuLieuKhachHang } from "../timkiem";
 import { SmartTableData } from "../../../@core/data/smart-table";
-import { Khachhang, KhachhangSearchModel } from "../../../shared/khachhang";
+import { Khachhang, KhachhangSearchModel, DanhMucMucDichModelResult, DanhMucCongSuatModelResult, DanhMucModelResult } from "../../../shared/khachhang";
 import { ApiService } from "../../../shared/api.service";
 import { take, finalize } from "rxjs/operators";
 import { AnyARecord } from "dns";
@@ -27,6 +27,10 @@ export class TimKiemKhachHangComponent {
   luaChonKhachHang: Khachhang;
   ketQuaTimKiem: Khachhang[];
   ketQuaTimKiem_danhSachKhachHang: Khachhang[] = [];
+  duLieuDanhMucTrenServer: any[];
+  duLieuTrenFireBase: any[];
+  duLieuTyLe: any[];
+  duLieuCongSuat: any[];
   ngOnInit() {}
   settingsTyLeGiaBanDien = {
     noDataMessage: "Chưa có dữ liệu",
@@ -81,7 +85,7 @@ export class TimKiemKhachHangComponent {
       },
     },
   };
-
+  chuoiGia:string;
   settingsCongSuatSuDungDien = {
     noDataMessage: "Chưa có dữ liệu",
     pager: {
@@ -110,17 +114,42 @@ export class TimKiemKhachHangComponent {
     columns: {
       MUC_DICH_SU_DUNG: {
         title: "Mục đích sử dụng",
-        type: "string",
-        filter: false,
+        type: "html",
+        editor: {
+          type: 'list', // Used to set dropdown list from database. 
+          config: {
+            list: [
+              { value: 'Kinh doanh', title: 'Kinh doanh' },
+              { value: 'Sinh hoạt', title: 'Sinh hoạt' },
+              { value: 'Sản xuất', title: 'Sản xuất' },
+              { value: 'Chiếu sáng', title: 'Chiếu sáng' },
+              { value: 'Cơ quan', title: 'Cơ quan' }
+            ],
+          },
+        },
+        filter: true
       },
       TEN_THIET_BI: {
         title: "Tên thiết bị",
-        type: "string",
-        filter: false,
+        type: "html",
+        editor: {
+          type: 'completer', // Used to set dropdown list from database. 
+          config: {
+            
+            
+            completer: {
+              data: this.duLieuCongSuat,
+              searchFields: 'TEN_THIET_BI',
+              titleField: 'TEN_THIET_BI',
+              descriptionField	: 'TEN_THIET_BI',
+            }
+          },
+        },
+        filter: true,
       },
-      DIEN_AP_SU_DUNG: {
-        title: "Điện áp sử dụng (V)	",
-        type: "string",
+      SO_LUONG: {
+        title: "Số lượng	",
+        type: "number",
         filter: false,
       },
       CONG_SUAT: {
@@ -128,8 +157,13 @@ export class TimKiemKhachHangComponent {
         type: "number",
         filter: false,
       },
-      SO_LUONG: {
-        title: "Số lượng	",
+      HE_SO: {
+        title: "Hệ số	",
+        type: "number",
+        filter: false,
+      },
+      SO_H_SU_DUNG: {
+        title: "Số giờ sử dụng	",
         type: "number",
         filter: false,
       },
@@ -304,7 +338,9 @@ export class TimKiemKhachHangComponent {
     private toastrService: NbToastrService,
     private userLogin: AuthService,
   ) {
+    this.LoadDuLieu();
     this.danhSachNhomDichVu = CapDienNhomDichVu.layDanhSachNhomDichVu();
+    
   }
   
   async onTimKiemKhachHang(duLieuTruyenVao) {
@@ -462,5 +498,56 @@ export class TimKiemKhachHangComponent {
     
     }
   }
+ 
   //#endregion
+  async LoadDuLieu() {
+    this.duLieuDanhMucTrenServer = [];
+    let ketQuaTraVeTuServer = [];
+    let duLieuTam_TyLe = [];
+    let duLieuTam_CongSuat = [];
+    await this.apiService.layDuLieuDanhMucTuMayChu('APP').then(result => {
+      console.log(result);
+      debugger;
+      ketQuaTraVeTuServer.push(result);
+      this.duLieuTrenFireBase = ketQuaTraVeTuServer;
+    });
+    this.duLieuTrenFireBase.forEach(async element => {
+      duLieuTam_TyLe = [];
+      duLieuTam_CongSuat = [];
+      let TLSDD: any;
+      let CSDD: any;
+      let MKH = 'APP';
+      element.DULIEUCHITIET.TyLeGiaBanDien.forEach(
+        element => {
+          TLSDD = new DanhMucMucDichModelResult(element.MUC_DICH_SU_DUNG_DIEN,            
+            element.GIO_BINH_THUONG,
+            element.GIO_CAO_DIEM,
+            element.GIO_THAP_DIEM);
+          duLieuTam_TyLe.push(TLSDD.layDuLieu());
+        }
+      );
+      element.DULIEUCHITIET.CongSuatSD.forEach(
+        element => {
+
+          CSDD = new DanhMucCongSuatModelResult(
+            element.TEN_THIET_BI,
+            element.DIEN_AP_SU_DUNG,
+            element.CONG_SUAT
+
+          );
+          duLieuTam_CongSuat.push(CSDD.layDuLieu());
+        });        
+       
+        this.duLieuCongSuat = duLieuTam_CongSuat;
+        this.duLieuTyLe = duLieuTam_TyLe;
+
+     
+        console.log('1. Ty le: ');
+        console.log(this.duLieuTyLe );
+        console.log('2. Cong suat: ');
+        console.log(this.duLieuCongSuat );
+
+     
+    });
+  }
 }

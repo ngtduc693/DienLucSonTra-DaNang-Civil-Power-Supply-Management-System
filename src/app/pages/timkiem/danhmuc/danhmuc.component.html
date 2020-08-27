@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="col-sm-12">
+    <nb-card>
+      <nb-card-header>
+        Danh mục 1: Công suất sử dụng điện theo từng mục đích
+      </nb-card-header>
+
+      <nb-card-body>
+        <ng2-smart-table [settings]="settingsCongSuatSuDungDien" [source]="sourceCongSuatSuDungDien"
+          (deleteConfirm)="onDeleteConfirm($event)">
+        </ng2-smart-table>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+
+<div class="row" >
+  <div class="col-sm-12">
+    <nb-card>
+      <nb-card-header>
+        Danh mục 2: Tỷ lệ giá bán điện
+      </nb-card-header>
+
+      <nb-card-body>
+
+        
+
+
+        <ng2-smart-table [settings]="settingsTyLeGiaBanDien" [source]="sourceTyLeGiaBanDien"
+          (deleteConfirm)="onDeleteConfirm($event)">
+        </ng2-smart-table>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+
+
+<div class="row" >
+  <div class="col-sm-12">
+    <nb-card>
+      <nb-card-header>
+        Xác nhận lưu?
+      </nb-card-header>
+      <nb-card-body>
+        <button fullWidth nbButton status="info" (click)="onLuuDuLieuClicked()">
+          <nb-icon icon="save-outline"></nb-icon>Lưu dữ liệu
+        </button>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

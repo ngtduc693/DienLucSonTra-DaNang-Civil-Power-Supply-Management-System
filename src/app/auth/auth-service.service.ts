@@ -25,7 +25,7 @@ export class AuthService implements CanActivate{
     logged in and setting up null when logged out */
     this.afAuth.authState.subscribe(user => {
       if (user) {
-        debugger;
+       
         this.userData = user;
         this.userDataOb.next(this.userData);
         localStorage.setItem('user', JSON.stringify(this.userData));
@@ -113,7 +113,7 @@ export class AuthService implements CanActivate{
     return this.afAuth.signInWithPopup(provider)
     .then((result) => {
        this.ngZone.run(() => {
-          this.router.navigate(['pages/timkiem/khachhang']);
+          this.router.navigate(['pages/timkiem']);
         })
       this.SetUserData(result.user);
     }).catch((error) => {
@@ -143,7 +143,8 @@ export class AuthService implements CanActivate{
     this.userDataOb.next(this.userData);
     return userRef.set(userData, {
       merge: true
-    })
+    });
+    
   }
 
   // Sign out

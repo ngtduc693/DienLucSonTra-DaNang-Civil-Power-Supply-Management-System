@@ -54,12 +54,22 @@ export class ApiService {
       .doc(JSON.parse(data).MKH)
       .set(JSON.parse(data));
   }
+  public async luuDuLieuDanhMucLenMayChu(data) {
+    await this.afs
+      .collection("DanhMuc")
+      .doc(JSON.parse(data).MKH)
+      .set(JSON.parse(data));
+  }
   public async layDuLieuTuMayChu() {
     return await this.afs.collection("Data").valueChanges().pipe(take(1)).toPromise();
 
   }
   public async layDuLieuKhachHangTuMayChu(makhachhang:string) {
     return await this.afs.collection("Data").doc(makhachhang).valueChanges().pipe(take(1)).toPromise();
+
+  }
+  public async layDuLieuDanhMucTuMayChu(makhachhang:string) {
+    return await this.afs.collection("DanhMuc").doc(makhachhang).valueChanges().pipe(take(1)).toPromise();
 
   }
   public async layDuLieuAnhTuMayChu(makhachhang:string){

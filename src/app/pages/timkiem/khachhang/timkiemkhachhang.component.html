@@ -99,6 +99,18 @@
   </div>
 </div>
 
+<nb-card>
+  <nb-card-header>
+    1. Công suất sử dụng điện theo từng mục đích:
+  </nb-card-header>
+
+  <nb-card-body>
+    <ng2-smart-table [settings]="settingsCongSuatSuDungDien" [source]="sourceCongSuatSuDungDien"
+      (deleteConfirm)="onDeleteConfirm($event)">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>
+
 <div class="row" *ngIf="luaChonKhachHang">
   <div class="col-sm-12">
     <nb-card>
@@ -108,7 +120,7 @@
         {{luaChonKhachHang.SO_COT}}
       </nb-card-header>
       <nb-card-body>
-
+        
         <div class="row" *ngIf="luaChonKhachHang">
           <div class="col-sm-12">
             <nb-card>

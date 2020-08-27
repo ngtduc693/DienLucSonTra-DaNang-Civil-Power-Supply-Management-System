@@ -33,9 +33,11 @@ import {
   NbToastrModule,
   NbWindowModule,
 } from '@nebular/theme';
+import { DanhmucComponent } from './pages/timkiem/danhmuc/danhmuc.component';
 @NgModule({
   declarations: [AppComponent,
     LoginComponent,
+    
     ],
   imports: [
     BrowserModule,

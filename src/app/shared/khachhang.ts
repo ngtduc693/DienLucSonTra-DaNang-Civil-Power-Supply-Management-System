@@ -41,6 +41,27 @@ export interface KhachhangSearchModel {
     strGiaTriTimKiem: string;
     bGetHetHLuc:boolean;
 }
+export class DanhMucMucDichModelResult{
+    MUC_DICH_SU_DUNG_DIEN: string;
+    GIO_BINH_THUONG: string;
+    GIO_CAO_DIEM: string;
+    GIO_THAP_DIEM:string;
+    constructor(mucdich:string,giobinhthuong:string,giocaodiem:string,giothapdiem:string){
+        this.MUC_DICH_SU_DUNG_DIEN = mucdich;
+        this.GIO_BINH_THUONG = giobinhthuong;
+        this.GIO_CAO_DIEM = giocaodiem;
+        this.GIO_THAP_DIEM = giothapdiem;
+    }
+    public layDuLieu(){
+        return{
+            MUC_DICH_SU_DUNG_DIEN: this.MUC_DICH_SU_DUNG_DIEN,
+            GIO_BINH_THUONG: this.GIO_BINH_THUONG,
+            GIO_CAO_DIEM: this.GIO_CAO_DIEM,
+            GIO_THAP_DIEM: this.GIO_THAP_DIEM,
+        }
+
+    }
+}
 export class KhachHangMDSDDModelResult{
     MUC_DICH_SU_DUNG_DIEN: string;
     TY_LE: string;
@@ -61,6 +82,21 @@ export class KhachHangMDSDDModelResult{
             GIO_BINH_THUONG: this.GIO_BINH_THUONG,
             GIO_CAO_DIEM: this.GIO_CAO_DIEM,
             GIO_THAP_DIEM: this.GIO_THAP_DIEM,
+        }
+
+    }
+}
+export class DanhMucCongSuatModelResult{
+    TEN_THIET_BI: string;
+    CONG_SUAT: number;
+    constructor(tenthietbi:string,dienap:string,congsuat:number){
+        this.TEN_THIET_BI = tenthietbi;
+        this.CONG_SUAT = congsuat;
+    }
+    public layDuLieu(){
+        return{
+            TEN_THIET_BI: this.TEN_THIET_BI,
+            CONG_SUAT: this.CONG_SUAT,
         }
 
     }
@@ -90,6 +126,18 @@ export class KhachHangCSSDDModelResult{
             TONG_SO: this.TONG_SO,
         }
 
+    }
+}
+export class DanhMucModelResult{
+    MaKhachHang: string;
+    MucDichSuDungDien: any[];
+    CongSuatSuDungDien: any[];
+    DanhSachAnh: any[];
+    constructor(makhachhang:string, mucdichsudung:any[], congsuatsudung: any[])
+    {
+        this.MaKhachHang = makhachhang;
+        this.MucDichSuDungDien = mucdichsudung;
+        this.CongSuatSuDungDien = congsuatsudung;
     }
 }
 export class KhachHangModelResult{

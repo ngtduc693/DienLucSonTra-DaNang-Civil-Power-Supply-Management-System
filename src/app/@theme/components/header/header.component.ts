@@ -56,7 +56,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     //   console.log(resp);
     //   this.user = resp.body
     // })
-    this.userAuthService.userDataOb.pipe(takeUntil(this.destroy$)).subscribe((users: any) => {console.log(users); this.user= users});
+    this.userAuthService.userDataOb.subscribe((users: any) => { debugger; console.log(users); this.user= users});
     //this.userAuthService.userLoggedInObs().pipe(takeUntil(this.destroy$)).subscribe((users: any) => {debugger; console.log(users); this.user= users});
       //.subscribe((users: any) => this.user= users);
     ;
