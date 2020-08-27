@@ -507,7 +507,6 @@ export class TimKiemKhachHangComponent {
     let duLieuTam_CongSuat = [];
     await this.apiService.layDuLieuDanhMucTuMayChu('APP').then(result => {
       console.log(result);
-      debugger;
       ketQuaTraVeTuServer.push(result);
       this.duLieuTrenFireBase = ketQuaTraVeTuServer;
     });

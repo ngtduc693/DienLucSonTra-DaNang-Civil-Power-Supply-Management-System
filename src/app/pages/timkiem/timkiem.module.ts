@@ -75,7 +75,6 @@ import { Ng2CompleterModule } from '@akveo/ng2-completer';
     FormLayoutsComponent,
     DatepickerComponent,
     LaythongtinkhachangComponent,
-    
   ],
 })
 export class TimKiemKhachHangModule {}

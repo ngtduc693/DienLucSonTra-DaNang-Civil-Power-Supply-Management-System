@@ -7,6 +7,8 @@ import { ThongTinTrenMayChuComponent } from './thongtintrenmaychu/thongtintrenma
 import { AuthService } from '../../auth/auth-service.service';
 import { LaythongtinkhachangComponent } from './laythongtinkhachang/laythongtinkhachang.component';
 import { DanhmucComponent } from './danhmuc/danhmuc.component';
+import { BaocaoComponent } from './baocao/baocao.component';
+
 const routes: Routes = [{
   path: '',
   component: TablesComponent,
@@ -14,26 +16,32 @@ const routes: Routes = [{
     {
       path: 'khachhang',
       component: TimKiemKhachHangComponent,
-      
+
       canActivate: [AuthService]
     },
     {
       path: 'danhmuc',
       component: DanhmucComponent,
-      
+
       canActivate: [AuthService]
     },
     {
       path: 'thongtintrenmaychu',
       component: ThongTinTrenMayChuComponent,
-      
-        canActivate: [AuthService]
+
+      canActivate: [AuthService]
     },
     {
       path: 'laythongtinkhachang/:makhachhang',
       component: LaythongtinkhachangComponent,
-      
-        canActivate: [AuthService]
+
+      canActivate: [AuthService]
+    },
+    {
+      path: 'baocao',
+      component: BaocaoComponent,
+
+      canActivate: [AuthService]
     },
   ],
 }];
@@ -49,5 +57,6 @@ export const routedComponents = [
   TimKiemKhachHangComponent,
   ThongTinTrenMayChuComponent,
   LaythongtinkhachangComponent,
-  DanhmucComponent
+  DanhmucComponent,
+  BaocaoComponent,
 ];
