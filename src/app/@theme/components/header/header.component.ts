@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NbMediaBreakpointsService, NbMenuService, NbSidebarService, NbThemeService } from '@nebular/theme';
 import { UserData } from '../../../@core/data/users';
 import { LayoutService } from '../../../@core/utils';
-import { map, takeUntil, take } from 'rxjs/operators';
+import { map, takeUntil, take, first } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { AuthService } from '../../../auth/auth-service.service';
 @Component({
@@ -56,7 +56,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     //   console.log(resp);
     //   this.user = resp.body
     // })
-    this.userAuthService.userDataOb.subscribe((users: any) => { debugger; console.log(users); this.user= users});
+    this.user = this.userAuthService.userData;
+    this.userAuthService.userDataOb.pipe(first()).subscribe((users: any) => {
+      this.user = users;
+    });
     //this.userAuthService.userLoggedInObs().pipe(takeUntil(this.destroy$)).subscribe((users: any) => {debugger; console.log(users); this.user= users});
       //.subscribe((users: any) => this.user= users);
     ;

@@ -47,6 +47,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'Danh mục',
         link: '/pages/timkiem/danhmuc',
       },
+      {
+        title: 'Báo cáo',
+        link: '/pages/timkiem/baocao',
+      },
     ],
   // },
   // {
