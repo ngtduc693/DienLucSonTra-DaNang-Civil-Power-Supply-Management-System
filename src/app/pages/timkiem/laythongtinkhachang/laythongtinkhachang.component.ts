@@ -157,7 +157,6 @@ export class LaythongtinkhachangComponent{
     let duLieuTam_CongSuat = [];
     await this.apiService.layDuLieuKhachHangTuMayChu(makhachhang).then(result => {
       console.log(result);
-      debugger;
       ketQuaTraVeTuServer.push(result);
       this.duLieuTrenFireBase = ketQuaTraVeTuServer;
     });
