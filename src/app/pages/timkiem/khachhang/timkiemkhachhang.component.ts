@@ -14,6 +14,7 @@ import {
 } from "../../../shared/capdiennhomdichvu";
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { getLocaleDateTimeFormat } from '@angular/common';
+import { stringify } from 'querystring';
 @Component({
   selector: "ngx-smart-table",
   templateUrl: ".//timkiemkhachhang.component.html",
@@ -35,6 +36,7 @@ export class TimKiemKhachHangComponent {
   duLieuCongSuatAfterFetched: any[];
   chonNhomThietBi: any;
   chonNhomMucDich: any;
+  chuoiGia: string;
   ngOnInit() {
     this.LoadDuLieu();
     this.danhSachNhomDichVu = CapDienNhomDichVu.layDanhSachNhomDichVu();
@@ -117,7 +119,7 @@ export class TimKiemKhachHangComponent {
       },
     },
   };
-  chuoiGia:string;
+  
   settingsCongSuatSuDungDien = {
     noDataMessage: "Chưa có dữ liệu",
     pager: {
@@ -159,7 +161,7 @@ export class TimKiemKhachHangComponent {
             ],
           },
         },
-        filter: true
+        filter: false
       },
       TEN_THIET_BI: {
         title: "Tên thiết bị",
@@ -171,7 +173,7 @@ export class TimKiemKhachHangComponent {
             list: this.duLieuCongSuatAfterFetched
           },
         },
-        filter: true,
+        filter: false,
       },
       SO_LUONG: {
         title: "Số lượng	",
@@ -183,6 +185,8 @@ export class TimKiemKhachHangComponent {
         title: "Công suất (kW)	",
         type: "number",
         filter: false,
+        editable: false,
+        addable: false,
       },
       HE_SO: {
         title: "Hệ số	",
@@ -198,6 +202,8 @@ export class TimKiemKhachHangComponent {
         title: "Tổng số",
         type: "number",
         filter: false,
+        editable:false,
+        addable: false
       },
     },
   };
@@ -601,11 +607,14 @@ export class TimKiemKhachHangComponent {
      
     });
   }
-  onClickTinhToanCongSuat(){
+   onClickTinhToanCongSuat(){
+
     let CSSDD : any;
-    this.sourceCongSuatSuDungDien.getAll().then((data) => {
+    this.chuoiGia = "";
+    this.sourceCongSuatSuDungDien.getAll().then( (data) => {
       CSSDD = data;
-      CSSDD.forEach(item=>{
+      let TongSoDien: number = 0;
+       CSSDD.forEach(item=>{
         if (item.CONG_SUAT==='')
          {
            var newData = item;           
@@ -613,8 +622,16 @@ export class TimKiemKhachHangComponent {
             newData.CONG_SUAT = congSuat;
             newData.TONG_SO = newData.SO_LUONG * newData.CONG_SUAT * newData.HE_SO * newData.SO_H_SU_DUNG;
             this.sourceCongSuatSuDungDien.update(item,newData);
-         } 
-      })
+            TongSoDien += newData.TONG_SO;
+         }          
+      });
+      CSSDD.forEach((item,index)=>{
+        if (index==0)
+          this.chuoiGia += item.MUC_DICH_SU_DUNG + "*(" + Math.round(item.TONG_SO/  TongSoDien *100)  +"%)";
+        else
+          this.chuoiGia += "+" + item.MUC_DICH_SU_DUNG + "*(" + Math.round(item.TONG_SO/  TongSoDien *100)  +"%)";
+      });
+      
     });
     
     console.log();

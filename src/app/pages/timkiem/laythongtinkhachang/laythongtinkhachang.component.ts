@@ -21,6 +21,7 @@ export class LaythongtinkhachangComponent{
   luaChonKhachHang: Khachhang;
   ketQuaTimKiem: Khachhang[];
   ketQuaTimKiem_danhSachKhachHang: Khachhang[] = [];
+  chuoiGia: string;
   ngOnInit() {
   }
   settingsTyLeGiaBanDien = {
@@ -157,6 +158,8 @@ export class LaythongtinkhachangComponent{
     this.luaChonKhachHang = event.data;
   }
   async LoadDuLieu(makhachhang:string) {
+    this.chuoiGia = "";
+    let TongSoDien: number = 0;
     this.duLieuMDSHKHTrenServer = [];
     let ketQuaTraVeTuServer = [];
     let duLieuTam_TyLe = [];
@@ -183,7 +186,7 @@ export class LaythongtinkhachangComponent{
         }
       );
       element.DULIEUCHITIET.CongSuatSD.forEach(
-        element => {
+        (element,index) => {
 
           CSDD = new KhachHangCSSDDModelResult(
             element.MUC_DICH_SU_DUNG,
@@ -196,7 +199,19 @@ export class LaythongtinkhachangComponent{
 
           );
           duLieuTam_CongSuat.push(CSDD.layDuLieu());
+          TongSoDien += element.TONG_SO;
+           
+          
         });
+
+
+        element.DULIEUCHITIET.CongSuatSD.forEach(
+          (element,index) => {
+        if (index==0)
+        this.chuoiGia += element.MUC_DICH_SU_DUNG + "*(" + Math.round(element.TONG_SO/  TongSoDien *100)  +"%)";
+      else
+        this.chuoiGia += "+" + element.MUC_DICH_SU_DUNG + "*(" + Math.round(element.TONG_SO/  TongSoDien *100)  +"%)";
+          });
 
       await this.apiService.layDuLieuAnhTuMayChu(MKH).then(async res => {
         var listOfFiles = res.items.toString().split(',');
