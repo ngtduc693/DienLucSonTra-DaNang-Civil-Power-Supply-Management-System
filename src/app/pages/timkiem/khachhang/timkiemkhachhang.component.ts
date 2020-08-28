@@ -106,16 +106,22 @@ export class TimKiemKhachHangComponent {
         title: "Giờ B.thường",
         type: "number",
         filter: false,
+        editable:false,
+        addable: false
       },
       GIO_CAO_DIEM: {
         title: "Giờ cao điểm",
         type: "number",
         filter: false,
+        editable:false,
+        addable: false
       },
       GIO_THAP_DIEM: {
         title: "Giờ thấp điểm",
         type: "number",
         filter: false,
+        editable:false,
+        addable: false
       },
     },
   };
@@ -519,6 +525,8 @@ export class TimKiemKhachHangComponent {
           });
       });
   }
+
+ 
   private index: number = 0;
   showToast(position, status, message) {
     this.index += 1;
@@ -632,6 +640,28 @@ export class TimKiemKhachHangComponent {
           this.chuoiGia += "+" + item.MUC_DICH_SU_DUNG + "*(" + Math.round(item.TONG_SO/  TongSoDien *100)  +"%)";
       });
       
+    });
+    
+    console.log();
+  }
+
+  onClickTinhToanMDSDD(){
+
+    let CSSDD : any;
+    this.sourceTyLeGiaBanDien.getAll().then( (data) => {
+      CSSDD = data;
+       CSSDD.forEach(item=>{
+        debugger;
+           var newData = item;           
+            let BT = this.duLieuTyLeAfterFetched.find(m=>m.value===item.MUC_DICH_SU_DUNG_DIEN).valueBT;
+            let CD = this.duLieuTyLeAfterFetched.find(m=>m.value===item.MUC_DICH_SU_DUNG_DIEN).valueCD;
+            let TD = this.duLieuTyLeAfterFetched.find(m=>m.value===item.MUC_DICH_SU_DUNG_DIEN).valueTD;
+            newData.GIO_BINH_THUONG = BT;
+            newData.GIO_CAO_DIEM = CD;
+            newData.GIO_THAP_DIEM = TD;
+            this.sourceTyLeGiaBanDien.update(item,newData);
+                  
+      });
     });
     
     console.log();
