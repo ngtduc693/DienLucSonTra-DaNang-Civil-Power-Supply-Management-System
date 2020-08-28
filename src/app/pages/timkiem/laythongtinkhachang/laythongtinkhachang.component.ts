@@ -116,9 +116,10 @@ export class LaythongtinkhachangComponent{
         type: 'string',
         filter: false,
       },
-      DIEN_AP_SU_DUNG: {
-        title: 'Điện áp sử dụng (V)	',
-        type: 'string',
+      SO_LUONG: {
+        title: "Số lượng	",
+        type: "number",
+        
         filter: false,
       },
       CONG_SUAT: {
@@ -126,14 +127,19 @@ export class LaythongtinkhachangComponent{
         type: 'number',
         filter: false,
       },
-      SO_LUONG: {
-        title: 'Số lượng	',
-        type: 'number',
+      HE_SO: {
+        title: "Hệ số	",
+        type: "number",
+        filter: false,
+      },
+      SO_H_SU_DUNG: {
+        title: "Số giờ sử dụng	",
+        type: "number",
         filter: false,
       },
       TONG_SO: {
-        title: 'Tổng số',
-        type: 'number',
+        title: "Tổng số",
+        type: "number",
         filter: false,
       },
     },
@@ -182,9 +188,10 @@ export class LaythongtinkhachangComponent{
           CSDD = new KhachHangCSSDDModelResult(
             element.MUC_DICH_SU_DUNG,
             element.TEN_THIET_BI,
-            element.DIEN_AP_SU_DUNG,
             element.CONG_SUAT,
+            element.HE_SO,
             element.SO_LUONG,
+            element.SO_H_SU_DUNG,
             element.TONG_SO,
 
           );

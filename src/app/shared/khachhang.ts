@@ -104,26 +104,29 @@ export class DanhMucCongSuatModelResult{
 export class KhachHangCSSDDModelResult{
     MUC_DICH_SU_DUNG: string;
     TEN_THIET_BI: string;
-    DIEN_AP_SU_DUNG: string;
+    HE_SO: number;
+    SO_H_SU_DUNG: number;
     CONG_SUAT: number;
     SO_LUONG:number;
     TONG_SO:number;
-    constructor(mucdich:string,tenthietbi:string,dienap:string,congsuat:number,soluong:number,tongso:number){
+    constructor(mucdich:string,tenthietbi:string,congsuat:number,heso:number,soluong:number,sogiosudung:number,tongso:number){
         this.MUC_DICH_SU_DUNG = mucdich;
         this.TEN_THIET_BI = tenthietbi;
-        this.DIEN_AP_SU_DUNG = dienap;
-        this.CONG_SUAT = congsuat;
         this.SO_LUONG = soluong;
+        this.CONG_SUAT = congsuat;
+        this.HE_SO = heso;
+        this.SO_H_SU_DUNG = sogiosudung;
         this.TONG_SO = tongso;
     }
     public layDuLieu(){
         return{
             MUC_DICH_SU_DUNG: this.MUC_DICH_SU_DUNG,
             TEN_THIET_BI: this.TEN_THIET_BI,
-            DIEN_AP_SU_DUNG: this.DIEN_AP_SU_DUNG,
+            HE_SO: this.HE_SO,
             CONG_SUAT: this.CONG_SUAT,
             SO_LUONG: this.SO_LUONG,
             TONG_SO: this.TONG_SO,
+            SO_H_SU_DUNG: this.SO_H_SU_DUNG
         }
 
     }
