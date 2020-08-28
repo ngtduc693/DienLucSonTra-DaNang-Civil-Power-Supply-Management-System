@@ -67,6 +67,7 @@
     "iv-viewer": "^2.0.1",
     "leaflet": "1.2.0",
     "lodash": "^4.17.20",
+    "moment": "^2.27.0",
     "nebular-icons": "1.1.0",
     "ng-pick-datetime": "^7.0.0",
     "ng2-ckeditor": "^1.2.2",

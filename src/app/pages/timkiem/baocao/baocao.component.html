@@ -2,6 +2,41 @@
   <div class="col-sm-12">
     <nb-card>
       <nb-card-header>
+        Tìm khách hàng trong khoảng thời gian
+      </nb-card-header>
+      <nb-card-body>
+        <div class="col-sm-12">
+          <div class="row">
+            <div class="col-sm-6">
+              <label class="label col-sm-2 col-form-label">Từ ngày:</label>
+              <input nbInput placeholder="Pick Date Range" [nbDatepicker]="datepicker1" [(ngModel)] = "dateFrom" class="col-sm-4">
+              <nb-datepicker #datepicker1></nb-datepicker>
+            </div>
+            <div class="col-sm-6">
+              <label class="label col-sm-2 col-form-label">đến:</label>
+              <input nbInput placeholder="Pick Date Range" [nbDatepicker]="datepicker2"  [(ngModel)] = "dateTo" class="col-sm-4">
+              <nb-datepicker #datepicker2></nb-datepicker>
+            </div>
+          </div>
+          
+        </div>
+        <br><br>
+        <button fullWidth nbButton status="info" (click)="onDateFilterClicked()">
+          <nb-icon icon="funnel-outline"></nb-icon>Lọc dữ liệu theo khung thời gian trên
+        </button>
+        <br><br>
+        <button fullWidth nbButton status="info" (click)="onDateFilterClearClicked()">
+          <nb-icon icon="close-square-outline"></nb-icon>Bỏ lọc dữ liệu theo khung thời gian
+        </button>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+
+<div class="row" >
+  <div class="col-sm-12">
+    <nb-card>
+      <nb-card-header>
         Báo Cáo
       </nb-card-header>
       <nb-card-body>
@@ -23,7 +58,7 @@
           <nb-icon icon="save-outline"></nb-icon>{{buttonAllName}}
         </button>
         <div><br></div>
-        <button fullWidth nbButton status="info" (click)="onExportFilteredFileExcelClicked()" value="buttonFilteredName">
+        <button fullWidth nbButton status="info" (click)="onExportFilteredFileExcelClicked()">
           <nb-icon icon="save-outline"></nb-icon>{{buttonFilteredName}}
         </button>
       </nb-card-body>

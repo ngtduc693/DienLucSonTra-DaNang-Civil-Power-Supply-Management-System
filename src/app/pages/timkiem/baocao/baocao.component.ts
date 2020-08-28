@@ -1,29 +1,30 @@
-import { Component } from "@angular/core";
-import { LocalDataSource } from "ng2-smart-table";
-import { SmartTableData } from "../../../@core/data/smart-table";
-import { ApiService } from "../../../shared/api.service";
-import { take, finalize } from "rxjs/operators";
-import { NbToastrService } from "@nebular/theme";
+import { Component, ViewChild } from '@angular/core';
+import { LocalDataSource } from 'ng2-smart-table';
+import { SmartTableData } from '../../../@core/data/smart-table';
+import { ApiService } from '../../../shared/api.service';
+import { take, finalize } from 'rxjs/operators';
+import { NbToastrService } from '@nebular/theme';
 import { AuthService } from '../../../auth/auth-service.service';
 import { Angular5Csv } from 'angular5-csv/dist/Angular5-csv';
 import * as _ from 'lodash';
+import { truncate } from 'fs';
+import * as moment from 'moment';
 @Component({
   selector: 'ngx-baocao',
   templateUrl: './baocao.component.html',
   styleUrls: ['./baocao.component.scss']
 })
 export class BaocaoComponent {
-
   baoCaoDataSetting = {
-    noDataMessage: "Chưa có dữ liệu",
+    noDataMessage: 'Chưa có dữ liệu',
     pager: {
-      perPage: 2,
+      perPage: 10,
     },
     actions: {
       add: false,
       edit: false,
       delete: false,
-      columnTitle: "Thao tác",
+      columnTitle: 'Thao tác',
     },
     columns: {
       STT: {
@@ -53,6 +54,9 @@ export class BaocaoComponent {
   buttonAllName = 'Xuất toàn bộ dữ liệu ra excel';
   buttonFilteredName = 'Xuất dữ liệu đã được lọc ra excel';
 
+  dateFrom: any;
+  dateTo: any;
+  allRawData: any[];
   constructor (
     private service: SmartTableData,
     private apiService: ApiService,
@@ -71,6 +75,7 @@ export class BaocaoComponent {
 
       if (change.action === 'filter') {
         this.setButtonName();
+        // this.onDateFilterClicked();
       }
     });
   }
@@ -88,14 +93,14 @@ export class BaocaoComponent {
       tempData.push(row);
       i++;
     });
+    this.allRawData = tempData;
     this.baoCaoData = new LocalDataSource(tempData);
     this.baoCaoData.refresh();
     return;
   }
 
   async onExportAllFileExcelClicked() {
-    const allData = await this.baoCaoData.getAll();
-    this.downloadCSV(allData);
+    this.downloadCSV(this.allRawData);
   }
 
   async onExportFilteredFileExcelClicked() {
@@ -103,8 +108,30 @@ export class BaocaoComponent {
     this.downloadCSV(filteredData);
   }
 
+  async onDateFilterClicked() {
+    const filteredDatas = this.allRawData.filter(row => {
+      let dateData = row.NGAY_TAO_LAP.split('/');
+      dateData = dateData[2] + '-' + dateData[1] + '-' + dateData[0];
+      dateData = moment(dateData);
+      if (dateData.unix() >=  moment(this.dateFrom).unix() && dateData.unix() <= moment(this.dateTo).unix()) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    await this.baoCaoData.load(filteredDatas);
+    this.baoCaoData.refresh();
+    this.setButtonName();
+  }
+
+  async onDateFilterClearClicked() {
+    await this.baoCaoData.load(this.allRawData);
+    this.baoCaoData.refresh();
+    this.setButtonName();
+  }
+
   async setButtonName() {
-    const allData = await this.baoCaoData.getAll();
+    const allData = this.allRawData;
     const filteredData = await this.baoCaoData.getFilteredAndSorted();
     if (allData.length > 0) {
       this.buttonAllName = `Xuất toàn bộ dữ liệu ra excel (${allData.length} khách hàng)`;
