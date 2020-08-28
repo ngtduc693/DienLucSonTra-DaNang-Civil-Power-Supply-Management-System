@@ -99,17 +99,63 @@
   </div>
 </div>
 
-<nb-card>
+
+<!-- <nb-card>
+  <nb-card-header>Nhập nhanh</nb-card-header>
+  <nb-card-body>
+    <label for="inputMKH" class="label col-sm-1 col-form-label">Mục đích:</label>
+    <nb-select placeholder="Chọn nhóm" fullWidth="true" [(selected)]="chonNhomMucDich">
+      <nb-option-group>
+        <nb-option value="SinhHoat">Sinh hoạt</nb-option>
+        <nb-option value="KinhDoanh">Kinh doanh</nb-option>
+        <nb-option value="ChieuSang">Chiếu sáng</nb-option>
+        <nb-option value="SanXuat">Sản xuất</nb-option>
+        <nb-option value="CoQuan">Cơ quan</nb-option>
+      </nb-option-group>  
+    </nb-select>
+    
+    <label for="inputMKH" class="label col-sm-1 col-form-label">Thiết bị:</label>
+    
+    <nb-select placeholder="Chọn nhóm" fullWidth="true"  [(selected)]="chonNhomThietBi" >
+      <nb-option-group *ngFor="let item of duLieuCongSuatAfterFetched">
+        <nb-option value="{{item.value}}">{{item.title}}</nb-option>
+      </nb-option-group>      
+    </nb-select>
+   
+    <label for="inputSoLuong" class="label col-sm-1 col-form-label">Số lượng</label>
+    <input type="number" name="numSoLuong" nbInput id="inputSoLuong"  fullWidth="true"  placeholder="Nhập số lượng" ngModel class="col-sm-11">
+    <label for="inputHeSo" class="label col-sm-1 col-form-label">Hệ số</label>
+    <input type="number" name="numHeSo" nbInput id="inputHeSo"   fullWidth="true" placeholder="Nhập hệ số" ngModel class="col-sm-11">
+    <label for="inputSoGio" class="label col-sm-1 col-form-label">Số giờ</label>
+    <input type="number" name="numSoGio" nbInput id="inputSoGio" fullWidth="true" placeholder="Nhập số giờ" ngModel class="col-sm-11">
+    
+    <button fullWidth nbButton status="primary" (click)="dienNhanhCongSuat()">
+      <nb-icon icon="plus-outline"></nb-icon>Thêm nhanh
+    </button>
+
+  </nb-card-body>
+</nb-card> -->
+
+
+<!-- <nb-card>
   <nb-card-header>
     1. Công suất sử dụng điện theo từng mục đích:
   </nb-card-header>
 
   <nb-card-body>
     <ng2-smart-table [settings]="settingsCongSuatSuDungDien" [source]="sourceCongSuatSuDungDien"
-      (deleteConfirm)="onDeleteConfirm($event)">
+      (deleteConfirm)="onDeleteConfirm($event)" (create)="onSelectConfirm($event)">
     </ng2-smart-table>
   </nb-card-body>
-</nb-card>
+  <button  fullWidth nbButton status="primary" (click)="onClickTinhToanCongSuat()">
+    <nb-icon icon="search-outline"></nb-icon>Tính toán
+  </button>
+</nb-card> -->
+
+
+<!-- <ng2-smart-table [settings]="settingsTyLeGiaBanDien" [source]="sourceTyLeGiaBanDien"
+(deleteConfirm)="onDeleteConfirm($event)">
+</ng2-smart-table> -->
 
 <div class="row" *ngIf="luaChonKhachHang">
   <div class="col-sm-12">
@@ -132,6 +178,9 @@
                 <ng2-smart-table [settings]="settingsCongSuatSuDungDien" [source]="sourceCongSuatSuDungDien"
                   (deleteConfirm)="onDeleteConfirm($event)">
                 </ng2-smart-table>
+                <button  fullWidth nbButton status="primary" (click)="onClickTinhToanCongSuat()">
+                  <nb-icon icon="search-outline"></nb-icon>Tính toán
+                </button>
               </nb-card-body>
             </nb-card>
           </div>

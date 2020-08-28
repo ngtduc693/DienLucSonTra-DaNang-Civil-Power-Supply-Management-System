@@ -1,10 +1,10 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { LocalDataSource } from "ng2-smart-table";
 import { TimKiem, DuLieuKhachHang } from "../timkiem";
 import { SmartTableData } from "../../../@core/data/smart-table";
 import { Khachhang, KhachhangSearchModel, DanhMucMucDichModelResult, DanhMucCongSuatModelResult, DanhMucModelResult } from "../../../shared/khachhang";
 import { ApiService } from "../../../shared/api.service";
-import { take, finalize } from "rxjs/operators";
+import { take, finalize, first, takeUntil } from "rxjs/operators";
 import { AnyARecord } from "dns";
 import { NbToastrService } from "@nebular/theme";
 import { AuthService } from '../../../auth/auth-service.service';
@@ -12,7 +12,7 @@ import {
   CapDienNhomDichVu,
   LoaiNhomDichVu,
 } from "../../../shared/capdiennhomdichvu";
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { getLocaleDateTimeFormat } from '@angular/common';
 @Component({
   selector: "ngx-smart-table",
@@ -29,9 +29,35 @@ export class TimKiemKhachHangComponent {
   ketQuaTimKiem_danhSachKhachHang: Khachhang[] = [];
   duLieuDanhMucTrenServer: any[];
   duLieuTrenFireBase: any[];
-  duLieuTyLe: any[];
-  duLieuCongSuat: any[];
-  ngOnInit() {}
+  duLieuTyLe: Subject<any[]>;
+  duLieuCongSuat: Subject<any[]>;
+  duLieuTyLeAfterFetched: any[];
+  duLieuCongSuatAfterFetched: any[];
+  chonNhomThietBi: any;
+  chonNhomMucDich: any;
+  ngOnInit() {
+    this.LoadDuLieu();
+    this.danhSachNhomDichVu = CapDienNhomDichVu.layDanhSachNhomDichVu();
+    this.duLieuCongSuat = new Subject<any[]>();
+    this.duLieuTyLe  = new Subject<any[]>();
+    this.duLieuTyLe.pipe(take(1)).subscribe(result => {
+      this.duLieuTyLeAfterFetched = result;
+      this.settingsTyLeGiaBanDien.columns.MUC_DICH_SU_DUNG_DIEN.editor.config.list = this.duLieuTyLeAfterFetched;     
+      this.settingsTyLeGiaBanDien  = Object.assign({},this.settingsTyLeGiaBanDien);
+      console.log('1. Du lieu ty le: ');
+      console.log(this.duLieuTyLeAfterFetched );
+    });
+    this.duLieuCongSuat.pipe(take(1)).subscribe(result => {
+      this.duLieuCongSuatAfterFetched= result; 
+      this.settingsCongSuatSuDungDien.columns.TEN_THIET_BI.editor.config.list = this.duLieuCongSuatAfterFetched ; 
+      
+      this.settingsCongSuatSuDungDien = Object.assign({},this.settingsCongSuatSuDungDien);
+     
+     
+      console.log('2. Du lieu cong suat: ');
+      console.log(this.duLieuCongSuatAfterFetched );
+   }) ;
+  }
   settingsTyLeGiaBanDien = {
     noDataMessage: "Chưa có dữ liệu",
     pager: {
@@ -60,8 +86,14 @@ export class TimKiemKhachHangComponent {
     columns: {
       MUC_DICH_SU_DUNG_DIEN: {
         title: "Mục đích sử dụng điện",
-        type: "string",
-        filter: false,
+        type: "html",
+        editor: {
+          type: 'list', // Used to set dropdown list from database. 
+          config: {           
+            
+            list: this.duLieuTyLeAfterFetched
+          },
+        },
       },
       TY_LE: {
         title: "Tỷ lệ % hoặc kWh",
@@ -133,16 +165,10 @@ export class TimKiemKhachHangComponent {
         title: "Tên thiết bị",
         type: "html",
         editor: {
-          type: 'completer', // Used to set dropdown list from database. 
-          config: {
+          type: 'list', // Used to set dropdown list from database. 
+          config: {           
             
-            
-            completer: {
-              data: this.duLieuCongSuat,
-              searchFields: 'TEN_THIET_BI',
-              titleField: 'TEN_THIET_BI',
-              descriptionField	: 'TEN_THIET_BI',
-            }
+            list: this.duLieuCongSuatAfterFetched
           },
         },
         filter: true,
@@ -150,6 +176,7 @@ export class TimKiemKhachHangComponent {
       SO_LUONG: {
         title: "Số lượng	",
         type: "number",
+        
         filter: false,
       },
       CONG_SUAT: {
@@ -338,8 +365,8 @@ export class TimKiemKhachHangComponent {
     private toastrService: NbToastrService,
     private userLogin: AuthService,
   ) {
-    this.LoadDuLieu();
-    this.danhSachNhomDichVu = CapDienNhomDichVu.layDanhSachNhomDichVu();
+     
+   
     
   }
   
@@ -386,6 +413,30 @@ export class TimKiemKhachHangComponent {
     this.ketQuaTimKiem = this.ketQuaTimKiem_danhSachKhachHang;
     this.source.load(this.ketQuaTimKiem);
     this.sourceThongTinDiemDo.load(this.ketQuaTimKiem);
+  }
+  dienNhanhCongSuat() {
+    if (this.chonNhomThietBi == undefined) {
+      this.showToast("top-right", "warning", "Chọn thiết bị trước");
+    
+    } else {
+
+      let thongTinThietBi = this.duLieuCongSuatAfterFetched.find(m=> m.value === this.chonNhomThietBi);
+      let item = {
+        MUC_DICH_SU_DUNG: null,
+        TEN_THIET_BI: thongTinThietBi.value,
+        SO_LUONG: '',
+        CONG_SUAT: thongTinThietBi.value2,
+        HE_SO: '',
+        SO_H_SU_DUNG:'',
+        TONG_SO:'',
+
+      };
+      console.log('Dữ liệu được thêm vào mục Công suất: ');
+      console.log(item);
+      this.sourceCongSuatSuDungDien.add(item);
+      this.sourceCongSuatSuDungDien.refresh();
+      
+    }
   }
   dienNhanhTyLeGiaBanDien() {
     if (this.chonNhomDichVu == undefined) {
@@ -472,6 +523,7 @@ export class TimKiemKhachHangComponent {
   }
   onSelectConfirm(event): void {
     this.luaChonKhachHang = event.data;
+    console.log(event.data);
   }
   //#region Upload File
   
@@ -507,7 +559,6 @@ export class TimKiemKhachHangComponent {
     let duLieuTam_CongSuat = [];
     await this.apiService.layDuLieuDanhMucTuMayChu('APP').then(result => {
       console.log(result);
-      debugger;
       ketQuaTraVeTuServer.push(result);
       this.duLieuTrenFireBase = ketQuaTraVeTuServer;
     });
@@ -519,35 +570,53 @@ export class TimKiemKhachHangComponent {
       let MKH = 'APP';
       element.DULIEUCHITIET.TyLeGiaBanDien.forEach(
         element => {
-          TLSDD = new DanhMucMucDichModelResult(element.MUC_DICH_SU_DUNG_DIEN,            
-            element.GIO_BINH_THUONG,
-            element.GIO_CAO_DIEM,
-            element.GIO_THAP_DIEM);
-          duLieuTam_TyLe.push(TLSDD.layDuLieu());
-        }
-      );
+          let TLSDD = {
+            value: element.MUC_DICH_SU_DUNG_DIEN, 
+            title:    element.MUC_DICH_SU_DUNG_DIEN,         
+            valueBT: element.GIO_BINH_THUONG,
+            valueCD:  element.GIO_CAO_DIEM,
+            valueTD: element.GIO_THAP_DIEM
+          };
+          duLieuTam_TyLe.push(TLSDD);
+            
+      });
       element.DULIEUCHITIET.CongSuatSD.forEach(
         element => {
-
-          CSDD = new DanhMucCongSuatModelResult(
-            element.TEN_THIET_BI,
-            element.DIEN_AP_SU_DUNG,
-            element.CONG_SUAT
-
-          );
-          duLieuTam_CongSuat.push(CSDD.layDuLieu());
-        });        
-       
-        this.duLieuCongSuat = duLieuTam_CongSuat;
-        this.duLieuTyLe = duLieuTam_TyLe;
+          
+          let CSDD =  {
+            value: element.TEN_THIET_BI,
+            title: element.TEN_THIET_BI,
+            value2: element.CONG_SUAT
+          };
+          duLieuTam_CongSuat.push(CSDD);
+        });       
+        this.duLieuCongSuat.next(duLieuTam_CongSuat);
+        this.duLieuTyLe.next(duLieuTam_TyLe);
 
      
-        console.log('1. Ty le: ');
-        console.log(this.duLieuTyLe );
-        console.log('2. Cong suat: ');
-        console.log(this.duLieuCongSuat );
+       // console.log('1. Ty le: ');
+       // console.log(this.duLieuTyLe );
+        
 
      
     });
+  }
+  onClickTinhToanCongSuat(){
+    let CSSDD : any;
+    this.sourceCongSuatSuDungDien.getAll().then((data) => {
+      CSSDD = data;
+      CSSDD.forEach(item=>{
+        if (item.CONG_SUAT==='')
+         {
+           var newData = item;           
+            let congSuat = this.duLieuCongSuatAfterFetched.find(m=>m.value===item.TEN_THIET_BI).value2;
+            newData.CONG_SUAT = congSuat;
+            newData.TONG_SO = newData.SO_LUONG * newData.CONG_SUAT * newData.HE_SO * newData.SO_H_SU_DUNG;
+            this.sourceCongSuatSuDungDien.update(item,newData);
+         } 
+      })
+    });
+    
+    console.log();
   }
 }

@@ -6,7 +6,7 @@ import { TimKiemKhachHangComponent } from './khachhang/timkiemkhachhang.componen
 import { ThongTinTrenMayChuComponent } from './thongtintrenmaychu/thongtintrenmaychu.component';
 import { AuthService } from '../../auth/auth-service.service';
 import { LaythongtinkhachangComponent } from './laythongtinkhachang/laythongtinkhachang.component';
-import { DanhmucComponent } from './danhmuc/danhmuc.component';
+import { DanhmucComponent } from './danhmuc/danhmuc.component'; 
 const routes: Routes = [{
   path: '',
   component: TablesComponent,
