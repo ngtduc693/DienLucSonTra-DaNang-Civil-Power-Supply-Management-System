@@ -7,7 +7,10 @@ import { ApiService } from '../../../shared/api.service';
 import { take } from 'rxjs/operators';
 import { AnyARecord } from 'dns';
 import { ActivatedRoute, Router } from '@angular/router';
+import createReport from 'docx-templates';
 
+
+//const template = fs.readFileSync('../../../../assets/data/mytemplate.doc');
 @Component({
   selector: 'ngx-laythongtinkhachang',
   templateUrl: './laythongtinkhachang.component.html',
