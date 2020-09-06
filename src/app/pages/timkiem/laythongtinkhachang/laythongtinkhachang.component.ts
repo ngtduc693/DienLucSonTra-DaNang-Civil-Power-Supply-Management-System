@@ -2,14 +2,14 @@ import { Component } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { TimKiem, DuLieuKhachHang } from '../timkiem';
 import { SmartTableData } from '../../../@core/data/smart-table';
-import { Khachhang, KhachhangSearchModel, KhachHangMDSDDModelResult, KhachHangCSSDDModelResult, KhachHangModelResult } from '../../../shared/khachhang';
+import { Khachhang, KhachhangSearchModel, KhachHangMDSDDModelResult, KhachHangCSSDDModelResult, KhachHangModelResult, KhachHangModelExportFile } from '../../../shared/khachhang';
 import { ApiService } from '../../../shared/api.service';
 import { take } from 'rxjs/operators';
 import { AnyARecord } from 'dns';
 import { ActivatedRoute, Router } from '@angular/router';
-import createReport from 'docx-templates';
-
-
+import * as docx from "docx";
+import { Document, Packer, Paragraph, TextRun, ImportDotx } from "docx";
+declare const generate: any;
 //const template = fs.readFileSync('../../../../assets/data/mytemplate.doc');
 @Component({
   selector: 'ngx-laythongtinkhachang',
@@ -17,8 +17,9 @@ import createReport from 'docx-templates';
   styleUrls: ['./laythongtinkhachang.component.scss']
 })
 
-export class LaythongtinkhachangComponent{
-  
+
+export class LaythongtinkhachangComponent {
+
   danhSachAnh: string[] = [];
   luaChonTimKiem: TimKiem;
   luaChonKhachHang: Khachhang;
@@ -82,7 +83,7 @@ export class LaythongtinkhachangComponent{
     },
   };
 
- 
+
   settingsCongSuatSuDungDien = {
 
     noDataMessage: 'Chưa có dữ liệu',
@@ -123,7 +124,7 @@ export class LaythongtinkhachangComponent{
       SO_LUONG: {
         title: "Số lượng	",
         type: "number",
-        
+
         filter: false,
       },
       CONG_SUAT: {
@@ -154,30 +155,42 @@ export class LaythongtinkhachangComponent{
   sourceTyLeGiaBanDien: LocalDataSource = new LocalDataSource();
   duLieuTrenFireBase: any;
   duLieuMDSHKHTrenServer: KhachHangModelResult[] = [];
-  constructor(private service: SmartTableData, private apiService: ApiService, private route: ActivatedRoute, private router: Router    ) {
+  duLieuKhachHang: KhachHangModelExportFile;
+  constructor(private service: SmartTableData, private apiService: ApiService, private route: ActivatedRoute, private router: Router) {
     this.LoadDuLieu(this.route.snapshot.paramMap.get('makhachhang'))
   }
   onSelectConfirm(event): void {
     this.luaChonKhachHang = event.data;
   }
-  async LoadDuLieu(makhachhang:string) {
+  duLieuTam_TyLe = [];
+  duLieuTam_CongSuat = [];
+  async LoadDuLieu(makhachhang: string) {
     this.chuoiGia = "";
     let TongSoDien: number = 0;
     this.duLieuMDSHKHTrenServer = [];
     let ketQuaTraVeTuServer = [];
-    let duLieuTam_TyLe = [];
-    let duLieuTam_CongSuat = [];
+    this.duLieuTam_TyLe = [];
+    this.duLieuTam_CongSuat = [];
     await this.apiService.layDuLieuKhachHangTuMayChu(makhachhang).then(result => {
       console.log(result);
       ketQuaTraVeTuServer.push(result);
       this.duLieuTrenFireBase = ketQuaTraVeTuServer;
     });
     this.duLieuTrenFireBase.forEach(async element => {
-      duLieuTam_TyLe = [];
-      duLieuTam_CongSuat = [];
+      this.duLieuTam_TyLe = [];
+      this.duLieuTam_CongSuat = [];
       let TLSDD: any;
       let CSDD: any;
       let MKH = element.MKH;
+      this.duLieuKhachHang = {
+        MA_KHACH_HANG : element.MKH,
+        TEN_KHANG: element.TEN_KHANG,
+        DTHOAI: element.DTHOAI,
+        DIA_CHI_DDO: element.DIA_CHI_DDO,
+        DIA_CHI_KH: element.DIA_CHI_KH,
+        
+      }
+      
       element.DULIEUCHITIET.TyLeGiaBanDien.forEach(
         element => {
           TLSDD = new KhachHangMDSDDModelResult(element.MUC_DICH_SU_DUNG_DIEN,
@@ -185,11 +198,11 @@ export class LaythongtinkhachangComponent{
             element.GIO_BINH_THUONG,
             element.GIO_CAO_DIEM,
             element.GIO_THAP_DIEM);
-          duLieuTam_TyLe.push(TLSDD.layDuLieu());
+          this.duLieuTam_TyLe.push(TLSDD.layDuLieu());
         }
       );
       element.DULIEUCHITIET.CongSuatSD.forEach(
-        (element,index) => {
+        (element, index) => {
 
           CSDD = new KhachHangCSSDDModelResult(
             element.MUC_DICH_SU_DUNG,
@@ -201,20 +214,20 @@ export class LaythongtinkhachangComponent{
             element.TONG_SO,
 
           );
-          duLieuTam_CongSuat.push(CSDD.layDuLieu());
+          this.duLieuTam_CongSuat.push(CSDD.layDuLieu());
           TongSoDien += element.TONG_SO;
-           
-          
+
+
         });
 
 
-        element.DULIEUCHITIET.CongSuatSD.forEach(
-          (element,index) => {
-        if (index==0)
-        this.chuoiGia += element.MUC_DICH_SU_DUNG + "*(" + Math.round(element.TONG_SO/  TongSoDien *100)  +"%)";
-      else
-        this.chuoiGia += "+" + element.MUC_DICH_SU_DUNG + "*(" + Math.round(element.TONG_SO/  TongSoDien *100)  +"%)";
-          });
+      element.DULIEUCHITIET.CongSuatSD.forEach(
+        (element, index) => {
+          if (index == 0)
+            this.chuoiGia += element.MUC_DICH_SU_DUNG + "*(" + Math.round(element.TONG_SO / TongSoDien * 100) + "%)";
+          else
+            this.chuoiGia += "+" + element.MUC_DICH_SU_DUNG + "*(" + Math.round(element.TONG_SO / TongSoDien * 100) + "%)";
+        });
 
       await this.apiService.layDuLieuAnhTuMayChu(MKH).then(async res => {
         var listOfFiles = res.items.toString().split(',');
@@ -226,27 +239,30 @@ export class LaythongtinkhachangComponent{
             await this.apiService.storage.ref(item).getDownloadURL().pipe(take(1)).toPromise().then(res => {
               console.log('Thong tin anh: ' + res);
               this.danhSachAnh.push(res);
-              
+
             }).then(res => {
-              if (point===listOfFiles[listOfFiles.length-1]){
+              if (point === listOfFiles[listOfFiles.length - 1]) {
                 console.log('Du lieu anh cua khach hang: ' + this.danhSachAnh);
-                this.duLieuMDSHKHTrenServer.push(new KhachHangModelResult(MKH, duLieuTam_TyLe, duLieuTam_CongSuat, this.danhSachAnh));
+                this.duLieuMDSHKHTrenServer.push(new KhachHangModelResult(MKH, this.duLieuTam_TyLe, this.duLieuTam_CongSuat, this.danhSachAnh));
                 this.danhSachAnh = [];
               }
             });
           }
-          else{
-            this.duLieuMDSHKHTrenServer.push(new KhachHangModelResult(MKH, duLieuTam_TyLe, duLieuTam_CongSuat, undefined));
-                this.danhSachAnh = [];
+          else {
+            this.duLieuMDSHKHTrenServer.push(new KhachHangModelResult(MKH, this.duLieuTam_TyLe, this.duLieuTam_CongSuat, undefined));
+            this.danhSachAnh = [];
           }
-          
+
         }
       });
 
 
-     
+
     });
     console.log(this.duLieuMDSHKHTrenServer);
   }
-
+ 
+  TaoBienBan(){
+    generate(this.duLieuKhachHang,this.duLieuTam_TyLe,this.duLieuTam_CongSuat)
+  }
 }

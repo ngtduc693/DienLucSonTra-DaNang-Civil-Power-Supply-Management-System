@@ -499,6 +499,7 @@ export class TimKiemKhachHangComponent {
           .then(() => {
             //console.log(congSuatSDD);
             let duLieuTaiLen: DuLieuKhachHang = {
+
               MKH: this.luaChonKhachHang.MA_KHANG,
               DULIEUCHITIET: {
                 CongSuatSD: congSuatSDD,
@@ -506,6 +507,10 @@ export class TimKiemKhachHangComponent {
               },
               NTL: this.userLogin.layUserDaDangNhap(),
               THOIDIEMTAO: new Date().toLocaleDateString(),
+              TEN_KHANG: this.luaChonKhachHang.TEN_KHANG,
+              DTHOAI: this.luaChonKhachHang.DTHOAI,
+              DIA_CHI_DDO: this.luaChonKhachHang.DIA_CHI_DDO,
+              DIA_CHI_KH: this.luaChonKhachHang.DIA_CHI_KH,
             };
             this.apiService
               .luuDuLieuLenMayChu(JSON.stringify(duLieuTaiLen))

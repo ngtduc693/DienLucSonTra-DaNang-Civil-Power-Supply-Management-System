@@ -12,6 +12,20 @@
   </div>
   <div class="row" *ngIf="duLieuMDSHKHTrenServer">
     <div class="col-sm-12">
+      <nb-card>
+        <nb-card-header>
+          Biên bản thỏa thuận
+        </nb-card-header>
+        <nb-card-body>
+          <button fullWidth nbButton status="info" (click)="TaoBienBan()">
+            <nb-icon icon="save-outline"></nb-icon>Tạo biên bản
+          </button>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+  <div class="row" *ngIf="duLieuMDSHKHTrenServer">
+    <div class="col-sm-12">
       <nb-accordion multi=true>
         <nb-accordion-item  *ngFor="let item of duLieuMDSHKHTrenServer"  expanded=true>
           <nb-accordion-item-header>Khách hàng: {{item.MaKhachHang}}</nb-accordion-item-header>

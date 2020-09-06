@@ -186,6 +186,10 @@ export class DanhmucComponent {
             //console.log(congSuatSDD);
             let duLieuTaiLen: DuLieuKhachHang = {
               MKH: 'APP',
+              TEN_KHANG: 'APP',
+              DTHOAI: 'APP',
+              DIA_CHI_DDO:'APP',
+              DIA_CHI_KH:'APP',
               DULIEUCHITIET: {
                 CongSuatSD: congSuatSDD,
                 TyLeGiaBanDien: tyLeGBD,

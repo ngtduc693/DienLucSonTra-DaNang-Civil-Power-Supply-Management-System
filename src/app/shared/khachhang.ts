@@ -35,6 +35,13 @@ export interface Khachhang {
     MA_DVIQLY:string;
     CHUOI_GIA:string;
 };
+export class KhachHangModelExportFile{
+    MA_KHACH_HANG : string;
+        TEN_KHANG: string;
+        DTHOAI: string;
+        DIA_CHI_DDO: string;
+        DIA_CHI_KH: string;
+}
 export interface KhachhangSearchModel {
     strMaDViQLy: string;
     nLoaiTimKiem: number;

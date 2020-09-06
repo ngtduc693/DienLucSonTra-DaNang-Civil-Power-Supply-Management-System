@@ -51,7 +51,14 @@
               "node_modules/tinymce/plugins/table/plugin.min.js",
               "node_modules/echarts/dist/echarts.min.js",
               "node_modules/echarts/dist/extension/bmap.min.js",
-              "node_modules/chart.js/dist/Chart.min.js"
+              "node_modules/chart.js/dist/Chart.min.js",
+              "node_modules/jquery/dist/jquery.min.js",
+              "./src/assets/docx.js",
+              "./src/assets/docxtemplater.js",
+              "./src/assets/FileSaver.js",
+              "./src/assets/pizzip.js",
+              "./src/assets/pizzip-utils.js"
+              
             ]
           },
           "configurations": {
@@ -113,7 +120,13 @@
               "node_modules/tinymce/plugins/table/plugin.min.js",
               "node_modules/echarts/dist/echarts.min.js",
               "node_modules/echarts/dist/extension/bmap.min.js",
-              "node_modules/chart.js/dist/Chart.min.js"
+              "node_modules/chart.js/dist/Chart.min.js",
+              "node_modules/jquery/dist/jquery.min.js",
+              "./src/assets/docx.js",
+              "./src/assets/docxtemplater.js",
+              "./src/assets/FileSaver.js",
+              "./src/assets/pizzip.js",
+              "./src/assets/pizzip-utils.js"
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.css",
