@@ -2,7 +2,7 @@ function loadFile(url, callback) {
   PizZipUtils.getBinaryContent(url, callback);
 }
 
-function generate(khachhang, duLieuTyLe, duLieuCongSuat) {
+function generate(khachhang, duLieuTyLe, duLieuCongSuat, tongSoCongSuat) {
   loadFile("/assets/data/mytemplate.docx", function (error, content) {
     if (error) {
       throw error
@@ -57,9 +57,13 @@ function generate(khachhang, duLieuTyLe, duLieuCongSuat) {
       "TEN_KHANG": khachhang.TEN_KHANG,
       "DIA_CHI_KH": khachhang.DIA_CHI_KH,
       "DIA_CHI_DDO": khachhang.DIA_CHI_DDO,
-      "DTHOAI": khachhang.DTHOAI,
+      "DTHOAI": khachhang.DTHOAI,      
       "mdsd": duLieuCongSuat,
-      "tyle": duLieuTyLe
+      "tyle": duLieuTyLe,
+      "TCCS":  tongSoCongSuat.TCCS,
+      "TCSL":tongSoCongSuat.TCSL,
+     "TCHS":tongSoCongSuat.TCHS,
+    "TCCSSD":tongSoCongSuat.TCCSSD
       
     });
 

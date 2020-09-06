@@ -263,6 +263,16 @@ export class LaythongtinkhachangComponent {
   }
  
   TaoBienBan(){
-    generate(this.duLieuKhachHang,this.duLieuTam_TyLe,this.duLieuTam_CongSuat)
+    let TCCS:number=0;
+    let TCSL:number=0;
+    let TCHS:number=0;
+    let TCCSSD:number=0;
+    this.duLieuTam_CongSuat.forEach(element => {
+      TCCS+= +element.CONG_SUAT;
+      TCSL+= +element.SO_LUONG;
+      TCHS+= +element.HE_SO;
+      TCCSSD+= +element.TONG_SO
+    });
+    generate(this.duLieuKhachHang,this.duLieuTam_TyLe,this.duLieuTam_CongSuat, {"TCCS":TCCS,"TCSL" : TCSL,"TCHS":TCHS,"TCCSSD":TCCSSD })
   }
 }
