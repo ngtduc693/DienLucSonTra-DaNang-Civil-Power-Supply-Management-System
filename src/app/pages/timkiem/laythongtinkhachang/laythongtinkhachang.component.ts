@@ -267,12 +267,27 @@ export class LaythongtinkhachangComponent {
     let TCSL:number=0;
     let TCHS:number=0;
     let TCCSSD:number=0;
+    let TCTGSDN:number=0;
+    let TCTCSSD:number=0;
+    let TCHSD:number=0;
+    let TongSoDien:number=0;
+    
     this.duLieuTam_CongSuat.forEach(element => {
+      TongSoDien += element.TONG_SO;
+    });
+
+    this.duLieuTam_CongSuat.forEach(element => {
+      debugger;
       TCCS+= +element.CONG_SUAT;
       TCSL+= +element.SO_LUONG;
       TCHS+= +element.HE_SO;
-      TCCSSD+= +element.TONG_SO
+      TCCSSD+= +element.TONG_SO;
+      element["TY_LE"] = Math.round(element.TONG_SO / TongSoDien * 100);
+      element.SO_H_SU_DUNG = +element.SO_H_SU_DUNG;
+      TCHSD += +element.SO_H_SU_DUNG
+      element["TCSSD"] = +element.CONG_SUAT * +element.SO_LUONG * +element.HE_SO;
+      TCTGSDN+= +element.CONG_SUAT * +element.SO_LUONG * +element.HE_SO;
     });
-    generate(this.duLieuKhachHang,this.duLieuTam_TyLe,this.duLieuTam_CongSuat, {"TCCS":TCCS,"TCSL" : TCSL,"TCHS":TCHS,"TCCSSD":TCCSSD })
+    generate(this.duLieuKhachHang,this.duLieuTam_TyLe,this.duLieuTam_CongSuat, {"TCCS":TCCS,"TCSL" : TCSL,"TCHS":TCHS,"TCCSSD":TCCSSD, "TCTGSDN":TCTGSDN, "TCTCSSD":TCTCSSD, "TCHSD":TCHSD})
   }
 }

@@ -39,6 +39,7 @@ function generate(khachhang, duLieuTyLe, duLieuCongSuat, tongSoCongSuat) {
     console.log(khachhang);
     console.log(duLieuTyLe);
     console.log(duLieuCongSuat);
+    console.log(tongSoCongSuat);
     console.log("--Ket thuc ");
     var zip = new PizZip(content);
     var doc;
@@ -63,8 +64,10 @@ function generate(khachhang, duLieuTyLe, duLieuCongSuat, tongSoCongSuat) {
       "TCCS":  tongSoCongSuat.TCCS,
       "TCSL":tongSoCongSuat.TCSL,
      "TCHS":tongSoCongSuat.TCHS,
-    "TCCSSD":tongSoCongSuat.TCCSSD
-      
+    "TCCSSD":tongSoCongSuat.TCCSSD,
+      "TCTGSDN":tongSoCongSuat.TCTGSDN,
+      "TCTCSSD": tongSoCongSuat.TCTCSSD,
+      "TCHSD":tongSoCongSuat.TCHSD
     });
 
     try {
