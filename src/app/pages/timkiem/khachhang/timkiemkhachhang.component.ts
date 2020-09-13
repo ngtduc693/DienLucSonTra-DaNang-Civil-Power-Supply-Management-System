@@ -15,6 +15,7 @@ import {
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { getLocaleDateTimeFormat } from '@angular/common';
 import { stringify } from 'querystring';
+import * as _ from 'lodash';
 @Component({
   selector: "ngx-smart-table",
   templateUrl: ".//timkiemkhachhang.component.html",
@@ -32,11 +33,12 @@ export class TimKiemKhachHangComponent {
   duLieuTrenFireBase: any[];
   duLieuTyLe: Subject<any[]>;
   duLieuCongSuat: Subject<any[]>;
-  duLieuTyLeAfterFetched: any[];
-  duLieuCongSuatAfterFetched: any[];
+  duLieuTyLeAfterFetched: any[]=[];
+  duLieuCongSuatAfterFetched: any[]=[];
   chonNhomThietBi: any;
   chonNhomMucDich: any;
   chuoiGia: string;
+  DanhSachMucDichVaTongSoDienTheoNo: any;
   ngOnInit() {
     this.LoadDuLieu();
     this.danhSachNhomDichVu = CapDienNhomDichVu.layDanhSachNhomDichVu();
@@ -44,18 +46,18 @@ export class TimKiemKhachHangComponent {
     this.duLieuTyLe  = new Subject<any[]>();
     this.duLieuTyLe.pipe(take(1)).subscribe(result => {
       this.duLieuTyLeAfterFetched = result;
-      this.settingsTyLeGiaBanDien.columns.MUC_DICH_SU_DUNG_DIEN.editor.config.list = this.duLieuTyLeAfterFetched;     
+      this.settingsTyLeGiaBanDien.columns.MUC_DICH_SU_DUNG_DIEN.editor.config.list = this.duLieuTyLeAfterFetched;
       this.settingsTyLeGiaBanDien  = Object.assign({},this.settingsTyLeGiaBanDien);
       console.log('1. Du lieu ty le: ');
       console.log(this.duLieuTyLeAfterFetched );
     });
     this.duLieuCongSuat.pipe(take(1)).subscribe(result => {
-      this.duLieuCongSuatAfterFetched= result; 
-      this.settingsCongSuatSuDungDien.columns.TEN_THIET_BI.editor.config.list = this.duLieuCongSuatAfterFetched ; 
-      
+      this.duLieuCongSuatAfterFetched= result;
+      this.settingsCongSuatSuDungDien.columns.TEN_THIET_BI.editor.config.list = this.duLieuCongSuatAfterFetched ;
+
       this.settingsCongSuatSuDungDien = Object.assign({},this.settingsCongSuatSuDungDien);
-     
-     
+
+
       console.log('2. Du lieu cong suat: ');
       console.log(this.duLieuCongSuatAfterFetched );
    }) ;
@@ -90,9 +92,9 @@ export class TimKiemKhachHangComponent {
         title: "Mục đích sử dụng điện",
         type: "html",
         editor: {
-          type: 'list', // Used to set dropdown list from database. 
-          config: {           
-            
+          type: 'list', // Used to set dropdown list from database.
+          config: {
+
             list: this.duLieuTyLeAfterFetched
           },
         },
@@ -125,7 +127,7 @@ export class TimKiemKhachHangComponent {
       },
     },
   };
-  
+
   settingsCongSuatSuDungDien = {
     noDataMessage: "Chưa có dữ liệu",
     pager: {
@@ -156,7 +158,7 @@ export class TimKiemKhachHangComponent {
         title: "Mục đích sử dụng",
         type: "html",
         editor: {
-          type: 'list', // Used to set dropdown list from database. 
+          type: 'list', // Used to set dropdown list from database.
           config: {
             list: [
               { value: 'Kinh doanh', title: 'Kinh doanh' },
@@ -173,9 +175,9 @@ export class TimKiemKhachHangComponent {
         title: "Tên thiết bị",
         type: "html",
         editor: {
-          type: 'list', // Used to set dropdown list from database. 
-          config: {           
-            
+          type: 'list', // Used to set dropdown list from database.
+          config: {
+
             list: this.duLieuCongSuatAfterFetched
           },
         },
@@ -184,7 +186,7 @@ export class TimKiemKhachHangComponent {
       SO_LUONG: {
         title: "Số lượng	",
         type: "number",
-        
+
         filter: false,
       },
       CONG_SUAT: {
@@ -377,13 +379,13 @@ export class TimKiemKhachHangComponent {
     private toastrService: NbToastrService,
     private userLogin: AuthService,
   ) {
-     
-   
-    
+
+
+
   }
-  
+
   async onTimKiemKhachHang(duLieuTruyenVao) {
-    
+
     this.tinhTrangTimKiem = false;
     this.ketQuaTimKiem_danhSachKhachHang = [];
     let modelSearch = duLieuTruyenVao.value;
@@ -429,7 +431,7 @@ export class TimKiemKhachHangComponent {
   dienNhanhCongSuat() {
     if (this.chonNhomThietBi == undefined) {
       this.showToast("top-right", "warning", "Chọn thiết bị trước");
-    
+
     } else {
 
       let thongTinThietBi = this.duLieuCongSuatAfterFetched.find(m=> m.value === this.chonNhomThietBi);
@@ -447,7 +449,7 @@ export class TimKiemKhachHangComponent {
       console.log(item);
       this.sourceCongSuatSuDungDien.add(item);
       this.sourceCongSuatSuDungDien.refresh();
-      
+
     }
   }
   dienNhanhTyLeGiaBanDien() {
@@ -531,7 +533,7 @@ export class TimKiemKhachHangComponent {
       });
   }
 
- 
+
   private index: number = 0;
   showToast(position, status, message) {
     this.index += 1;
@@ -545,7 +547,7 @@ export class TimKiemKhachHangComponent {
     console.log(event.data);
   }
   //#region Upload File
-  
+
   uploadState: Observable<string>;
   uploadProgress: Observable<number>;
   downloadURL: Observable<string>;
@@ -559,17 +561,17 @@ export class TimKiemKhachHangComponent {
       this.apiService.task = this.apiService.ref.put(file);
       this.uploadProgress = this.apiService.task.percentageChanges();
       this.apiService.task.snapshotChanges().pipe(
-        
+
         finalize(() => {
           console.log(file);
           this.downloadURL = this.apiService.storage.ref(path + id).getDownloadURL();
         }
          ))
     .subscribe();
-    
+
     }
   }
- 
+
   //#endregion
   async LoadDuLieu() {
     this.duLieuDanhMucTrenServer = [];
@@ -590,34 +592,34 @@ export class TimKiemKhachHangComponent {
       element.DULIEUCHITIET.TyLeGiaBanDien.forEach(
         element => {
           let TLSDD = {
-            value: element.MUC_DICH_SU_DUNG_DIEN, 
-            title:    element.MUC_DICH_SU_DUNG_DIEN,         
+            value: element.MUC_DICH_SU_DUNG_DIEN,
+            title:    element.MUC_DICH_SU_DUNG_DIEN,
             valueBT: element.GIO_BINH_THUONG,
             valueCD:  element.GIO_CAO_DIEM,
             valueTD: element.GIO_THAP_DIEM
           };
           duLieuTam_TyLe.push(TLSDD);
-            
+
       });
       element.DULIEUCHITIET.CongSuatSD.forEach(
         element => {
-          
+
           let CSDD =  {
             value: element.TEN_THIET_BI,
             title: element.TEN_THIET_BI,
             value2: element.CONG_SUAT
           };
           duLieuTam_CongSuat.push(CSDD);
-        });       
+        });
         this.duLieuCongSuat.next(duLieuTam_CongSuat);
         this.duLieuTyLe.next(duLieuTam_TyLe);
 
-     
+
        // console.log('1. Ty le: ');
        // console.log(this.duLieuTyLe );
-        
 
-     
+
+
     });
   }
    onClickTinhToanCongSuat(){
@@ -630,23 +632,34 @@ export class TimKiemKhachHangComponent {
        CSSDD.forEach(item=>{
         if (item.CONG_SUAT==='')
          {
-           var newData = item;           
+           var newData = item;
             let congSuat = this.duLieuCongSuatAfterFetched.find(m=>m.value===item.TEN_THIET_BI).value2;
             newData.CONG_SUAT = congSuat;
             newData.TONG_SO = newData.SO_LUONG * newData.CONG_SUAT * newData.HE_SO * newData.SO_H_SU_DUNG;
             this.sourceCongSuatSuDungDien.update(item,newData);
             TongSoDien += newData.TONG_SO;
-         }          
+         }
       });
-      CSSDD.forEach((item,index)=>{
-        if (index==0)
-          this.chuoiGia += item.MUC_DICH_SU_DUNG + "*(" + Math.round(item.TONG_SO/  TongSoDien *100)  +"%)";
-        else
-          this.chuoiGia += "+" + item.MUC_DICH_SU_DUNG + "*(" + Math.round(item.TONG_SO/  TongSoDien *100)  +"%)";
-      });
-      
+      // CSSDD.forEach((item,index)=>{
+      //   if (index==0)
+      //     this.chuoiGia += item.MUC_DICH_SU_DUNG + "*(" + Math.round(item.TONG_SO/  TongSoDien *100)  +"%)";
+      //   else
+      //     this.chuoiGia += "+" + item.MUC_DICH_SU_DUNG + "*(" + Math.round(item.TONG_SO/  TongSoDien *100)  +"%)";
+      // });
+
+      this.DanhSachMucDichVaTongSoDienTheoNo = _.groupBy(CSSDD,"MUC_DICH_SU_DUNG");
+      for (var md in this.DanhSachMucDichVaTongSoDienTheoNo){
+        this.DanhSachMucDichVaTongSoDienTheoNo[md]["TONG_SO_THEO_MDICH"] = _.sumBy(this.DanhSachMucDichVaTongSoDienTheoNo[md],"TONG_SO");
+      }
+
+      for (var md in this.DanhSachMucDichVaTongSoDienTheoNo){
+        this.chuoiGia += "+" + md + "*(" + Math.round(this.DanhSachMucDichVaTongSoDienTheoNo[md]["TONG_SO_THEO_MDICH"] / TongSoDien * 100) + "%)";
+
+      }
+      this.chuoiGia = this.chuoiGia.substr(1);
+
     });
-    
+
     console.log();
   }
 
@@ -657,7 +670,7 @@ export class TimKiemKhachHangComponent {
       CSSDD = data;
        CSSDD.forEach(item=>{
         debugger;
-           var newData = item;           
+           var newData = item;
             let BT = this.duLieuTyLeAfterFetched.find(m=>m.value===item.MUC_DICH_SU_DUNG_DIEN).valueBT;
             let CD = this.duLieuTyLeAfterFetched.find(m=>m.value===item.MUC_DICH_SU_DUNG_DIEN).valueCD;
             let TD = this.duLieuTyLeAfterFetched.find(m=>m.value===item.MUC_DICH_SU_DUNG_DIEN).valueTD;
@@ -665,10 +678,10 @@ export class TimKiemKhachHangComponent {
             newData.GIO_CAO_DIEM = CD;
             newData.GIO_THAP_DIEM = TD;
             this.sourceTyLeGiaBanDien.update(item,newData);
-                  
+
       });
     });
-    
+
     console.log();
   }
 }
