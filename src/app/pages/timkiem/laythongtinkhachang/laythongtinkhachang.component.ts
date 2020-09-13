@@ -9,6 +9,7 @@ import { AnyARecord } from 'dns';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as docx from "docx";
 import { Document, Packer, Paragraph, TextRun, ImportDotx } from "docx";
+import * as _ from 'lodash';
 declare const generate: any;
 //const template = fs.readFileSync('../../../../assets/data/mytemplate.doc');
 @Component({
@@ -156,6 +157,7 @@ export class LaythongtinkhachangComponent {
   duLieuTrenFireBase: any;
   duLieuMDSHKHTrenServer: KhachHangModelResult[] = [];
   duLieuKhachHang: KhachHangModelExportFile;
+  DanhSachMucDichVaTongSoDienTheoNo: any;
   constructor(private service: SmartTableData, private apiService: ApiService, private route: ActivatedRoute, private router: Router) {
     this.LoadDuLieu(this.route.snapshot.paramMap.get('makhachhang'))
   }
@@ -188,9 +190,14 @@ export class LaythongtinkhachangComponent {
         DTHOAI: element.DTHOAI,
         DIA_CHI_DDO: element.DIA_CHI_DDO,
         DIA_CHI_KH: element.DIA_CHI_KH,
-        
+
       }
-      
+      element.DULIEUCHITIET.CongSuatSD = _.sortBy(element.DULIEUCHITIET.CongSuatSD, (e) => {
+        return e.MUC_DICH_SU_DUNG
+      });
+      element.DULIEUCHITIET.TyLeGiaBanDien = _.sortBy(element.DULIEUCHITIET.TyLeGiaBanDien, (e) => {
+        return e.MUC_DICH_SU_DUNG_DIEN
+      });
       element.DULIEUCHITIET.TyLeGiaBanDien.forEach(
         element => {
           TLSDD = new KhachHangMDSDDModelResult(element.MUC_DICH_SU_DUNG_DIEN,
@@ -201,6 +208,9 @@ export class LaythongtinkhachangComponent {
           this.duLieuTam_TyLe.push(TLSDD.layDuLieu());
         }
       );
+
+
+
       element.DULIEUCHITIET.CongSuatSD.forEach(
         (element, index) => {
 
@@ -221,14 +231,17 @@ export class LaythongtinkhachangComponent {
         });
 
 
-      element.DULIEUCHITIET.CongSuatSD.forEach(
-        (element, index) => {
-          if (index == 0)
-            this.chuoiGia += element.MUC_DICH_SU_DUNG + "*(" + Math.round(element.TONG_SO / TongSoDien * 100) + "%)";
-          else
-            this.chuoiGia += "+" + element.MUC_DICH_SU_DUNG + "*(" + Math.round(element.TONG_SO / TongSoDien * 100) + "%)";
-        });
 
+      this.DanhSachMucDichVaTongSoDienTheoNo = _.groupBy(element.DULIEUCHITIET.CongSuatSD,"MUC_DICH_SU_DUNG");
+      for (var md in this.DanhSachMucDichVaTongSoDienTheoNo){
+        this.DanhSachMucDichVaTongSoDienTheoNo[md]["TONG_SO_THEO_MDICH"] = _.sumBy(this.DanhSachMucDichVaTongSoDienTheoNo[md],"TONG_SO");
+      }
+
+      for (var md in this.DanhSachMucDichVaTongSoDienTheoNo){
+        this.chuoiGia += "+" + md + "*(" + Math.round(this.DanhSachMucDichVaTongSoDienTheoNo[md]["TONG_SO_THEO_MDICH"] / TongSoDien * 100) + "%)";
+
+      }
+      this.chuoiGia = this.chuoiGia.substr(1);
       await this.apiService.layDuLieuAnhTuMayChu(MKH).then(async res => {
         var listOfFiles = res.items.toString().split(',');
         for (let item of listOfFiles) {
@@ -261,7 +274,7 @@ export class LaythongtinkhachangComponent {
     });
     console.log(this.duLieuMDSHKHTrenServer);
   }
- 
+
   TaoBienBan(){
     let TCCS:number=0;
     let TCSL:number=0;
@@ -271,13 +284,12 @@ export class LaythongtinkhachangComponent {
     let TCTCSSD:number=0;
     let TCHSD:number=0;
     let TongSoDien:number=0;
-    
+
     this.duLieuTam_CongSuat.forEach(element => {
       TongSoDien += element.TONG_SO;
     });
 
     this.duLieuTam_CongSuat.forEach(element => {
-      debugger;
       TCCS+= +element.CONG_SUAT;
       TCSL+= +element.SO_LUONG;
       TCHS+= +element.HE_SO;
