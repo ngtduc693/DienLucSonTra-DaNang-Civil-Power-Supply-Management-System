@@ -1,0 +1,764 @@
+  <div class="steppers-container row">
+    <nb-card class="col-md-12 col-lg-12 col-xxxl-12">
+      <nb-card>
+        <nb-card-body>
+          <nb-stepper #stepper>
+            <nb-step [stepControl]="firstForm" label="Đăng ký lắp đặt
+            ">
+              <form [formGroup]="firstForm" (ngSubmit)="onFirstSubmit()" class="step-container form-horizontal">
+               <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Tên tổ chức/cá nhân </label>
+                  <div class="col-sm-9">
+                    <input   type="text"    placeholder="Tên tổ chức/cá nhân " class="form-control" formControlName="TEN_TO_CHUC_CA_NHAN"
+                    [ngClass]="{'form-control-danger': firstForm.controls.TEN_TO_CHUC_CA_NHAN.invalid && (submitted1 || firstForm.controls.TEN_TO_CHUC_CA_NHAN.touched)}" >
+                    <div *ngIf="submitted1 && firstForm.controls.TEN_TO_CHUC_CA_NHAN.errors" class="invalid-form-control">
+                      <div *ngIf="firstForm.controls.TEN_TO_CHUC_CA_NHAN.errors.required">Trường này không được để trống</div>
+                  </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Mã khách hàng </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Mã khách hàng" class="form-control" formControlName="MA_KHANG" 
+                    [ngClass]="{'form-control-danger': firstForm.controls.MA_KHANG.invalid && (submitted1 || firstForm.controls.MA_KHANG.touched)}" >
+                    <div *ngIf="submitted1 && firstForm.controls.MA_KHANG.errors" class="invalid-form-control">
+                      <div *ngIf="firstForm.controls.MA_KHANG.errors.required">Trường này không được để trống</div>
+                  </div>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Mã số thuế </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Mã số thuê " class="form-control" formControlName="MA_SO_THUE"
+                    >
+                  </div>
+                </div>
+                 <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Đại diện </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Đại diện " class="form-control" formControlName="DAI_DIEN"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Chức vụ </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Chức vụ " class="form-control" formControlName="CHUC_VU"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Số CMND/CCCD </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Số CMND/CCCD " class="form-control" formControlName="CMND"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Ngày cấp CMND/CCCD </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Ngày cấp CMND/CCCD " class="form-control" formControlName="NGAY_CAP"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Nơi cấp CMND/CCCD </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Nơi cấp CMND/CCCD " class="form-control" formControlName="NOI_CAP"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Điện thoại </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Điện thoại " class="form-control" formControlName="DIEN_THOAI"
+                    >
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Giấy ủy quyền số </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Giấy ủy quyền số " class="form-control" formControlName="GIAY_UY_QUYEN_SO"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Ngày ủy quyền </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Ngày ủy quyền " class="form-control" formControlName="NGAY_UY_QUYEN"
+                    >
+                  </div>
+                </div>
+               
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Địa điểm dự án </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Địa điểm dự án" class="form-control" formControlName="DIA_DIEM_DU_AN"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Tổng công suất </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Tổng công suất" class="form-control" formControlName="TONG_CONG_SUAT"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Công suất bộ Inverter </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Công suất bộ Inverter" class="form-control" formControlName="CONG_SUAT_BO_INVERTER"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Số pha </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Số pha" class="form-control" formControlName="SO_PHA"
+                    >
+                  </div>
+                </div>
+                <button type="submit" nbButton status="warning" >Tiếp theo</button>
+                <button type="submit"  nbButton status="primary" (click)="downLoadFileDoc()" ><nb-icon icon="save-outline"></nb-icon>Tải file đăng ký</button>
+                <li *ngFor="let file of downloadURLList">
+                  <span class="badge" ><a href="{{file}}" target="_blank">File tài liệu</a></span>
+                </li>
+              </form>
+            </nb-step>
+            <nb-step [stepControl]="secondForm" label="Kiểm tra đấu nối">
+              <form [formGroup]="secondForm" (ngSubmit)="onSecondSubmit()" class="step-container">
+              
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Khách hàng</label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Khách hàng" class="form-control" formControlName="KHACH_HANG"
+                    [ngClass]="{'form-control-danger': secondForm.controls.KHACH_HANG.invalid && (submitted2 || secondForm.controls.KHACH_HANG.touched)}" >
+                    <div *ngIf="submitted2 && secondForm.controls.KHACH_HANG.errors" class="invalid-form-control">
+                      <div *ngIf="secondForm.controls.KHACH_HANG.errors.required">Trường này không được để trống</div>
+                  </div>
+                </div>
+                </div>
+                 <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Mã khách hàng </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Mã khách hàng" class="form-control" formControlName="MA_KHANG"
+                    [ngClass]="{'form-control-danger': secondForm.controls.MA_KHANG.invalid && (submitted2 || secondForm.controls.MA_KHANG.touched)}" >
+                    <div *ngIf="submitted2 && secondForm.controls.MA_KHANG.errors" class="invalid-form-control">
+                      <div *ngIf="secondForm.controls.MA_KHANG.errors.required">Trường này không được để trống</div>
+                  </div>
+                </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Công suất Inverter</label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Công suất Inverter" class="form-control" formControlName="CONG_SUAT_INVERTER"
+                    [ngClass]="{'form-control-danger': secondForm.invalid && (secondForm.dirty || secondForm.touched)}">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Số pha</label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Số pha" class="form-control" formControlName="SO_PHA"
+                    [ngClass]="{'form-control-danger': secondForm.invalid && (secondForm.dirty || secondForm.touched)}">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Công suất tổng hệ thống pin </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Công suất tổng hệ thống pin" class="form-control" formControlName="CONG_SUAT_TONG_HE_THONG_PIN"
+                    [ngClass]="{'form-control-danger': secondForm.invalid && (secondForm.dirty || secondForm.touched)}">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Cấp điện áp đấu nối</label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Cấp điện áp đấu nối" class="form-control" formControlName="CAP_DIEN_AP_DAU_NOI"
+                    [ngClass]="{'form-control-danger': secondForm.invalid && (secondForm.dirty || secondForm.touched)}">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Địa chỉ dự án </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Địa chỉ dự án" class="form-control" formControlName="DIA_CHI_DU_AN"
+                    [ngClass]="{'form-control-danger': secondForm.invalid && (secondForm.dirty || secondForm.touched)}">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Điểm đấu nối đề nghị thỏa thuận  </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Điểm đấu nối đề nghị thỏa thuận " class="form-control" formControlName="DIEM_DAU_NOI"
+                    [ngClass]="{'form-control-danger': secondForm.invalid && (secondForm.dirty || secondForm.touched)}">
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">TBA </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="TBA" class="form-control" formControlName="TBA"
+                    [ngClass]="{'form-control-danger': secondForm.invalid && (secondForm.dirty || secondForm.touched)}">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Thuộc tài sản</label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Thuộc tài sản" class="form-control" formControlName="THUOC_TAI_SAN"
+                    [ngClass]="{'form-control-danger': secondForm.invalid && (secondForm.dirty || secondForm.touched)}">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Mã trạm </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Mã trạm" class="form-control" formControlName="MA_TRAM"
+                    [ngClass]="{'form-control-danger': secondForm.invalid && (secondForm.dirty || secondForm.touched)}">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">thuộc XT </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="thuộc XT" class="form-control" formControlName="THUOC_XT"
+                    [ngClass]="{'form-control-danger': secondForm.invalid && (secondForm.dirty || secondForm.touched)}">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Dung lượng TBA (kVA.) </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Dung lượng TBA (kVA.)" class="form-control" formControlName="DUNG_LUONG_TBA"
+                    [ngClass]="{'form-control-danger': secondForm.invalid && (secondForm.dirty || secondForm.touched)}">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Cấp điện áp đo đếm(kV)</label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Cấp điện áp đo đếm(kV)" class="form-control" formControlName="CAP_DIEN_AP_DO_DIEM"
+                    [ngClass]="{'form-control-danger': secondForm.invalid && (secondForm.dirty || secondForm.touched)}">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Vị trí lắp đặt đo đếm </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Vị trí lắp đặt đo đếm" class="form-control" formControlName="VI_TRI_LAP_DAT_DO_DIEM"
+                    [ngClass]="{'form-control-danger': secondForm.invalid && (secondForm.dirty || secondForm.touched)}">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Điều kiện đấu nối</label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Điều kiện đấu nối" class="form-control" formControlName="DIEU_KIEN_DAU_NOI"
+                    [ngClass]="{'form-control-danger': secondForm.invalid && (secondForm.dirty || secondForm.touched)}">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Công suất đấu nối của Khách hàng </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Công suất đấu nối của Khách hàng" class="form-control" formControlName="CONG_SUAT_DAU_NOI_CUA_KHACH_HANG"
+                    [ngClass]="{'form-control-danger': secondForm.invalid && (secondForm.dirty || secondForm.touched)}">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Đường dây hạ áp</label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Đường dây hạ áp" class="form-control" formControlName="DUONG_DAY_HA_AP"
+                    [ngClass]="{'form-control-danger': secondForm.invalid && (secondForm.dirty || secondForm.touched)}">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Tổng công suất đấu nối </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Tổng công suất đấu nối" class="form-control" formControlName="TONG_CONG_SUAT_DAU_NOI_2"
+                    [ngClass]="{'form-control-danger': secondForm.invalid && (secondForm.dirty || secondForm.touched)}">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Công suất giải tỏa</label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Công suất giải tỏa" class="form-control" formControlName="CONG_SUAT_GIAI_TOA"
+                    [ngClass]="{'form-control-danger': secondForm.invalid && (secondForm.dirty || secondForm.touched)}">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Điều kiện hạ áp </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Điều kiện hạ áp" class="form-control" formControlName="DIEU_KIEN_HA_AP"
+                    [ngClass]="{'form-control-danger': secondForm.invalid && (secondForm.dirty || secondForm.touched)}">
+                  </div>
+                </div>
+                <button nbButton nbStepperPrevious>Quay lại</button>
+                <button type="submit" nbButton status="warning" >Tiếp theo</button>
+              </form>
+            </nb-step>
+            <nb-step [stepControl]="thirdForm" label="Hồ sơ đề nghị đấu nối">
+              <form [formGroup]="thirdForm" (ngSubmit)="onThirdSubmit()" class="step-container">
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Chủ đầu tư</label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Chủ đầu tư" class="form-control" formControlName="CHU_DAU_TU"
+                    [ngClass]="{'form-control-danger': thirdForm.invalid && (thirdForm.dirty || thirdForm.touched)}">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Tổng công suất các bộ inverter của hệ thống ĐMTMN </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Tổng công suất" class="form-control" formControlName="TONG_CONG_SUAT_CAC_BO_INVERTER"
+                    [ngClass]="{'form-control-danger': thirdForm.invalid && (thirdForm.dirty || thirdForm.touched)}">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Vị trí đấu nối </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Vị trí đấu nối" class="form-control" formControlName="VI_TRI_DAU_NOI"
+                    [ngClass]="{'form-control-danger': thirdForm.invalid && (thirdForm.dirty || thirdForm.touched)}">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Đường dây/Trạm biến áp </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Đường dây/Trạm biến áp " class="form-control" formControlName="DUONG_DAY_TRAM_BIEN_AP"
+                    [ngClass]="{'form-control-danger': thirdForm.invalid && (thirdForm.dirty || thirdForm.touched)}">
+                  </div>
+                </div>
+                <button nbButton nbStepperPrevious>Quay lại</button>
+                <button type="submit" nbButton status="warning" >Tiếp theo</button>
+              </form>
+            </nb-step>
+            <nb-step [stepControl]="fourthForm" label="Bản cam kết">
+              <form [formGroup]="fourthForm" (ngSubmit)="onFourSubmit()" class="step-container">
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Họ và tên</label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Họ và tên" class="form-control" formControlName="HO_VA_TEN"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Số CMND/CCCD </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Số CMND/CCCD" class="form-control" formControlName="CMND"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Ngày cấp CMND/CCCD </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="ngày cấp CMND/CCCD" class="form-control" formControlName="NGAY_CAP"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Nơi cấp CMND/CCCD </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Nơi cấp CMND/CCCD" class="form-control" formControlName="NOI_CAP"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Đại diện </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Đại diện" class="form-control" formControlName="DAI_DIEN"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Địa chỉ </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Địa chỉ" class="form-control" formControlName="DIA_CHI"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Điện thoại </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Điện thoại" class="form-control" formControlName="DIEN_THOAI"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">EMAIL </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Email" class="form-control" formControlName="EMAIL"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">(ĐMTMN) có công suất  </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Công suất " class="form-control" formControlName="CONG_SUAT"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Công trình xây dựng tại </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Đường dây/Trạm biến áp " class="form-control" formControlName="CONG_TRINH_XAY_DUNG_TAI"
+                    >
+                  </div>
+                </div>
+                <button nbButton nbStepperPrevious>Quay lại</button>
+                <button type="submit" nbButton status="warning" >Tiếp theo</button>
+              </form>
+            </nb-step>
+            <nb-step [stepControl]="fifthForm" label="Đề nghị bán điện">
+              <form [formGroup]="fifthForm" (ngSubmit)="onFifthSubmit()" class="step-container">
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Tên tổ chức/cá nhân </label>
+                  <div class="col-sm-9">
+                    <input   type="text"    placeholder="Tên tổ chức/cá nhân " class="form-control" formControlName="TEN_TO_CHUC_CA_NHAN"
+                    [ngClass]="{'form-control-danger': fifthForm.controls.TEN_TO_CHUC_CA_NHAN.invalid && (submitted5 || fifthForm.controls.TEN_TO_CHUC_CA_NHAN.touched)}" >
+                    <div *ngIf="submitted5 && fifthForm.controls.TEN_TO_CHUC_CA_NHAN.errors" class="invalid-form-control">
+                      <div *ngIf="fifthForm.controls.TEN_TO_CHUC_CA_NHAN.errors.required">Trường này không được để trống</div>
+                  </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Mã khách hàng </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Mã khách hàng" class="form-control" formControlName="MA_KHANG"
+                    [ngClass]="{'form-control-danger': fifthForm.controls.MA_KHANG.invalid && (submitted5 || fifthForm.controls.MA_KHANG.touched)}" >
+                    <div *ngIf="submitted5 && fifthForm.controls.MA_KHANG.errors" class="invalid-form-control">
+                      <div *ngIf="fifthForm.controls.MA_KHANG.errors.required">Trường này không được để trống</div>
+                  </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Mã số thuế </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Mã số thuê " class="form-control" formControlName="MA_SO_THUE"
+                    >
+                  </div>
+                </div>
+                 <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Đại diện </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Đại diện " class="form-control" formControlName="DAI_DIEN"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Chức vụ </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Chức vụ " class="form-control" formControlName="CHUC_VU"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Số CMND/CCCD </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Số CMND/CCCD " class="form-control" formControlName="CMND"
+                    [ngClass]="{'form-control-danger': fifthForm.controls.CMND.invalid && (submitted5 || fifthForm.controls.CMND.touched)}" >
+                    <div *ngIf="submitted5 && fifthForm.controls.CMND.errors" class="invalid-form-control">
+                      <div *ngIf="fifthForm.controls.CMND.errors.required">Trường này không được để trống</div>
+                  </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Ngày cấp CMND/CCCD </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Ngày cấp CMND/CCCD " class="form-control" formControlName="NGAY_CAP"
+                    [ngClass]="{'form-control-danger': fifthForm.controls.NGAY_CAP.invalid && (submitted5 || fifthForm.controls.NGAY_CAP.touched)}" >
+                    <div *ngIf="submitted5 && fifthForm.controls.NGAY_CAP.errors" class="invalid-form-control">
+                      <div *ngIf="fifthForm.controls.NGAY_CAP.errors.required">Trường này không được để trống</div>
+                  </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Nơi cấp CMND/CCCD </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Nơi cấp CMND/CCCD " class="form-control" formControlName="NOI_CAP"
+                    [ngClass]="{'form-control-danger': fifthForm.controls.NOI_CAP.invalid && (submitted5 || fifthForm.controls.NOI_CAP.touched)}" >
+                    <div *ngIf="submitted5 && fifthForm.controls.NOI_CAP.errors" class="invalid-form-control">
+                      <div *ngIf="fifthForm.controls.NOI_CAP.errors.required">Trường này không được để trống</div>
+                  </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Email </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Email" class="form-control" formControlName="EMAIL"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Điện thoại </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Điện thoại " class="form-control" formControlName="DIEN_THOAI"
+                    >
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Giấy ủy quyền số </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Giấy ủy quyền số " class="form-control" formControlName="GIAY_UY_QUYEN_SO"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Ngày ủy quyền </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Ngày ủy quyền " class="form-control" formControlName="NGAY_UY_QUYEN"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Tài khoản nhận thanh toán </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Tài khoản nhận thanh toán " class="form-control" formControlName="TAI_KHOAN_NHAN_TIEN"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Tên chủ tài khoản </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Tên chủ tài khoản " class="form-control" formControlName="TEN_CHU_TAI_KHOAN"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Số tài khoản </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Số tài khoản  " class="form-control" formControlName="SO_TAI_KHOAN"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Ngân hàng </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Ngân hàng " class="form-control" formControlName="NGAN_HANG"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Địa điểm dự án </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Địa điểm dự án" class="form-control" formControlName="DIA_DIEM_DU_AN"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Công suất dự án </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Công suất dự án" class="form-control" formControlName="CONG_SUAT_DU_AN"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Tấm pin mặt trời loại </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Tấm pin mặt trời loại" class="form-control" formControlName="TAM_PIN_MAT_TROI_LOAI"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Công suất</label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Công suất" class="form-control" formControlName="CONG_SUAT_1"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Số tấm</label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Số tấm" class="form-control" formControlName="SO_TAM"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Của nhà sản suất</label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Của nhà sản suất" class="form-control" formControlName="CUA_NHA_SAN_SUAT1"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Bộ Inverter loại</label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Bộ Inverter loại" class="form-control" formControlName="BO_INVERTER_LOAI"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Công suất Inverter</label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Công suất Inverter" class="form-control" formControlName="CONG_SUAT_INVERTER"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Của nhà sản suất</label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Của nhà sản suất" class="form-control" formControlName="CUA_NHA_SAN_SUAT2"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Cấp điện áp đấu nối</label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Cấp điện áp đấu nối" class="form-control" formControlName="CAP_DIEN_AP_DAU_NOI"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Cấp điện áp đấu nối</label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Cấp điện áp đấu nối" class="form-control" formControlName="CAP_DIEN_AP_DAU_NOI"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Số pha</label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Số pha" class="form-control" formControlName="SO_PHA"
+                    >
+                  </div>
+                </div>
+              
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Địa điểm dự án </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Địa điểm dự án" class="form-control" formControlName="DIA_DIEM_SU_DUNG_HIEN_TAI"
+                    >
+                  </div>
+                </div>
+                <button nbButton nbStepperPrevious>Quay lại</button>
+                <button type="submit" nbButton status="warning" >Tiếp theo</button>
+              </form>
+            </nb-step>
+            <nb-step [stepControl]="sevenForm" label="Biên bán treo tháo công tơ">
+              <form [formGroup]="sevenForm" (ngSubmit)="onSevenSubmit()" class="step-container">
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Tên khách hàng</label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Tên khách hàng" class="form-control" formControlName="TEN_KHANG"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Mã khách hàng </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Mã khách hàng" class="form-control" formControlName="MA_KHANG"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Địa chỉ </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Địa chỉ" class="form-control" formControlName="DIA_CHI"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Lộ trình </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Lộ trình" class="form-control" formControlName="LO_TRINH"
+                    >
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Vị trí </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Vị trí" class="form-control" formControlName="VI_TRI"
+                    >
+                  </div>
+                </div>
+                <button nbButton nbStepperPrevious>Quay lại</button>
+                <button type="submit" nbButton status="warning" >Tiếp theo</button>
+              </form>
+            </nb-step>
+            <nb-step [stepControl]="eighthForm" label="Hợp đồng mua bán điện">
+              <form [formGroup]="eighthForm" (ngSubmit)="onEighthSubmit()" class="step-container">
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Tên khách hàng</label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Tên khách hàng" class="form-control" formControlName="TEN_KHANG"
+                    [ngClass]="{'form-control-danger': eighthForm.invalid && (eighthForm.dirty || eighthForm.touched)}">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Mã khách hàng </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Mã khách hàng" class="form-control" formControlName="MA_KHANG"
+                    [ngClass]="{'form-control-danger': eighthForm.invalid && (eighthForm.dirty || eighthForm.touched)}">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Địa chỉ </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Địa chỉ" class="form-control" formControlName="DIA_CHI"
+                    [ngClass]="{'form-control-danger': eighthForm.invalid && (eighthForm.dirty || eighthForm.touched)}">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Email </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Email" class="form-control" formControlName="EMAIL"
+                    [ngClass]="{'form-control-danger': eighthForm.invalid && (eighthForm.dirty || eighthForm.touched)}">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Số CMND/CCCD </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Số CMND/CCCD " class="form-control" formControlName="CMND"
+                    [ngClass]="{'form-control-danger': eighthForm.invalid && (eighthForm.dirty || eighthForm.touched)}">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Ngày cấp CMND/CCCD </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Ngày cấp CMND/CCCD " class="form-control" formControlName="NGAY_CAP"
+                    [ngClass]="{'form-control-danger': eighthForm.invalid && (eighthForm.dirty || eighthForm.touched)}">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Nơi cấp CMND/CCCD </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Nơi cấp CMND/CCCD " class="form-control" formControlName="NOI_CAP"
+                    [ngClass]="{'form-control-danger': eighthForm.invalid && (eighthForm.dirty || eighthForm.touched)}">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Công suất lắp đặt </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Công suất lắp đặt" class="form-control" formControlName="CONG_SUAT"
+                    [ngClass]="{'form-control-danger': eighthForm.invalid && (eighthForm.dirty || eighthForm.touched)}">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Số tài khoản </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Số tài khoản  " class="form-control" formControlName="SO_TAI_KHOAN"
+                    [ngClass]="{'form-control-danger': eighthForm.invalid && (eighthForm.dirty || eighthForm.touched)}">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Ngân hàng </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Ngân hàng " class="form-control" formControlName="NGAN_HANG"
+                    [ngClass]="{'form-control-danger': eighthForm.invalid && (eighthForm.dirty || eighthForm.touched)}">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail3" class="label col-sm-3 form-control-label">Tên tài khoản </label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Tên tài khoản" class="form-control" formControlName="TEN_TAI_KHOAN"
+                    [ngClass]="{'form-control-danger': eighthForm.invalid && (eighthForm.dirty || eighthForm.touched)}">
+                  </div>
+                </div>
+                <button nbButton nbStepperPrevious>Quay lại</button>
+                <button type="submit" nbButton status="warning" >Tiếp theo</button>
+              </form>
+            </nb-step>
+            <nb-step [stepControl]="eighthForm" [hidden]="true" label="Hoàn thành">
+              <div class="step-container">
+                <h3>Hoàn thành đăng ký!</h3>
+                <input type="file" multiple="multiple" (change)="upload($event)" accept=".png,.jpg" />
+                <button type="submit" nbButton status="primary" (click)="downLoadFileDoc()" ><nb-icon icon="save-outline"></nb-icon>Tải file đăng ký</button>
+                <!-- <button nbButton (click)="stepper.reset()">Try again</button> -->
+              </div>
+            </nb-step>
+          </nb-stepper>
+        </nb-card-body>
+      </nb-card>
+    </nb-card>
+    </div>
+  

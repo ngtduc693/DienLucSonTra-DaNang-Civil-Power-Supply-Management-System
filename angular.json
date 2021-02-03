@@ -58,7 +58,6 @@
               "./src/assets/FileSaver.js",
               "./src/assets/pizzip.js",
               "./src/assets/pizzip-utils.js"
-              
             ]
           },
           "configurations": {
@@ -138,7 +137,6 @@
               "node_modules/nebular-icons/scss/nebular-icons.scss",
               "node_modules/pace-js/templates/pace-theme-flash.tmpl.css",
               "src/app/@theme/styles/styles.scss"
-
             ],
             "assets": [
               "src/assets",
@@ -198,5 +196,8 @@
     "@schematics/angular:directive": {
       "prefix": "ngx"
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

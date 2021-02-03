@@ -7,7 +7,8 @@ import {
   NbSelectModule,
   NbUserModule,
   NbToastrModule,
-  NbWindowModule
+  NbWindowModule,
+  NbStepperModule,
 } from "@nebular/theme";
 import { AngularFileUploaderModule } from "angular-file-uploader";
 
@@ -35,10 +36,12 @@ import { FormInputsComponent } from "./../forms/form-inputs/form-inputs.componen
 import { FormLayoutsComponent } from "./../forms/form-layouts/form-layouts.component";
 import { DatepickerComponent } from "./../forms/datepicker/datepicker.component";
 import { ButtonsComponent } from "./../forms/buttons/buttons.component";
-import { FormsModule as ngFormsModule } from "@angular/forms";
+import { FormsModule, FormsModule as ngFormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ThongTinTrenMayChuComponent } from './thongtintrenmaychu/thongtintrenmaychu.component';
 import { LaythongtinkhachangComponent } from './laythongtinkhachang/laythongtinkhachang.component';
 import { Ng2CompleterModule } from '@akveo/ng2-completer';
+import { DangkylapdatdienComponent } from './dangkylapdatdien/dangkylapdatdien.component';
+import { DanhSachDangKyDienComponent } from './danh-sach-dang-ky-dien/danh-sach-dang-ky-dien.component';
 
 @NgModule({
   imports: [
@@ -65,6 +68,8 @@ import { Ng2CompleterModule } from '@akveo/ng2-completer';
     NbSpinnerModule,
     NbWindowModule ,
     Ng2CompleterModule ,
+    NbStepperModule,
+    ReactiveFormsModule,
   ],
   declarations: [
     ...routedComponents,
@@ -75,6 +80,8 @@ import { Ng2CompleterModule } from '@akveo/ng2-completer';
     FormLayoutsComponent,
     DatepickerComponent,
     LaythongtinkhachangComponent,
+    DangkylapdatdienComponent,
+    DanhSachDangKyDienComponent,
   ],
 })
 export class TimKiemKhachHangModule {}
