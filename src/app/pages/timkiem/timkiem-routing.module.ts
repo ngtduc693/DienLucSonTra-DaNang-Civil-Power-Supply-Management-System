@@ -51,6 +51,11 @@ const routes: Routes = [{
       canActivate: [AuthService]
     },
     {
+      path: 'dangkylapdatdien',
+      component: DangkylapdatdienComponent,
+      canActivate: [AuthService]
+    },
+    {
       path: 'danhsachdangkylapdatdien',
       component: DanhSachDangKyDienComponent,
       canActivate: [AuthService]
