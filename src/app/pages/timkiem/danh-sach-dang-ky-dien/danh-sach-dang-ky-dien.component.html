@@ -1,0 +1,30 @@
+<div class="row" *ngIf="trangThaiLayDuLieu">
+    <div class="col-sm-12" *ngIf="trangThaiLayDuLieu == success">
+      <nb-alert status="success" closable="true">
+        Lấy dữ liệu thành công
+      </nb-alert>
+    </div>
+    <div class="col-sm-12" *ngIf="trangThaiLayDuLieu == warning">
+      <nb-alert status="warning" closable="true">
+        Lấy dữ liệu thất bại
+      </nb-alert>
+    </div>
+  </div>
+  <div class="row" *ngIf="duLieuKHTrenServer">
+    <div class="col-sm-12">
+      <nb-card>
+        <nb-card-header>
+          Kết quả tìm kiếm
+          <button type="submit" ngClass="btnAddForm" nbButton status="primary" (click)="addNewForm()" > <nb-icon icon="plus"></nb-icon>Tạo mới đăng ký</button>
+        </nb-card-header>
+        <nb-card-body>
+  
+          <ng2-smart-table [settings]="settingsDanhSachKhachHang" [source]="duLieuKHTrenServer"
+            (userRowSelect)="onSelectConfirm($event)">
+          </ng2-smart-table>
+  
+        </nb-card-body>
+      </nb-card>
+  
+    </div>
+  </div>

@@ -76,7 +76,20 @@ export class ApiService {
       var listRef  = this.storage.ref('uploads/' + makhachhang);
        return  await listRef.listAll().pipe(take(1)).toPromise();
   }
-  
+  public async layDuLieuDangKyDienTuMayChu() {
+    return await this.afs.collection("DangKySuDungDien").valueChanges().pipe(take(1)).toPromise();
+
+  }
+  public async luuDuLieuDangKyDien(data, maKhachHang) {
+    await this.afs
+      .collection("DangKySuDungDien")
+      .doc(maKhachHang)
+      .set(data);
+  }
+  public async layDuLieuDangKyDienTuMayChuTheoMaKhachHang(makhachhang:string) {
+    return await this.afs.collection("DangKySuDungDien").doc(makhachhang).valueChanges().pipe(take(1)).toPromise();
+
+  }
   // public async taiTepLenFirebase() {
   //   const task = this.storage.upload("","");
   //   task

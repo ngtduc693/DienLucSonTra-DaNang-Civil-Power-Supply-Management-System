@@ -30,6 +30,7 @@ import {
   NbDialogModule,
   NbMenuModule,
   NbSidebarModule,
+  NbStepperModule,
   NbToastrModule,
   NbWindowModule,
 } from '@nebular/theme';
@@ -51,6 +52,7 @@ import { DanhmucComponent } from './pages/timkiem/danhmuc/danhmuc.component';
     NbDialogModule.forRoot(),
     NbWindowModule.forRoot(),
     NbToastrModule.forRoot(),
+    NbStepperModule,
     NbChatModule.forRoot({
       messageGoogleMapKey: 'AIzaSyA_wNuCzia92MAmdLRzmqitRGvCF7wCZPY',
     }),

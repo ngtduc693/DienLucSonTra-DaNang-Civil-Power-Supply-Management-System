@@ -8,6 +8,8 @@ import { AuthService } from '../../auth/auth-service.service';
 import { LaythongtinkhachangComponent } from './laythongtinkhachang/laythongtinkhachang.component';
 import { DanhmucComponent } from './danhmuc/danhmuc.component';
 import { BaocaoComponent } from './baocao/baocao.component';
+import { DangkylapdatdienComponent } from './dangkylapdatdien/dangkylapdatdien.component';
+import { DanhSachDangKyDienComponent } from './danh-sach-dang-ky-dien/danh-sach-dang-ky-dien.component';
 
 const routes: Routes = [{
   path: '',
@@ -41,6 +43,16 @@ const routes: Routes = [{
       path: 'baocao',
       component: BaocaoComponent,
 
+      canActivate: [AuthService]
+    },
+    {
+      path: 'dangkylapdatdien/:makhachhang',
+      component: DangkylapdatdienComponent,
+      canActivate: [AuthService]
+    },
+    {
+      path: 'danhsachdangkylapdatdien',
+      component: DanhSachDangKyDienComponent,
       canActivate: [AuthService]
     },
   ],

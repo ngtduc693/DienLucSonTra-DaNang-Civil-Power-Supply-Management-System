@@ -3,6 +3,7 @@ import {
   NbActionsModule,
   NbButtonModule,
   NbCardModule,
+  NbStepperModule,
   NbTabsetModule,
   NbUserModule,
   NbRadioModule,
@@ -46,6 +47,7 @@ import { FormsModule } from '@angular/forms';
     NbIconModule,
     NbButtonModule,
     NgxEchartsModule,
+    NbStepperModule
   ],
   declarations: [
     DashboardComponent,
