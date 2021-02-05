@@ -19,7 +19,7 @@
                 <div class="form-group row">
                   <label for="inputEmail3" class="label col-sm-3 form-control-label">Mã khách hàng </label>
                   <div class="col-sm-9">
-                    <input type="text" placeholder="Mã khách hàng" class="form-control" formControlName="MA_KHANG" 
+                    <input type="text" placeholder="Mã khách hàng" class="form-control" formControlName="MA_KHANG"
                     [ngClass]="{'form-control-danger': firstForm.controls.MA_KHANG.invalid && (submitted1 || firstForm.controls.MA_KHANG.touched)}" >
                     <div *ngIf="submitted1 && firstForm.controls.MA_KHANG.errors" class="invalid-form-control">
                       <div *ngIf="firstForm.controls.MA_KHANG.errors.required">Trường này không được để trống</div>
@@ -91,7 +91,7 @@
                     >
                   </div>
                 </div>
-               
+
                 <div class="form-group row">
                   <label for="inputEmail3" class="label col-sm-3 form-control-label">Địa điểm dự án </label>
                   <div class="col-sm-9">
@@ -129,7 +129,7 @@
             </nb-step>
             <nb-step [stepControl]="secondForm" label="Kiểm tra đấu nối">
               <form [formGroup]="secondForm" (ngSubmit)="onSecondSubmit()" class="step-container">
-              
+
                 <div class="form-group row">
                   <label for="inputEmail3" class="label col-sm-3 form-control-label">Khách hàng</label>
                   <div class="col-sm-9">
@@ -612,7 +612,7 @@
                     >
                   </div>
                 </div>
-              
+
                 <div class="form-group row">
                   <label for="inputEmail3" class="label col-sm-3 form-control-label">Địa điểm dự án </label>
                   <div class="col-sm-9">
@@ -665,7 +665,7 @@
                 <button type="submit" nbButton status="warning" >Tiếp theo</button>
               </form>
             </nb-step>
-            <nb-step [stepControl]="eighthForm" label="Hợp đồng mua bán điện">
+            <nb-step [stepControl]="eighthForm" label="Hợp đồng MBĐ">
               <form [formGroup]="eighthForm" (ngSubmit)="onEighthSubmit()" class="step-container">
                 <div class="form-group row">
                   <label for="inputEmail3" class="label col-sm-3 form-control-label">Tên khách hàng</label>
@@ -761,4 +761,3 @@
       </nb-card>
     </nb-card>
     </div>
-  
