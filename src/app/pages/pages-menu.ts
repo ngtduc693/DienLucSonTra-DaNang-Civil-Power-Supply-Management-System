@@ -40,12 +40,16 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/timkiem/khachhang',
       }
     ],
-   
+
    },
    {
     title: 'Cấp điện mới',
     icon: 'grid-outline',
     children: [
+      {
+        title: 'Điện mặt trời',
+        link: '/pages/timkiem/danhsachdangkylapdatdien',
+      },
       {
         title: 'Lấy thông tin',
         link: '/pages/timkiem/thongtintrenmaychu',
@@ -58,11 +62,8 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'Báo cáo',
         link: '/pages/timkiem/baocao',
       },
-      {
-        title: 'Danh sách Đăng ký lắp đặt điện',
-        link: '/pages/timkiem/danhsachdangkylapdatdien',
-      },
+
     ],
-   
+
    },
 ];
