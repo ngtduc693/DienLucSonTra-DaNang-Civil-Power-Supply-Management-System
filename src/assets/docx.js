@@ -15,20 +15,26 @@ function urlToPromise(url) {
     });
   }
 
-function generate(khachhang, duLieuTyLe, duLieuCongSuat, tongSoCongSuat) {
+function generate(khachhang, duLieuTyLe, duLieuCongSuat, tongSoCongSuat, tongSoCongSuatKetLuan) {
   loadFile("/assets/data/mytemplate.docx", function (error, content) {
     if (error) {
       throw error
     };
 
     // The error object contains additional information when logged with JSON.stringify (it contains a properties object containing all suberrors).
-   
+    debugger;
     console.log('* Du lieu khi xuat Bien ban thoa thuan: ');
     console.log("--Bat dau ");
+    console.log("+ Khach hang: ");
     console.log(khachhang);
+    console.log("+ Ty le: ");
     console.log(duLieuTyLe);
+    console.log("+ Cong suat: ");
     console.log(duLieuCongSuat);
+    console.log("+ Tong cong suat: ");
     console.log(tongSoCongSuat);
+    console.log("+ Tong cong suat sau khi gop: ");
+    console.log(tongSoCongSuatKetLuan);
     console.log("--Ket thuc ");
     var zip = new PizZip(content);
     var doc;
@@ -43,12 +49,13 @@ function generate(khachhang, duLieuTyLe, duLieuCongSuat, tongSoCongSuat) {
       "NGAYHT": new Date().getDate(),
       "THANGHT": (new Date().getMonth()) + 1,
       "NAMHT": new Date().getFullYear(),
-
+      "MA_KHANG": khachhang.MA_KHACH_HANG,
       "TEN_KHANG": khachhang.TEN_KHANG,
       "DIA_CHI_KH": khachhang.DIA_CHI_KH,
       "DIA_CHI_DDO": khachhang.DIA_CHI_DDO,
       "DTHOAI": khachhang.DTHOAI,      
       "mdsd": duLieuCongSuat,
+      "klmd": tongSoCongSuatKetLuan,
       "tyle": duLieuTyLe,
       "TCCS":  tongSoCongSuat.TCCS,
       "TCSL":tongSoCongSuat.TCSL,
@@ -56,7 +63,9 @@ function generate(khachhang, duLieuTyLe, duLieuCongSuat, tongSoCongSuat) {
     "TCCSSD":tongSoCongSuat.TCCSSD,
       "TCTGSDN":tongSoCongSuat.TCTGSDN,
       "TCTCSSD": tongSoCongSuat.TCTCSSD,
-      "TCHSD":tongSoCongSuat.TCHSD
+      "TCHSD":tongSoCongSuat.TCHSD,
+
+
     });
 
     try {

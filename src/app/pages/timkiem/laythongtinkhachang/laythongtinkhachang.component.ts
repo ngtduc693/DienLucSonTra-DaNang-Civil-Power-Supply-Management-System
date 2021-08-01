@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as docx from "docx";
 import { Document, Packer, Paragraph, TextRun, ImportDotx } from "docx";
 import * as _ from 'lodash';
+import { debug } from 'console';
 declare const generate: any;
 //const template = fs.readFileSync('../../../../assets/data/mytemplate.doc');
 @Component({
@@ -300,6 +301,20 @@ export class LaythongtinkhachangComponent {
       element["TCSSD"] = +element.CONG_SUAT * +element.SO_LUONG * +element.HE_SO;
       TCTGSDN+= +element.CONG_SUAT * +element.SO_LUONG * +element.HE_SO;
     });
-    generate(this.duLieuKhachHang,this.duLieuTam_TyLe,this.duLieuTam_CongSuat, {"TCCS":TCCS,"TCSL" : TCSL,"TCHS":TCHS,"TCCSSD":TCCSSD, "TCTGSDN":TCTGSDN, "TCTCSSD":TCTCSSD, "TCHSD":TCHSD})
+    var groups = _.groupBy(this.duLieuTam_CongSuat, 'MUC_DICH_SU_DUNG');
+    var duLieuTam_CongSuat_KetLuan = _.map(groups, function(value, key) {
+      return { 
+        MD_KL: key, 
+        MD_CS_TS: _.reduce(value, function(total, o) { 
+            return total + o.TONG_SO;
+        }, 0),
+        MD_TL_KL: _.reduce(value, function(total, o) { 
+          return total + o.TY_LE;
+        }, 0)
+      };
+    });
+    debugger;
+
+    generate(this.duLieuKhachHang,this.duLieuTam_TyLe,this.duLieuTam_CongSuat, {"TCCS":TCCS,"TCSL" : TCSL,"TCHS":TCHS,"TCCSSD":TCCSSD, "TCTGSDN":TCTGSDN, "TCTCSSD":TCTCSSD, "TCHSD":TCHSD}, duLieuTam_CongSuat_KetLuan)
   }
 }
